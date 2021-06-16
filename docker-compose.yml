@@ -1,0 +1,26 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:5001"
+      - "8083:443"
+    environment:
+      - DATABASE_URL=postgres://postgres:mistakeSJournal@db/mistakes_journal
+    depends_on:
+      - db
+    networks:
+      - api
+  db:
+    image: postgres:latest
+    environment:
+    - POSTGRES_PASSWORD=mistakeSJournal
+    ports:
+      - "5432:5432"
+    networks:
+      - api
+
+networks:
+  api:
+    driver: bridge
+
