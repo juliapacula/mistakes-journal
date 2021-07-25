@@ -1,0 +1,28 @@
+{
+  "Application": {
+    "Title": {
+      "First": "mistakes",
+      "Second": "journal"
+    }
+  },
+  "NavigationBar": {
+    "Toggle": "Menu",
+    "Expand": "Expand",
+    "Collapse": "Collapse"
+  },
+  "Sidebar": {
+    "Links": {
+      "Calendar": "Calendar",
+      "Mistakes": "Mistakes",
+      "Tips": "Tips",
+      "Groups": "Groups",
+      "Labels": "Labels",
+      "Solved": "Solved"
+    }
+  },
+  "LandingPage": {
+    "Nav": {
+      "GetStarted": "Get Started"
+    }
+  }
+}

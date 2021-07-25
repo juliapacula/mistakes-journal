@@ -1,0 +1,68 @@
+@use 'sass:map';
+
+$mistake-journal-colors-map: (
+  'gray': (
+    'default': '700',
+    '0': #ffffff,
+    '50': #f8fafc,
+    '100': #f1f5f9,
+    '200': #e2e8f0,
+    '300': #cbd5e1,
+    '400': #94a3b8,
+    '500': #64748b,
+    '600': #475569,
+    '700': #334155,
+    '800': #1e293b,
+    '900': #0f172a,
+    '1000': #000000,
+  ),
+  'primary': (
+    'default': '700',
+    '50': #d8f3e8,
+    '300': #aff2de,
+    '500': #75d9bb,
+    '700': #37d087,
+    '900': #08ab5d,
+  ),
+  'secondary': (
+    'default': '700',
+    '50': #fbf5e2,
+    '300': #f8e7b2,
+    '500': #ecd582,
+    '700': #e9c443,
+    '900': #deb31a,
+  ),
+  'error': (
+    'default': '500',
+    '50': #f2dada,
+    '300': #f29191,
+    '500': #f24848,
+    '700': #c92c2c,
+    '900': #932020,
+  ),
+  'text': (
+    'default': '900',
+    '900': #484848,
+  ),
+);
+
+@function color($name, $shade: 'default') {
+  $color-map: map.get($mistake-journal-colors-map, $name);
+
+  @if map.has-key($mistake-journal-colors-map, $name) == false {
+    @warn 'The color ' + $name + ' is not defined in mistake journal colors map.';
+    @return null;
+  }
+
+
+  @if map.has-key($color-map, $shade) == false {
+    @warn 'Color ' + $name + ' has no shade named ' + $shade '.';
+    @return null;
+  }
+
+  @if $shade == 'default' {
+    @return map.get($color-map, map.get($color-map, $shade));
+  }
+
+  @return map.get($color-map, $shade);
+}

@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use '../mistakes-journal';
+
+$button-variants: (
+  'primary': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+    'contrast': mistakes-journal.color('gray', '0')
+  ),
+  'secondary': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+    'contrast': mistakes-journal.color('gray', '1000')
+  ),
+  'error': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+    'contrast': mistakes-journal.color('gray', '0')
+  ),
+);
+
+.btn {
+  @each $variant, $states in $button-variants {
+    &.btn-#{$variant} {
+      background-color: mistakes-journal.color($variant, map.get($states, 'regular'));
+      color: map.get($states, 'contrast');
+
+      &:hover {
+        background-color: mistakes-journal.color($variant, map.get($states, 'hover'));
+        color: map.get($states, 'contrast');
+      }
+
+      .btn-check:focus + &,
+      &:focus {
+        background-color: mistakes-journal.color($variant, map.get($states, 'focus'));
+        color: map.get($states, 'contrast');
+      }
+
+      .btn-check:checked + &,
+      .btn-check:active + &,
+      &:active,
+      &.active,
+      .show > &.dropdown-toggle {
+        background-color: mistakes-journal.color($variant, map.get($states, 'active'));
+        color: map.get($states, 'contrast');
+      }
+    }
+  }
+
+  .btn-icon + .btn-text {
+    margin-left: 0.5rem;
+  }
+}

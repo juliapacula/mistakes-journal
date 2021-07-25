@@ -1,0 +1,13 @@
+@use 'colors' as mistakes-journal;
+
+@import '~bootstrap/scss/functions';
+
+$body-color: mistakes-journal.color('text');
+$primary: mistakes-journal.color('primary');
+$btn-border-radius: 10rem;
+$btn-focus-width: 0;
+$btn-focus-box-shadow: none;
+$btn-font-weight: 600;
+
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
