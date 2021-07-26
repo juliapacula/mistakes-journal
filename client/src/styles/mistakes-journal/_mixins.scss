@@ -1,0 +1,48 @@
+@mixin font($size: null, $style: normal) {
+  font-family: 'Montserrat', sans-serif;
+  font-style: $style;
+
+  @if $size != null {
+    font-size: $size;
+  }
+}
+
+@mixin font-thin($size: null) {
+  @include font($size);
+  font-weight: 100;
+}
+
+@mixin font-extra-light($size: null) {
+  @include font($size);
+  font-weight: 200;
+}
+
+@mixin font-light($size: null) {
+  @include font($size);
+  font-weight: 300;
+}
+
+@mixin font-regular($size: null) {
+  @include font($size);
+  font-weight: normal;
+}
+
+@mixin font-medium($size: null) {
+  @include font($size);
+  font-weight: 500;
+}
+
+@mixin font-semi-bold($size: null) {
+  @include font($size);
+  font-weight: 600;
+}
+
+@mixin font-bold($size: null) {
+  @include font($size);
+  font-weight: bold;
+}
+
+@mixin font-black($size: null) {
+  @include font($size);
+  font-weight: 900;
+}
