@@ -1,3 +1,5 @@
+import MistakesList from '@/components/MistakesList.vue';
+import NewMistake from '@/components/NewMistake.vue';
 import LandingPage from '@/views/LandingPage.vue';
 import MainPage from '@/views/MainPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
@@ -24,6 +26,16 @@ const routes: Array<RouteConfig> = [
         path: 'mistakes',
         name: 'MistakesPage',
         component: MistakesPage,
+        children: [
+          {
+            path: '',
+            component: MistakesList,
+          },
+          {
+            path: 'new',
+            component: NewMistake,
+          },
+        ],
       },
     ],
   },

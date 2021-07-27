@@ -20,16 +20,21 @@
         <span class="btn-text">{{ $t('NavigationBar.Toggle') }}</span>
       </button>
     </div>
+    <div class="mj-nav-actions">
+      <add-new-mistake-button class="mj-new" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import AddNewMistakeButton from '@/components/AddNewMistakeButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'NavigationBar',
+  components: { AddNewMistakeButton },
   computed: {
     isSidebarVisible(): boolean {
       return this.$store.state.uiState.isSidebarVisible;
@@ -49,11 +54,14 @@ export default Vue.extend({
 @use '../styles/mistakes-journal';
 
 .mj-nav-container {
+  display: flex;
+  justify-content: space-between;
   padding: 0.5rem 1rem;
   background-color: mistakes-journal.color('primary');
   color: mistakes-journal.color('gray', '50');
 }
 
+.mj-nav-actions,
 .mj-nav-toggle {
   .btn-text {
     display: none;

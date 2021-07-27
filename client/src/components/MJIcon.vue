@@ -3,6 +3,7 @@
     v-bind="$attrs"
     :src="iconPath"
     alt=""
+    class="mj-icon"
     @v-on="$listeners">
 </template>
 
@@ -34,7 +35,6 @@ export default Vue.extend({
 img {
   $size: 1em;
   width: $size;
-  margin: 0.25em;
   color: currentColor;
 }
 </style>

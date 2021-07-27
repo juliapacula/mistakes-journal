@@ -53,6 +53,11 @@ $button-variants: (
     }
   }
 
+  &.with-icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .btn-icon + .btn-text {
     margin-left: 0.5rem;
   }

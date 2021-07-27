@@ -20,5 +20,8 @@ module.exports = {
     'no-shadow': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/require-default-prop': 'off',
+    'linebreak-style': 'off',
+    'global-require': 'off',
+    '@typescript-eslint/ban-types': 'off'
   },
 };

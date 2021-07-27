@@ -24,5 +24,24 @@
     "Nav": {
       "GetStarted": "Get Started"
     }
+  },
+  "Mistakes": {
+    "Title": "Mistakes",
+    "AddButton": "Add mistake"
+  },
+  "NewMistake": {
+    "Name": "Name",
+    "NamePlaceholder": "e.g. I spend too much time on Netflix.",
+    "Goal": "Goal",
+    "GoalPlaceholder": "e.g. Limit Netflix to 1 episode.",
+    "Priority": "Priority",
+    "Tips": "Tips",
+    "CancelButton": "Cancel",
+    "AddButton": "Add"
+  },
+  "Priority": {
+    "Low": "Low",
+    "Medium": "Medium",
+    "High": "High"
   }
 }
