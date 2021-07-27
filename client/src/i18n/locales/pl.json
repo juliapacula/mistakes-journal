@@ -24,5 +24,24 @@
     "Nav": {
       "GetStarted": "Przejdź do aplikacji"
     }
+  },
+  "Mistakes": {
+    "Title": "Błędy",
+    "AddButton": "Dodaj błąd"
+  },
+  "NewMistake": {
+    "Name": "Nazwa",
+    "NamePlaceholder": "np. Spędzam dużo czasu na Netflixie.",
+    "Goal": "Cel",
+    "GoalPlaceholder": "np. Ustawić limit odcinków na 1.",
+    "Priority": "Priorytet",
+    "Tips": "Porady",
+    "CancelButton": "Anuluj",
+    "AddButton": "Dodaj"
+  },
+  "Priority": {
+    "Low": "Niski",
+    "Medium": "Średni",
+    "High": "Wysoki"
   }
 }

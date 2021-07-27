@@ -2,12 +2,18 @@
 
 @import '~bootstrap/scss/functions';
 
+$font-family-sans-serif: Montserrat, sans-serif;
 $body-color: mistakes-journal.color('text');
 $primary: mistakes-journal.color('primary');
 $btn-border-radius: 10rem;
 $btn-focus-width: 0;
 $btn-focus-box-shadow: none;
 $btn-font-weight: 600;
+
+$input-group-addon-bg: transparent;
+$input-border-radius: 5rem;
+$form-label-font-size: 0.8rem;
+$form-label-margin-bottom: 0.25rem;
 
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';

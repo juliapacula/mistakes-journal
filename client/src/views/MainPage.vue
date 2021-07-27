@@ -57,6 +57,7 @@ export default Vue.extend({
 
 .mj-sidebar {
   position: absolute;
+  z-index: 1000;
   top: 0;
   bottom: 0;
   grid-area: sidebar;

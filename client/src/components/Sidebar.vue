@@ -120,7 +120,7 @@ export default Vue.extend({
   white-space: nowrap;
 
   &-icon {
-    margin-right: 0.5rem;
+    margin: 0.25em 0.5rem 0.25rem 0.25rem;
     font-size: 1.5rem;
   }
 
