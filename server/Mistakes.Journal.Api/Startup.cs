@@ -13,11 +13,11 @@ namespace Mistakes.Journal.Api
     public class Startup
     {
         private const string ClientApp = "client";
-        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _currentEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            _configuration = configuration;
+            _currentEnvironment = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -51,10 +51,16 @@ namespace Mistakes.Journal.Api
             {
                 return "";
             }
-            
-            var userInfo = uri.UserInfo.Split(':');
 
-            return $"Host={uri.Host};Database={uri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]}";
+            var userInfo = uri.UserInfo.Split(':');
+            var connectionString = $"Host={uri.Host};Database={uri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};";
+
+            if (_currentEnvironment.IsDevelopment())
+            {
+                return connectionString;
+            }
+            
+            return connectionString + "SslMode=Require;TrustServerCertificate=true;";
         }
     }
 }
