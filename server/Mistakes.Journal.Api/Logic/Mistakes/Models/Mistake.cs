@@ -6,10 +6,10 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
     public class Mistake
     {
         public Guid Id { get; }
-        public string Name { get; }
-        public string Goal { get; }
-        public MistakePriority Priority { get; }
-        public ICollection<Tip> Tips { get; }
+        public string Name { get; set; }
+        public string Goal { get; set; }
+        public MistakePriority Priority { get; set; }
+        public ICollection<Tip> Tips { get; set; }
 
         public Mistake(
             string name,
@@ -23,11 +23,12 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Tips = new List<Tip>();
         }
 
+        [Flags]
         public enum MistakePriority
         {
-            Low = 0,
-            Medium = 1,
-            High = 2,
+            Low = 1,
+            Medium = 2,
+            High = 4,
         }
     }
 }

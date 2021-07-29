@@ -5,7 +5,7 @@ using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 {
-    public class NewMistakeWebModel
+    public class EditedMistakeWebModel
     {
         [MJRequired]
         [MJMaxLength(Constants.ShortTextMaxLength)]
