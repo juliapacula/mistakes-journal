@@ -49,7 +49,7 @@ namespace Mistakes.Journal.Api
 
             if (uri == null)
             {
-                return "";
+                return string.Empty;
             }
 
             var userInfo = uri.UserInfo.Split(':');
