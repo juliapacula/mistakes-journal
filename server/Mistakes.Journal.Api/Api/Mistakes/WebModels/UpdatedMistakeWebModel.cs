@@ -5,16 +5,13 @@ using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 {
-    public class EditedMistakeWebModel
+    public class UpdatedMistakeWebModel
     {
-        [MJRequired]
         [MJMaxLength(Constants.ShortTextMaxLength)]
         public string Name { get; set; }
 
         [MJMaxLength(Constants.ShortTextMaxLength)]
         public string Goal { get; set; }
-        
-        [MJRequired]
         public Mistake.MistakePriority? Priority { get; set; }
 
         [MJEachElementMaxLength(Constants.ShortTextMaxLength)]

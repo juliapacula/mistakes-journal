@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.Validators;
@@ -19,5 +20,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 
         [MJEachElementMaxLength(Constants.ShortTextMaxLength)]
         public IReadOnlyCollection<string> Tips { get; set; }
+
+        public IReadOnlyCollection<string> Labels { get; set; }
+
+        [MJIncorrectMistakeDate(Constants.MaxMistakeAgeInDays)]
+        public DateTime? AddDateTime { get; set; }
     }
 }

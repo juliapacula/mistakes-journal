@@ -12,5 +12,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public string Goal { get; set; }
 
         public IEnumerable<Mistake.MistakePriority> Priorities { get; set; }
+
+        public IEnumerable<string> Labels { get; set; }
+
+
+        // TODO if needed: by dates, counter, progress, milestones...
     }
 }
