@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
+using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
@@ -22,11 +23,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<MistakeWebModel>> GetTips(int? maxResults, int? startAt)
+        public async Task<ActionResult<MistakeWebModel>> GetTips(PagingParameters pagingParameters)
         {
             var tips = await _dataContext.Set<Tip>()
-                .Skip(startAt.GetValueOrDefault())
-                .Take(maxResults ?? int.MaxValue)
+                .Skip(pagingParameters.StartAt)
+                .Take(pagingParameters.MaxResults)
                 .ToListAsync();
 
             return Ok(tips.Select(t => t.ToWebModel()));

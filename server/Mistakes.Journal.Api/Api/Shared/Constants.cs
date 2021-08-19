@@ -7,6 +7,13 @@ namespace Mistakes.Journal.Api.Api.Shared
 {
     public static class Constants
     {
+        /* Requirements */
         public const int ShortTextMaxLength = 100;
+        public const int MaxMistakeAgeInDays = 3;
+
+        /* Business */
+        public const int MistakeProgressMax = 66;
+        public const int FirstMilestone = 7;
+        public const int SecondMilestone = 28;
     }
 }

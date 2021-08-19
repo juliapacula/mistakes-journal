@@ -16,6 +16,9 @@ namespace Mistakes.Journal.Api.Api.Shared.Validators
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value is null)
+                return ValidationResult.Success;
+
             var list = (IEnumerable<string>) value;
 
             if (list.All(item => item.Length <= Length))
