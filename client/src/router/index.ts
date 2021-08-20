@@ -5,6 +5,7 @@ import MainPage from '@/views/MainPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import SolutionPage from '@/views/SolutionPage.vue';
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,14 @@ const routes: Array<RouteConfig> = [
           {
             path: 'new',
             component: NewMistake,
+          },
+          {
+            path: ':id',
+            name: 'MistakeSolutions',
+            components: {
+              default: MistakesList,
+              solutions: SolutionPage,
+            },
           },
         ],
       },

@@ -9,5 +9,6 @@ export default {
   mutations,
   state: {
     mistakes: [],
+    mistake: null,
   } as MistakesState,
 } as Module<MistakesState, State>;
