@@ -6,6 +6,7 @@
     <h1>
       <slot />
     </h1>
+    <slot name="actions" />
   </div>
 </template>
 

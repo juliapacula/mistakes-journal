@@ -29,6 +29,14 @@
     "Title": "Błędy",
     "AddButton": "Dodaj błąd"
   },
+  "Solutions": {
+    "Title": "Rozwiązanie",
+    "Name": "Błąd",
+    "Goal": "Mój cel",
+    "Tips": "Porady na przyszłość",
+    "NoGoal": "Cel nie jest dodany",
+    "NoTips": "Nie ma żadnych porad"
+  },
   "NewMistake": {
     "Name": "Nazwa",
     "NamePlaceholder": "np. Spędzam dużo czasu na Netflixie.",

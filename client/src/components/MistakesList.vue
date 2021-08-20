@@ -3,12 +3,12 @@
     <div class="col-12">
       <add-new-mistake-button/>
     </div>
-    <div class="mt-4 mj-mistake-items">
+    <div class="col-12 mt-4 mj-mistake-items">
       <div
         v-for="mistake in $store.state.mistakes.mistakes"
         :key="mistake.id">
         <div class="mj-mistake-item-title">
-          <a class="mj-mistake-item-link">{{ mistake.name }}</a>
+          <router-link :to="'/journal/mistakes/' + mistake.id" class="mj-mistake-item-link">{{ mistake.name }}</router-link>
         </div>
         <mistake-priority :priority="mistake.priority"/>
       </div>
@@ -47,6 +47,8 @@ export default Vue.extend({
 .mj-mistake-item {
   &-link {
     @include mistakes-journal.font-medium;
+    display: block;
+    width: 100%;
     color: mistakes-journal.color('text');
   }
 

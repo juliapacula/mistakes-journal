@@ -30,4 +30,16 @@ export class MistakesApiMethods {
       tips: m.tips,
     }));
   }
+
+  public static async get(mistakeId: string): Promise<Mistake> {
+    const m: MistakeApiModel = await get(`/api/mistakes/${mistakeId}`);
+
+    return {
+      id: m.id,
+      goal: m.goal,
+      name: m.name,
+      priority: m.priority,
+      tips: m.tips,
+    };
+  }
 }

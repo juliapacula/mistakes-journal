@@ -17,6 +17,7 @@ type Context = ActionContext<MistakesState, State>;
 export enum MistakesActions {
   AddMistake = 'mistakes/AddNewMistake',
   GetAll = 'mistakes/GetAll',
+  Get = 'mistakes/Get',
 }
 
 export const actions: ActionTree<MistakesState, State> = {
@@ -36,5 +37,11 @@ export const actions: ActionTree<MistakesState, State> = {
     const mistakes = await MistakesApiMethods.getAll();
 
     commit(MistakesMutations.SetMistakes, mistakes);
+  },
+
+  async [MistakesActions.Get]({ commit }: Context, mistakeId: string): Promise<void> {
+    const mistake = await MistakesApiMethods.get(mistakeId);
+
+    commit(MistakesMutations.SetMistake, mistake);
   },
 };

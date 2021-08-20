@@ -29,6 +29,14 @@
     "Title": "Mistakes",
     "AddButton": "Add mistake"
   },
+  "Solutions": {
+    "Title": "Solution",
+    "Name": "Mistake",
+    "Goal": "My goal",
+    "Tips": "Tips for future",
+    "NoGoal": "Goal is not set",
+    "NoTips": "You've got no tips"
+  },
   "NewMistake": {
     "Name": "Name",
     "NamePlaceholder": "e.g. I spend too much time on Netflix.",
