@@ -22,4 +22,7 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
+.mj-add-mistake {
+  white-space: nowrap;
+}
 </style>
