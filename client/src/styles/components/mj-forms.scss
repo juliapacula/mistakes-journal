@@ -10,4 +10,11 @@
   > :not(:first-child):not(.dropdown-menu)#{$validation-messages} {
     border-left: 0;
   }
+
+  &:not(.has-validation) {
+    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.input-group-text),
+    > .dropdown-toggle:nth-last-child(n + 3) {
+      @include mistakes-journal.border-radius(mistakes-journal.$input-border-radius);
+    }
+  }
 }
