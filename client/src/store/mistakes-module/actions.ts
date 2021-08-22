@@ -2,7 +2,6 @@ import { MistakesApiMethods } from '@/api/methods/mistakes.api-methods';
 import { NewMistakeApiModel } from '@/api/models/new-mistake.api-model';
 import {
   NewMistake,
-  NewMistakeTip,
 } from '@/model/new-mistake';
 import { MistakesMutations } from '@/store/mistakes-module/mutations';
 import { MistakesState } from '@/store/mistakes-module/state';
@@ -25,7 +24,7 @@ export const actions: ActionTree<MistakesState, State> = {
     const payload: NewMistakeApiModel = {
       name: mistake.name,
       goal: !mistake.goal ? null : mistake.goal,
-      tips: mistake.tips.map((t: NewMistakeTip) => t.value).filter((t: string) => !!t),
+      tips: mistake.tips.filter((t: string) => !!t),
       priority: mistake.priority,
     };
 

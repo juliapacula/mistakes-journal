@@ -34,8 +34,8 @@
     "Name": "Błąd",
     "Goal": "Mój cel",
     "Tips": "Porady na przyszłość",
-    "NoGoal": "Cel nie jest dodany",
-    "NoTips": "Nie ma żadnych porad"
+    "NoGoal": "Cel nie jest dodany.",
+    "NoTips": "Nie ma żadnych porad."
   },
   "NewMistake": {
     "Name": "Nazwa",
@@ -51,5 +51,9 @@
     "Low": "Niski",
     "Medium": "Średni",
     "High": "Wysoki"
+  },
+  "FormErrors": {
+    "Required": "To pole jest wymagane.",
+    "MaxLength": "Ilość znaków nie powinna być większa niż {max} znaków."
   }
 }

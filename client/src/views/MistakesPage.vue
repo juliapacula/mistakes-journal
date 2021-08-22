@@ -1,29 +1,37 @@
 <template>
   <div class="container-fluid h-100">
     <div class="row position-relative h-100">
-      <div :class="{ 'col-lg-6': areSolutionsVisible }" class="mistakes-panel col-12">
+      <div
+        :class="{ 'col-lg-6': areSolutionsVisible }"
+        class="mistakes-panel col-12">
         <section-header name="mistake">
           {{ $t('Mistakes.Title') }}
         </section-header>
-        <router-view/>
+        <router-view />
       </div>
-      <div v-if="areSolutionsVisible" class="solutions-panel col-7 col-lg-6">
+      <div
+        v-if="areSolutionsVisible"
+        class="solutions-panel col-7 col-lg-6">
         <section-header name="tips">
           {{ $t('Solutions.Title') }}
           <template v-slot:actions>
             <router-link
-              to="/journal/mistakes/"
-              tag="a"
+              class="btn with-icon mj-solution-close"
               role="button"
-              class="btn with-icon mj-solution-close">
+              tag="a"
+              to="/journal/mistakes/">
               <fa-layers>
-                <fa-icon :icon="['fas', 'times']" transform="grow-3"/>
-                <fa-icon :icon="['far', 'circle']" transform="grow-13"/>
+                <fa-icon
+                  :icon="['fas', 'times']"
+                  transform="grow-3" />
+                <fa-icon
+                  :icon="['far', 'circle']"
+                  transform="grow-13" />
               </fa-layers>
             </router-link>
           </template>
         </section-header>
-        <router-view name="solutions"/>
+        <router-view name="solutions" />
       </div>
     </div>
   </div>
@@ -60,7 +68,7 @@ export default Vue.extend({
 
   @include mistakes-journal.media-breakpoint-up(lg) {
     position: static;
-    border-left: none;
+    border-left: 0;
     background-color: transparent;
   }
 }
@@ -72,8 +80,6 @@ export default Vue.extend({
 }
 
 .mj-solution-close {
-  position: absolute;
-  right: 0;
   color: mistakes-journal.color('secondary', '900');
 }
 </style>

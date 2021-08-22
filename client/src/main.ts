@@ -1,3 +1,4 @@
+import MJError from '@/components/MJError.vue';
 import MJIcon from '@/components/MJIcon.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -8,6 +9,7 @@ import {
 } from '@fortawesome/vue-fontawesome';
 import VTooltip from 'v-tooltip';
 import Vue from 'vue';
+import Vuelidate from 'vuelidate';
 import App from './App.vue';
 import i18n from './i18n';
 import router from './router';
@@ -19,11 +21,14 @@ library.add(far);
 Vue.component('fa-icon', FontAwesomeIcon);
 Vue.component('fa-layers', FontAwesomeLayers);
 Vue.component('mj-icon', MJIcon);
+Vue.component('mj-error', MJError);
 
 Vue.use(VTooltip, {
   defaultHtml: false,
   defaultPlacement: 'top',
 });
+
+Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 

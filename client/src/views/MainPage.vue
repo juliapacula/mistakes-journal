@@ -81,5 +81,6 @@ export default Vue.extend({
 
 .mj-content {
   grid-area: content;
+  overflow-y: auto;
 }
 </style>

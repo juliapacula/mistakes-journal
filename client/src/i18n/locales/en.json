@@ -34,8 +34,8 @@
     "Name": "Mistake",
     "Goal": "My goal",
     "Tips": "Tips for future",
-    "NoGoal": "Goal is not set",
-    "NoTips": "You've got no tips"
+    "NoGoal": "Goal is not set.",
+    "NoTips": "You've got no tips."
   },
   "NewMistake": {
     "Name": "Name",
@@ -51,5 +51,9 @@
     "Low": "Low",
     "Medium": "Medium",
     "High": "High"
+  },
+  "FormErrors": {
+    "Required": "This field is required.",
+    "MaxLength": "Length shouldn't be longer than {max} characters."
   }
 }
