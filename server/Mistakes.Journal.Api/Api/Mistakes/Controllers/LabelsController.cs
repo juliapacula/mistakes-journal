@@ -54,7 +54,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var labels = await _dataContext.Set<Label>()
                 .WhereIf(!string.IsNullOrEmpty(searchModel.Name),
                     m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .WhereIf(searchModel.Colors != null && searchModel.Colors.Any(), m => searchModel.Colors.Contains(m.Color))
+                .WhereIf(!searchModel.Colors.IsNullOrEmpty(), m => searchModel.Colors.Contains(m.Color))
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
                 .ToListAsync();
@@ -121,6 +121,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var existingLabel = await _dataContext.Set<Label>()
                 .FirstOrDefaultAsync(m => m.Id == labelId);
+
+            if (existingLabel is null)
+                return NotFound();
 
             existingLabel.Name = label.Name ?? existingLabel.Name;
             existingLabel.Color = label.Color ?? existingLabel.Color;

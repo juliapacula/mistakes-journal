@@ -16,11 +16,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Name = mistake.Name,
                 Goal = mistake.Goal,
                 Priority = mistake.Priority,
-                FirstOccurence = mistake.FirstOccurenceDateTime,
-                LastOccurence = mistake.LastRepetitionDateTime,
-                Counter = mistake.Counter,
+                Labels = mistake.MistakeLabels.Select(ml => ml.Label.ToWebModel()).ToList(),
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
-                Labels = mistake.MistakeLabels.Select(ml => ml.Label).ToList(),
+                RepetitionDates = mistake.Repetitions.Select(r => r.ToWebModel()).ToList(),
             };
         }
 
@@ -29,8 +27,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             return new Mistake(
                 newMistake.Name,
                 newMistake.Goal,
-                newMistake.Priority.GetValueOrDefault(),
-                newMistake.AddDateTime.GetValueOrDefault(DateTime.Now));
+                newMistake.Priority.GetValueOrDefault());
         }
 
         public static NewMistakeWebModel ToNewMistakeWebModel(this Mistake mistake)
@@ -41,7 +38,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Goal = mistake.Goal,
                 Priority = mistake.Priority,
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
-                AddDateTime = mistake.FirstOccurenceDateTime
+                Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList(),
+                AddDateTime = mistake.Repetitions.First().DateTime,
             };
         }
     }

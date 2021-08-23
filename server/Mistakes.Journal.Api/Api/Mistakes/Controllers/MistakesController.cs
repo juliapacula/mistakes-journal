@@ -39,19 +39,22 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var mistake = newMistake.ToEntity();
 
+            mistake.Repetitions.Add(new Repetition(newMistake.AddDateTime ?? DateTime.Now));
+
             if (newMistake.Tips != null)
                 mistake.Tips.AddRange(newMistake.Tips.Where(t => !string.IsNullOrWhiteSpace(t)).Select(t => new Tip(t)));
 
-            if (newMistake.Labels != null)
+            foreach (var labelName in newMistake.Labels.EmptyIfNull())
             {
-                foreach (var labelName in newMistake.Labels)
-                {
-                    var mistakeLabel = new MistakeLabel();
-                    mistake.MistakeLabels.Add(mistakeLabel);
-                    var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Name == labelName);
-                    label.MistakeLabels.Add(mistakeLabel);
-                    _dataContext.Entry(label).State = EntityState.Modified;
-                }
+                var mistakeLabel = new MistakeLabel();
+                mistake.MistakeLabels.Add(mistakeLabel);
+                var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelName);
+
+                if (label is null)
+                    return BadRequest(ErrorMessageType.LabelDoesNotExist);
+
+                label.MistakeLabels.Add(mistakeLabel);
+                _dataContext.Entry(label).State = EntityState.Modified;
             }
 
             await _dataContext.Set<Mistake>().AddAsync(mistake);
@@ -76,22 +79,19 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost("{mistakeId:guid}/add-repetiton")]
-        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [MJIncorrectMistakeDate(1)] DateTime? dateTime)
+        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [FromBody, MJIncorrectMistakeDate(1)] DateTime? dateTime)
         {
-            // TODO test czy to z tym atrybutem w argumencie wgl działa xD
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var mistake = await _dataContext.Set<Mistake>()
+                .Include(m => m.Repetitions)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
             if (mistake is null)
                 return NotFound();
 
-            mistake.Counter++;
-            mistake.LastProgressInDays = (DateTime.Now - mistake.LastRepetitionDateTime).Days;
-            mistake.LastRepetitionDateTime = dateTime ?? DateTime.Now;
-            mistake.LastRepetitionRegistrationDateTime = DateTime.Now;
+            mistake.Repetitions.Add(new Repetition(dateTime ?? DateTime.Now));
 
             _dataContext.Entry(mistake).State = EntityState.Modified;
             await _dataContext.SaveChangesAsync();
@@ -106,12 +106,15 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var mistakes = await _dataContext.Set<Mistake>()
                 .WhereIf(!string.IsNullOrEmpty(searchModel.Name), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!string.IsNullOrEmpty(searchModel.Goal), m => m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
-                .WhereIf(searchModel.Priorities != null && searchModel.Priorities.Any(), m => searchModel.Priorities.Contains(m.Priority))
-                .WhereIf(
-                    searchModel.Labels != null && searchModel.Labels.Any(),
-                    m => searchModel.Labels.Any(l => m.MistakeLabels.Select(ml => ml.Label.Name).Contains(l)))
+                .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
+                .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => searchModel.Labels.Any(l => m.MistakeLabels.Select(ml => ml.LabelId).Contains(l)))
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
+                .Include(m => m.Tips)
+                .Include(m => m.MistakeLabels)
+                .ThenInclude(m => m.Label)
+                .Include(m => m.Repetitions)
+                .OrderByDescending(m => m.Repetitions.First())
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
@@ -125,9 +128,12 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<MistakeWebModel>> GetMistakes([FromQuery] PagingParameters pagingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Include(m => m.Tips)
                 .Skip(pagingParameters.StartAt)
                 .Take(pagingParameters.MaxResults)
+                .Include(m => m.Tips)
+                .Include(m => m.MistakeLabels)
+                .ThenInclude(m => m.Label)
+                .Include(m => m.Repetitions)
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
@@ -137,28 +143,17 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<ICollection<MistakeWebModel>>> GetMistake(Guid mistakeId)
         {
             var mistake = await _dataContext.Set<Mistake>()
+                .Where(m => m.Id == mistakeId)
                 .Include(m => m.Tips)
-                .SingleOrDefaultAsync(m => m.Id == mistakeId);
+                .Include(m => m.MistakeLabels)
+                .ThenInclude(m => m.Label)
+                .Include(m => m.Repetitions)
+                .FirstOrDefaultAsync();
 
             if (mistake is null)
                 return NotFound();
 
             return Ok(mistake.ToWebModel());
-        }
-
-        [HttpGet("{mistakeId:guid}/can-undo-repetition")]
-        public async Task<ActionResult<bool>> GetPermissionToWithdrawLastRepetition(Guid mistakeId)
-        {
-            var mistake = await _dataContext.Set<Mistake>()
-                .FirstOrDefaultAsync(m => m.Id == mistakeId);
-
-            if (mistake is null)
-                return NotFound();
-
-            if (!mistake.LastRepetitionRegistrationDateTime.HasValue || !mistake.LastProgressInDays.HasValue)
-                return Ok(false);
-
-            return Ok(mistake.LastRepetitionRegistrationDateTime >= DateTime.Now - TimeSpan.FromDays(1));
         }
 
         #endregion
@@ -180,28 +175,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             return Ok();
         }
 
-        [HttpDelete("{mistakeId:guid}/last-repetition")]
-        public async Task<ActionResult> RemoveLastRepetition(Guid mistakeId)
-        {
-            if (GetPermissionToWithdrawLastRepetition(mistakeId).Result.Value)
-                return BadRequest(ErrorMessageType.LastRepetitionIsTooOldToWithdraw);
-
-            var mistake = await _dataContext.Set<Mistake>()
-                .FirstOrDefaultAsync(m => m.Id == mistakeId);
-
-            if (mistake is null)
-                return NotFound();
-
-            mistake.LastRepetitionDateTime = mistake.LastRepetitionRegistrationDateTime.GetValueOrDefault() -
-                                             TimeSpan.FromDays(mistake.LastProgressInDays.GetValueOrDefault());
-            mistake.LastRepetitionRegistrationDateTime = null;
-            mistake.LastProgressInDays = null;
-
-            await _dataContext.SaveChangesAsync();
-
-            return Ok();
-        }
-
         #endregion
 
         #region PUT
@@ -215,6 +188,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var existingMistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
+
+            if (existingMistake is null)
+                return NotFound();
 
             existingMistake.Name = mistake.Name ?? existingMistake.Name;
             existingMistake.Goal = mistake.Goal ?? existingMistake.Goal;
