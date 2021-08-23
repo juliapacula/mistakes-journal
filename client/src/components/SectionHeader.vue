@@ -6,6 +6,9 @@
     <h1>
       <slot />
     </h1>
+    <div class="mj-section-header-actions">
+      <slot name="actions" />
+    </div>
   </div>
 </template>
 
@@ -33,6 +36,7 @@ export default Vue.extend({
   display: flex;
   position: relative;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
   padding: 0.5rem 0;
 
@@ -57,6 +61,7 @@ export default Vue.extend({
 
   h1 {
     @include mistakes-journal.font-semi-bold(var(--header-size));
+    flex: 1;
     margin-bottom: 0;
   }
 }

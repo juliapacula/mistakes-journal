@@ -5,6 +5,7 @@ import { MistakesState } from './state';
 export enum MistakesMutations {
   AddMistake = 'mistakes/AddMistake',
   SetMistakes = 'mistakes/SetMistakes',
+  SetMistake = 'mistakes/SetMistake',
 }
 
 export const mutations: MutationTree<MistakesState> = {
@@ -13,5 +14,8 @@ export const mutations: MutationTree<MistakesState> = {
   },
   [MistakesMutations.SetMistakes](state: MistakesState, mistakes: Mistake[]): void {
     state.mistakes = [...mistakes];
+  },
+  [MistakesMutations.SetMistake](state: MistakesState, mistake: Mistake): void {
+    state.mistake = { ...mistake };
   },
 };

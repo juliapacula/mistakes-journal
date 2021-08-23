@@ -8,7 +8,8 @@
   "NavigationBar": {
     "Toggle": "Menu",
     "Expand": "Expand",
-    "Collapse": "Collapse"
+    "Collapse": "Collapse",
+    "ChangeLanguage": "Language"
   },
   "Sidebar": {
     "Links": {
@@ -29,6 +30,14 @@
     "Title": "Mistakes",
     "AddButton": "Add mistake"
   },
+  "Solutions": {
+    "Title": "Solution",
+    "Name": "Mistake",
+    "Goal": "My goal",
+    "Tips": "Tips for future",
+    "NoGoal": "Goal is not set.",
+    "NoTips": "You've got no tips."
+  },
   "NewMistake": {
     "Name": "Name",
     "NamePlaceholder": "e.g. I spend too much time on Netflix.",
@@ -43,5 +52,9 @@
     "Low": "Low",
     "Medium": "Medium",
     "High": "High"
+  },
+  "FormErrors": {
+    "Required": "This field is required.",
+    "MaxLength": "Length shouldn't be longer than {max} characters."
   }
 }

@@ -2,6 +2,7 @@ import MistakesList from '@/components/MistakesList.vue';
 import NewMistake from '@/components/NewMistake.vue';
 import LandingPage from '@/views/LandingPage.vue';
 import MainPage from '@/views/MainPage.vue';
+import MistakeSolutionPage from '@/views/MistakeSolutionPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
@@ -24,16 +25,24 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: 'mistakes',
-        name: 'MistakesPage',
         component: MistakesPage,
         children: [
           {
             path: '',
+            name: 'MistakesPage',
             component: MistakesList,
           },
           {
             path: 'new',
             component: NewMistake,
+          },
+          {
+            path: ':id',
+            name: 'MistakeSolutions',
+            components: {
+              default: MistakesList,
+              solutions: MistakeSolutionPage,
+            },
           },
         ],
       },
