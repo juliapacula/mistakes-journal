@@ -24,9 +24,10 @@ namespace Mistakes.Journal.Api
         {
             services.AddControllers()
                 .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+                //.AddNewtonsoftJson();
             services.AddSpaStaticFiles(options => options.RootPath = ClientApp);
             services.AddDbContext<MistakesJournalContext>(options => options
-                .UseNpgsql(ParseDatabaseUri(Environment.GetEnvironmentVariable("DATABASE_URL")))
+                .UseNpgsql("Host=localhost;Database=mistakes_journal;Username=postgres;Password=mistakeSJournal;")
                 .UseSnakeCaseNamingConvention());
         }
 

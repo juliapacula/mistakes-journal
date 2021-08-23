@@ -13,7 +13,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Id = label.Id,
                 Name = label.Name,
                 Color = label.Color,
-                Mistakes = label.MistakeLabels?.Select(ml => ml.Mistake).ToList()
             };
         }
 

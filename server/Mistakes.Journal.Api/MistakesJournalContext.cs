@@ -18,10 +18,6 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Name).IsRequired();
                 mistake.Property(m => m.Goal);
                 mistake.Property(m => m.Priority).HasConversion<string>();
-                mistake.Property(m => m.FirstOccurenceDateTime).IsRequired();
-                mistake.Property(m => m.LastRepetitionDateTime).IsRequired();
-                mistake.Property(m => m.Counter).IsRequired();
-                mistake.Property(m => m.LastProgressInDays);
             });
 
             modelBuilder.Entity<Tip>(tip =>
@@ -30,8 +26,7 @@ namespace Mistakes.Journal.Api
                 tip.Property(t => t.Content).IsRequired();
                 tip.HasOne(t => t.Mistake)
                     .WithMany(m => m.Tips)
-                    .HasForeignKey(t => t.MistakeId)
-                    .IsRequired();
+                    .HasForeignKey(t => t.MistakeId);
             });
 
             modelBuilder.Entity<Label>(label =>
@@ -52,6 +47,16 @@ namespace Mistakes.Journal.Api
                     .WithMany(m => m.MistakeLabels)
                     .HasForeignKey(ml => ml.LabelId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Repetition>(r =>
+            {
+                r.HasKey(t => t.Id);
+                r.Property(t => t.DateTime).IsRequired();
+                r.HasOne(t => t.Mistake)
+                    .WithMany(m => m.Repetitions)
+                    .HasForeignKey(t => t.MistakeId)
+                    .IsRequired();
             });
         }
     }

@@ -29,5 +29,15 @@ namespace Mistakes.Journal.Api.Api.Shared
         {
             return !(string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str));
         }
+
+        public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> collection)
+        {
+            return collection ?? Enumerable.Empty<T>();
+        }
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
+        {
+            return collection == null || !collection.Any();
+        }
     }
 }

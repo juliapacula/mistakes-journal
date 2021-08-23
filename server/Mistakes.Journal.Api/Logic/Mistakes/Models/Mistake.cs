@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 
 namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 {
@@ -10,26 +9,20 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public string Name { get; set; }
         public string Goal { get; set; }
         public MistakePriority Priority { get; set; }
-        public DateTime FirstOccurenceDateTime { get; set; }
-        public DateTime LastRepetitionDateTime { get; set; }
-        public DateTime? LastRepetitionRegistrationDateTime { get; set; }
-        public int Counter { get; set; }
-        public int? LastProgressInDays { get; set; }
+        public ICollection<Repetition> Repetitions { get; set; }
         public ICollection<Tip> Tips { get; set; }
         public ICollection<MistakeLabel> MistakeLabels { get; set; }
 
         public Mistake(
             string name,
             string goal,
-            MistakePriority priority,
-            DateTime firstOccurenceDateTime
+            MistakePriority priority
         )
         {
             Name = name;
             Goal = goal;
             Priority = priority;
-            FirstOccurenceDateTime = firstOccurenceDateTime;
-            LastRepetitionDateTime = firstOccurenceDateTime;
+            Repetitions = new List<Repetition>();
             Tips = new List<Tip>();
             MistakeLabels = new List<MistakeLabel>();
         }
