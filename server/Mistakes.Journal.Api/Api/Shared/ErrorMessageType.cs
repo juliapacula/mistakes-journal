@@ -8,7 +8,6 @@ namespace Mistakes.Journal.Api.Api.Shared
         DateInFuture = 4,
         NotUnique = 5,
         DoesNotMatchPattern = 6,
-        LabelDoesNotExist,
-        MistakeDoesNotExist
+        LabelDoesNotExist = 7,
     }
 }
