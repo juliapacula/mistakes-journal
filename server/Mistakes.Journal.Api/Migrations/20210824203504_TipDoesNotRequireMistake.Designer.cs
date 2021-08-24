@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mistakes.Journal.Api;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mistakes.Journal.Api.Migrations
 {
     [DbContext(typeof(MistakesJournalContext))]
-    partial class MistakesJournalContextModelSnapshot : ModelSnapshot
+    [Migration("20210824203504_TipDoesNotRequireMistake")]
+    partial class TipDoesNotRequireMistake
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,7 +126,7 @@ namespace Mistakes.Journal.Api.Migrations
                         .HasColumnName("content")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("MistakeId")
+                    b.Property<Guid>("MistakeId")
                         .HasColumnName("mistake_id")
                         .HasColumnType("uuid");
 

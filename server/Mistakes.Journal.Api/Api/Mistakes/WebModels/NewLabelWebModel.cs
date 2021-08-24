@@ -13,7 +13,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public string Name { get; set; }
         
         [MJRequired]
-        [MJMatchPattern(@"#[0-9a-fA-F]{3,8}")]
+        [MJMatchPattern(Constants.ColorPattern)]
         public string Color { get; set; }
     }
 }

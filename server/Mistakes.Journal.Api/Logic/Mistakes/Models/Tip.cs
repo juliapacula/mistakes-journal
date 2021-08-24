@@ -6,7 +6,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
     {
         public Guid Id { get; }
         public string Content { get; }
-        public Guid MistakeId { get; }
+        public Guid? MistakeId { get; }
         public Mistake Mistake { get; }
 
         public Tip(

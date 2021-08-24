@@ -95,7 +95,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #region DELETE
 
         [HttpDelete("{labelId:guid}")]
-        public async Task<ActionResult> RemoveMistake(Guid labelId)
+        public async Task<ActionResult> RemoveLabel(Guid labelId)
         {
             var label = await _dataContext.Set<Label>()
                 .FirstOrDefaultAsync(m => m.Id == labelId);
@@ -114,7 +114,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #region PUT
 
         [HttpPut("{labelId:guid}")]
-        public async Task<ActionResult<MistakeWebModel>> UpdateLabel(Guid labelId, UpdatedLabelWebModel label)
+        public async Task<ActionResult<LabelWebModel>> UpdateLabel(Guid labelId, UpdatedLabelWebModel label)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

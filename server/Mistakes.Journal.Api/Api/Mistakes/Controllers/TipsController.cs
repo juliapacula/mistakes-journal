@@ -24,7 +24,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TipWebModel>> AddLabel(NewTipWebModel newTip)
+        public async Task<ActionResult<TipWebModel>> AddTip(NewTipWebModel newTip)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

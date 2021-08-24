@@ -8,6 +8,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         [MJMaxLength(Constants.ShortTextMaxLength)]
         public string Name { get; set; }
         
+        [MJMatchPattern(Constants.ColorPattern)]
         public string Color { get; set; }
     }
 }
