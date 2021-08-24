@@ -25,6 +25,12 @@ namespace Mistakes.Journal.Api.Api.Shared
             return condition ? source.Where(predicate) : source;
         }
 
+        public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition,
+            Func<T, bool> predicate)
+        {
+            return condition ? source.Where(predicate) : source;
+        }
+
         public static bool IsPresent(this string str)
         {
             return !(string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str));

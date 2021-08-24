@@ -26,7 +26,8 @@ namespace Mistakes.Journal.Api
                 tip.Property(t => t.Content).IsRequired();
                 tip.HasOne(t => t.Mistake)
                     .WithMany(m => m.Tips)
-                    .HasForeignKey(t => t.MistakeId);
+                    .HasForeignKey(t => t.MistakeId)
+                    .IsRequired(false);
             });
 
             modelBuilder.Entity<Label>(label =>

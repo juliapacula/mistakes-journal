@@ -68,6 +68,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         {
             var mistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
+                .Include(m => m.MistakeLabels)
+                .ThenInclude(m => m.Label)
+                .Include(m => m.Repetitions)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
             if (mistake is null)
@@ -104,18 +107,22 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<MistakeWebModel>> GetMistakes(MistakeSearchWebModel searchModel)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .WhereIf(!string.IsNullOrEmpty(searchModel.Name), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .WhereIf(!string.IsNullOrEmpty(searchModel.Goal), m => m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
-                .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
-                .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => searchModel.Labels.Any(l => m.MistakeLabels.Select(ml => ml.LabelId).Contains(l)))
-                .Skip(searchModel.StartAt)
-                .Take(searchModel.MaxResults)
                 .Include(m => m.Tips)
+                .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
                 .ThenInclude(m => m.Label)
-                .Include(m => m.Repetitions)
-                .OrderByDescending(m => m.Repetitions.First())
+                .WhereIf(!string.IsNullOrEmpty(searchModel.Name), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
+                .WhereIf(!string.IsNullOrEmpty(searchModel.Goal), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
+                .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
                 .ToListAsync();
+
+            mistakes = mistakes
+                    // this is too hard for .NET Core
+                .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Select(ml => ml.LabelId).Intersect(searchModel.Labels).Any())
+                .Skip(searchModel.StartAt)
+                .Take(searchModel.MaxResults)
+                .OrderByDescending(m => m.Repetitions.First().DateTime)
+                .ToList();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
         }
@@ -134,6 +141,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.MistakeLabels)
                 .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
+                .OrderByDescending(m => m.Repetitions.First().DateTime)
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
