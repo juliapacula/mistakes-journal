@@ -43,7 +43,7 @@ namespace Mistakes.Journal.Api.Api.Shared
 
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
         {
-            return collection == null || !collection.Any();
+            return collection is null || !collection.Any();
         }
     }
 }
