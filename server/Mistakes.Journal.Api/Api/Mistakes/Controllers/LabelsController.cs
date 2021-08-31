@@ -52,7 +52,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<LabelWebModel>> GetLabels(LabelSearchWebModel searchModel)
         {
             var labels = await _dataContext.Set<Label>()
-                .WhereIf(!string.IsNullOrEmpty(searchModel.Name),
+                .WhereIf(searchModel.Name.IsPresent(),
                     m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), m => searchModel.Colors.Contains(m.Color))
                 .Skip(searchModel.StartAt)

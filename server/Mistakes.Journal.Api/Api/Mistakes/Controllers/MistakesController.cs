@@ -42,7 +42,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             mistake.Repetitions.Add(new Repetition(newMistake.AddDateTime ?? DateTime.Now));
 
             if (newMistake.Tips != null)
-                mistake.Tips.AddRange(newMistake.Tips.Where(t => !string.IsNullOrWhiteSpace(t)).Select(t => new Tip(t)));
+                mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(t)));
 
             foreach (var labelName in newMistake.Labels.EmptyIfNull())
             {
@@ -111,8 +111,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
                 .ThenInclude(m => m.Label)
-                .WhereIf(!string.IsNullOrEmpty(searchModel.Name), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .WhereIf(!string.IsNullOrEmpty(searchModel.Goal), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
+                .WhereIf(searchModel.Name.IsPresent(), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
+                .WhereIf(searchModel.Goal.IsPresent(), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
                 .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
                 .ToListAsync();
 
@@ -210,7 +210,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 _dataContext.Set<Tip>().RemoveRange(deletedTips);
 
                 var newTips = mistake.Tips.Where(t => !existingMistake.Tips.Select(et => et.Content).Contains(t));
-                existingMistake.Tips.AddRange(newTips.Where(t => !string.IsNullOrWhiteSpace(t))
+                existingMistake.Tips.AddRange(newTips.Where(t => t.IsPresent())
                     .Select(t => new Tip(t)));
             }
 
