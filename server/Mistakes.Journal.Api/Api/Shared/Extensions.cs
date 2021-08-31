@@ -15,7 +15,7 @@ namespace Mistakes.Journal.Api.Api.Shared
 
         public static void RemoveEmptyStrings(this ICollection<string> collection)
         {
-            foreach (var itemToRemove in collection.Where(string.IsNullOrWhiteSpace)) 
+            foreach (var itemToRemove in collection.Where(t => !t.IsPresent())) 
                 collection.Remove(itemToRemove);
         }
 
