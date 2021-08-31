@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Mistakes.Journal.Api.Api.Shared;
+using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
@@ -15,6 +15,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 
         public IEnumerable<Guid> Labels { get; set; }
 
-        // Can be improved: by dates, counter, progress, milestones...
+        // TODO MJ-127; Can be improved: by dates, counter, progress, milestones...
     }
 }

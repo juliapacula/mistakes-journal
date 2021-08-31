@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Mistakes.Journal.Api.Api.Shared;
-using Mistakes.Journal.Api.Logic.Mistakes.Models;
+using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 {

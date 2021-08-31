@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Mistakes.Journal.Api.Api.Shared
+﻿namespace Mistakes.Journal.Api.Api.Shared
 {
     public static class Constants
     {
@@ -13,5 +8,8 @@ namespace Mistakes.Journal.Api.Api.Shared
 
         /* Patterns */
         public const string ColorPattern = @"#[0-9a-fA-F]{3,8}";
+
+        /* Mistakes */
+        public const int DaysToSolveMistake = 66;
     }
 }

@@ -19,6 +19,7 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Goal);
                 mistake.Property(m => m.Priority).HasConversion<string>();
                 mistake.Property(m => m.CreatedAt).IsRequired();
+                mistake.Property(m => m.IsSolved).HasDefaultValue(false);
             });
 
             modelBuilder.Entity<Tip>(tip =>

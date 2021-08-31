@@ -1,4 +1,4 @@
-﻿namespace Mistakes.Journal.Api.Api.Shared
+﻿namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
 {
     public class PagingParameters
     {

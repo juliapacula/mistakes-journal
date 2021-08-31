@@ -2,6 +2,7 @@ namespace Mistakes.Journal.Api.Api.Shared
 {
     public enum ErrorMessageType
     {
+        UnknownError = 0,
         Required = 1,
         TooLong = 2,
         TooOldMistake = 3,
@@ -9,5 +10,10 @@ namespace Mistakes.Journal.Api.Api.Shared
         NotUnique = 5,
         DoesNotMatchPattern = 6,
         LabelDoesNotExist = 7,
+        CannotBeSolved = 8,
+        MistakeIsAlreadySolved = 9,
+        WrongLongitude = 10,
+        WrongLatitude = 11,
+        IncompleteCoordinates = 12,
     }
 }

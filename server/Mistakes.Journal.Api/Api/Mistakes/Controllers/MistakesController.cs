@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
+using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 using Mistakes.Journal.Api.Api.Shared.Validators;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
@@ -60,7 +61,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost("{mistakeId:guid}/clone")]
-        public async Task<ActionResult<MistakeWebModel>> CloneMistake(Guid mistakeId)
+        public async Task<ActionResult<MistakeWebModel>> CloneMistake(Guid mistakeId, [FromBody, MJIncorrectMistakeDate(Constants.MaxMistakeAgeInDays)] DateTime? firstOccurence)
         {
             var mistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
@@ -72,7 +73,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake is null)
                 return NotFound();
 
-            var newMistake = mistake.ToNewMistakeWebModel();
+            var newMistake = mistake.ToNewMistakeWebModel(firstOccurence);
 
             return await AddMistake(newMistake);
         }
@@ -93,16 +94,18 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake is null)
                 return NotFound();
 
-            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.Now));
+            if (mistake.IsSolved)
+                return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
+
+            mistake.Repetitions.Add(new Repetition(dateTime ?? DateTime.Now));
 
             await _dataContext.SaveChangesAsync();
 
             return Ok(mistake.ToWebModel());
         }
 
-
         [HttpPost("search")]
-        public async Task<ActionResult<MistakeWebModel>> GetMistakes(MistakeSearchWebModel searchModel)
+        public async Task<ActionResult<MistakeWebModel>> SearchMistakes(MistakeSearchWebModel searchModel, [FromQuery] MistakesSortingParameters parameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
@@ -110,15 +113,40 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)
                 .WhereIf(searchModel.Name.IsPresent(), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
+                .Where(m => m.IsSolved && parameters.IncludeSolved || !m.IsSolved && parameters.IncludeUnsolved)
                 .WhereIf(searchModel.Goal.IsPresent(), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
                 .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
                 .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Any(ml => searchModel.Labels.Contains(ml.LabelId)))
+                .AsQueryable()
+                .OrderByField(parameters)
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
-                .OrderByDescending(m => m.CreatedAt)
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
+        }
+
+        [HttpPost("{mistakeId:guid}/mark-as-solved")]
+        public async Task<ActionResult<MistakeWebModel>> MarkAsSolved(Guid mistakeId)
+        {
+            var mistake = await _dataContext.Set<Mistake>()
+                .Include(m => m.Repetitions)
+                .FirstOrDefaultAsync(m => m.Id == mistakeId);
+
+            if (mistake is null)
+                return NotFound();
+
+            if (mistake.IsSolved)
+                return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
+
+            if (!mistake.CanBeSolved())
+                return BadRequest(ErrorMessageType.CannotBeSolved);
+
+            mistake.IsSolved = true;
+            _dataContext.Entry(mistake).State = EntityState.Modified;
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(mistake.ToWebModel());
         }
 
         #endregion
@@ -126,16 +154,17 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #region GET
 
         [HttpGet]
-        public async Task<ActionResult<MistakeWebModel>> GetMistakes([FromQuery] PagingParameters pagingParameters)
+        public async Task<ActionResult<MistakeWebModel>> GetMistakes([FromQuery] MistakesSortingParameters parameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Skip(pagingParameters.StartAt)
-                .Take(pagingParameters.MaxResults)
+                .Where(m => m.IsSolved && parameters.IncludeSolved || !m.IsSolved && parameters.IncludeUnsolved)
+                .OrderByField(parameters)
+                .Skip(parameters.StartAt)
+                .Take(parameters.MaxResults)
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
-                .OrderByDescending(m => m.CreatedAt)
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
