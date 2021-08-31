@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -23,10 +22,12 @@ namespace Mistakes.Journal.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+                .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
+                .AddMvcOptions(o => o.AllowEmptyInputInBodyModelBinding = true);
+
             services.AddSpaStaticFiles(options => options.RootPath = ClientApp);
             services.AddDbContext<MistakesJournalContext>(options => options
-                .UseNpgsql(ParseDatabaseUri(Environment.GetEnvironmentVariable("DATABASE_URL")))
+                .UseNpgsql(ParseDatabaseUri("postgres://postgres:mistakeSJournal@localhost/mistakes_journal"))
                 .UseSnakeCaseNamingConvention());
         }
 

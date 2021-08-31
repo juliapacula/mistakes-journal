@@ -14,5 +14,13 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public IReadOnlyCollection<LabelWebModel> Labels { get; set; }
         public IReadOnlyCollection<RepetitionWebModel> RepetitionDates { get; set; }
         public DateTime CreatedAt { get; set; }
+        public SolvingState CurrentSolvingState { get; set; }
+    }
+
+    public enum SolvingState
+    {
+        InProgress = 0,
+        CanBeSolved = 1,
+        Solved = 2,
     }
 }
