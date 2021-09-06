@@ -13,5 +13,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public IReadOnlyCollection<string> Tips { get; set; }
         public IReadOnlyCollection<LabelWebModel> Labels { get; set; }
         public IReadOnlyCollection<RepetitionWebModel> RepetitionDates { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

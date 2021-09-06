@@ -5,13 +5,13 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
     public class Repetition
     {
         public Guid Id { get; }
-        public DateTime DateTime { get; set; }
+        public DateTime OccuredAt { get; set; }
         public Guid MistakeId { get; }
         public Mistake Mistake { get; }
 
-        public Repetition(DateTime dateTime)
+        public Repetition(DateTime occuredAt)
         {
-            DateTime = dateTime;
+            OccuredAt = occuredAt;
         }
     }
 }

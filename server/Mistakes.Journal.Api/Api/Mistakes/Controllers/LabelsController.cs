@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
@@ -34,8 +35,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var nameLowerCase = newLabel.Name.ToLower();
             var existingLabel = await _dataContext.Set<Label>()
-                .SingleOrDefaultAsync(m => m.Name == newLabel.Name);
+                .FirstOrDefaultAsync(m => m.Name.ToLower() == nameLowerCase);
 
             if (existingLabel != null)
                 return BadRequest(ErrorMessageType.NotUnique);
@@ -57,6 +59,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), m => searchModel.Colors.Contains(m.Color))
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
+                .Include(m => m.MistakeLabels)
                 .ToListAsync();
 
             return Ok(labels.Select(m => m.ToWebModel()));
@@ -65,17 +68,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #endregion
 
         #region GET
-
-        [HttpGet]
-        public async Task<ActionResult<LabelWebModel>> GetLabels([FromQuery] PagingParameters pagingParameters)
-        {
-            var labels = await _dataContext.Set<Label>()
-                .Skip(pagingParameters.StartAt)
-                .Take(pagingParameters.MaxResults)
-                .ToListAsync();
-
-            return Ok(labels.Select(t => t.ToWebModel()));
-        }
 
         [HttpGet("{labelId:guid}")]
         public async Task<ActionResult<ICollection<LabelWebModel>>> GetLabel(Guid labelId)
@@ -128,7 +120,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             existingLabel.Name = label.Name ?? existingLabel.Name;
             existingLabel.Color = label.Color ?? existingLabel.Color;
 
-            _dataContext.Entry(existingLabel).State = EntityState.Modified;
             await _dataContext.SaveChangesAsync();
 
             return Ok(existingLabel.ToWebModel());

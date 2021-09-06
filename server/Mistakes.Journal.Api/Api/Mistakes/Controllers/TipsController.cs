@@ -38,7 +38,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<TipWebModel>> GetTips(PagingParameters pagingParameters)
+        public async Task<ActionResult<TipWebModel>> GetTips([FromQuery] PagingParameters pagingParameters)
         {
             var tips = await _dataContext.Set<Tip>()
                 .Skip(pagingParameters.StartAt)

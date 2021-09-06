@@ -22,8 +22,5 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public IReadOnlyCollection<string> Tips { get; set; }
 
         public IReadOnlyCollection<Guid> Labels { get; set; }
-
-        [MJIncorrectMistakeDate(Constants.MaxMistakeAgeInDays)]
-        public DateTime? AddDateTime { get; set; }
     }
 }

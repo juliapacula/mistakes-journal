@@ -39,22 +39,18 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var mistake = newMistake.ToEntity();
 
-            mistake.Repetitions.Add(new Repetition(newMistake.AddDateTime ?? DateTime.Now));
-
             if (newMistake.Tips != null)
                 mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(t)));
 
-            foreach (var labelName in newMistake.Labels.EmptyIfNull())
+            foreach (var labelId in newMistake.Labels.EmptyIfNull())
             {
-                var mistakeLabel = new MistakeLabel();
-                mistake.MistakeLabels.Add(mistakeLabel);
-                var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelName);
+                var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelId);
 
                 if (label is null)
                     return BadRequest(ErrorMessageType.LabelDoesNotExist);
 
-                label.MistakeLabels.Add(mistakeLabel);
-                _dataContext.Entry(label).State = EntityState.Modified;
+                var mistakeLabel = new MistakeLabel(label, mistake);
+                _dataContext.Set<MistakeLabel>().Add(mistakeLabel);
             }
 
             await _dataContext.Set<Mistake>().AddAsync(mistake);
@@ -69,7 +65,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var mistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
-                .ThenInclude(m => m.Label)
+                    .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
@@ -82,21 +78,23 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost("{mistakeId:guid}/add-repetiton")]
-        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [FromBody, MJIncorrectMistakeDate(1)] DateTime? dateTime)
+        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [FromBody, MJIncorrectMistakeDate(1)] DateTime? occuredAt)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var mistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Repetitions)
+                .Include(m => m.MistakeLabels)
+                    .ThenInclude(m => m.Label)
+                .Include(m => m.Tips)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
             if (mistake is null)
                 return NotFound();
 
-            mistake.Repetitions.Add(new Repetition(dateTime ?? DateTime.Now));
+            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.Now));
 
-            _dataContext.Entry(mistake).State = EntityState.Modified;
             await _dataContext.SaveChangesAsync();
 
             return Ok(mistake.ToWebModel());
@@ -110,19 +108,15 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Tips)
                 .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
-                .ThenInclude(m => m.Label)
+                    .ThenInclude(m => m.Label)
                 .WhereIf(searchModel.Name.IsPresent(), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(searchModel.Goal.IsPresent(), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
                 .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
-                .ToListAsync();
-
-            mistakes = mistakes
-                    // this is too hard for .NET Core
-                .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Select(ml => ml.LabelId).Intersect(searchModel.Labels).Any())
+                .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Any(ml => searchModel.Labels.Contains(ml.LabelId)))
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
-                .OrderByDescending(m => m.Repetitions.First().DateTime)
-                .ToList();
+                .OrderByDescending(m => m.CreatedAt)
+                .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
         }
@@ -139,9 +133,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Take(pagingParameters.MaxResults)
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
-                .ThenInclude(m => m.Label)
+                    .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
-                .OrderByDescending(m => m.Repetitions.First().DateTime)
+                .OrderByDescending(m => m.CreatedAt)
                 .ToListAsync();
 
             return Ok(mistakes.Select(m => m.ToWebModel()));
@@ -154,7 +148,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Where(m => m.Id == mistakeId)
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
-                .ThenInclude(m => m.Label)
+                    .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
                 .FirstOrDefaultAsync();
 
@@ -195,6 +189,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var existingMistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
+                .Include(m => m.MistakeLabels)
+                    .ThenInclude(ml => ml.Label)
+                .Include(m => m.Repetitions)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
             if (existingMistake is null)
@@ -209,12 +206,14 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 var deletedTips = existingMistake.Tips.Where(t => !mistake.Tips.Contains(t.Content));
                 _dataContext.Set<Tip>().RemoveRange(deletedTips);
 
-                var newTips = mistake.Tips.Where(t => !existingMistake.Tips.Select(et => et.Content).Contains(t));
-                existingMistake.Tips.AddRange(newTips.Where(t => t.IsPresent())
-                    .Select(t => new Tip(t)));
+                var newTips = mistake.Tips
+                    .Where(t => !existingMistake.Tips.Select(et => et.Content).Contains(t))
+                    .Where(t => t.IsPresent())
+                    .Select(t => new Tip(t));
+
+                existingMistake.Tips.AddRange(newTips);
             }
 
-            _dataContext.Entry(existingMistake).State = EntityState.Modified;
             await _dataContext.SaveChangesAsync();
 
             return Ok(existingMistake.ToWebModel());

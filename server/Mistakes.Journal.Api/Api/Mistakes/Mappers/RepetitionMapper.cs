@@ -10,7 +10,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             return new RepetitionWebModel
             {
                 Id = repetition.Id,
-                DateTime = repetition.DateTime,
+                OccuredAt = repetition.OccuredAt,
             };
         }
     }
