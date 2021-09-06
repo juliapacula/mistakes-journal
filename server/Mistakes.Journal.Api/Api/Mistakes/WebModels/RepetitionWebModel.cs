@@ -6,6 +6,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
     {
         public Guid Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime OccuredAt { get; set; }
     }
 }

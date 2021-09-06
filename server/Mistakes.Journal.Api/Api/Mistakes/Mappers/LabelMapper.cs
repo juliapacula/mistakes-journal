@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Mistakes.Journal.Api.Api.Mistakes.WebModels;
+﻿using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
@@ -13,6 +12,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Id = label.Id,
                 Name = label.Name,
                 Color = label.Color,
+                MistakesCounter = label.MistakeLabels.Count
             };
         }
 

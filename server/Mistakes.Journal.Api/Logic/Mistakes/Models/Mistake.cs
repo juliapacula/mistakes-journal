@@ -9,15 +9,18 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public string Name { get; set; }
         public string Goal { get; set; }
         public MistakePriority Priority { get; set; }
+        public DateTime CreatedAt { get; set; }
         public ICollection<Repetition> Repetitions { get; set; }
         public ICollection<Tip> Tips { get; set; }
         public ICollection<MistakeLabel> MistakeLabels { get; set; }
 
-        public Mistake(
-            string name,
+        private Mistake()
+        {
+        }
+
+        public Mistake(string name,
             string goal,
-            MistakePriority priority
-        )
+            MistakePriority priority)
         {
             Name = name;
             Goal = goal;
@@ -25,6 +28,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Repetitions = new List<Repetition>();
             Tips = new List<Tip>();
             MistakeLabels = new List<MistakeLabel>();
+            CreatedAt = DateTime.Now;
         }
 
         [Flags]

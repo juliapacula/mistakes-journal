@@ -18,6 +18,7 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Name).IsRequired();
                 mistake.Property(m => m.Goal);
                 mistake.Property(m => m.Priority).HasConversion<string>();
+                mistake.Property(m => m.CreatedAt).IsRequired();
             });
 
             modelBuilder.Entity<Tip>(tip =>
@@ -53,7 +54,7 @@ namespace Mistakes.Journal.Api
             modelBuilder.Entity<Repetition>(r =>
             {
                 r.HasKey(t => t.Id);
-                r.Property(t => t.DateTime).IsRequired();
+                r.Property(t => t.OccuredAt).IsRequired();
                 r.HasOne(t => t.Mistake)
                     .WithMany(m => m.Repetitions)
                     .HasForeignKey(t => t.MistakeId)

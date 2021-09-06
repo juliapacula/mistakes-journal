@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
@@ -19,6 +17,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Labels = mistake.MistakeLabels.Select(ml => ml.Label.ToWebModel()).ToList(),
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
                 RepetitionDates = mistake.Repetitions.Select(r => r.ToWebModel()).ToList(),
+                CreatedAt = mistake.CreatedAt
             };
         }
 
@@ -38,8 +37,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Goal = mistake.Goal,
                 Priority = mistake.Priority,
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
-                Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList(),
-                AddDateTime = mistake.Repetitions.First().DateTime,
+                Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList()
             };
         }
     }

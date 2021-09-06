@@ -10,5 +10,14 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public Guid LabelId { get; set; }
         public Label Label { get; set; }
 
+        private MistakeLabel()
+        {
+        }
+
+        public MistakeLabel(Label label, Mistake mistake)
+        {
+            Label = label;
+            Mistake = mistake;
+        }
     }
 }
