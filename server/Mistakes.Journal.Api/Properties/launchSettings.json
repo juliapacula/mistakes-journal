@@ -10,7 +10,7 @@
         "DOTNET_ENVIRONMENT": "Development",
         "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "true",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "OPEN_WEATHER_API_KEY": "0306bc59a1462da854247c51a797ad48" // <- dev, prod -> "6b12338c314f081a1bc40dbb92f43ded"
+        "OPEN_WEATHER_API_KEY": "0306bc59a1462da854247c51a797ad48"
       }
     }
   }

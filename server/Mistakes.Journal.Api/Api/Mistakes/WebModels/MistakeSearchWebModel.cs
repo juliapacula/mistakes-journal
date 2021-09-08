@@ -15,6 +15,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 
         public IEnumerable<Guid> Labels { get; set; }
 
-        // TODO MJ-127; Can be improved: by dates, counter, progress, milestones...
+        // Can be improved: by dates, counter, progress, milestones...
     }
 }
