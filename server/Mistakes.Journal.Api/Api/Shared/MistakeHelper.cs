@@ -10,13 +10,13 @@ namespace Mistakes.Journal.Api.Api.Shared
         {
             return sortingParameters.Field switch
             {
-                _ => OrderByLastOccurence(collection, sortingParameters.Desc),
+                _ => OrderByCreationDate(collection, sortingParameters.Desc),
 
                 // more options can be added
             };
         }
 
-        private static IOrderedQueryable<Mistake> OrderByLastOccurence(IQueryable<Mistake> collection, bool desc)
+        private static IOrderedQueryable<Mistake> OrderByCreationDate(IQueryable<Mistake> collection, bool desc)
         {
             return desc
                 ? collection.OrderByDescending(m => m.CreatedAt)
@@ -26,6 +26,6 @@ namespace Mistakes.Journal.Api.Api.Shared
 
     public enum MistakeSortingField
     {
-        FirstOccurence = 0
+        CreatedAt = 0,
     }
 }

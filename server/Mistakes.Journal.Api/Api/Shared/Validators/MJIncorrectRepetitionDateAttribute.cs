@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mistakes.Journal.Api.Api.Shared.Validators
 {
-    public class MJIncorrectMistakeDateAttribute : ValidationAttribute
+    public class MJIncorrectRepetitionDateAttribute : ValidationAttribute
     {
         private readonly int days;
 
-        public MJIncorrectMistakeDateAttribute(int days)
+        public MJIncorrectRepetitionDateAttribute(int days)
         {
             this.days = days;
         }
@@ -18,7 +18,7 @@ namespace Mistakes.Journal.Api.Api.Shared.Validators
                 return ValidationResult.Success;
 
             if (dateTime < DateTime.Now - TimeSpan.FromDays(days))
-                return new ValidationResult(ErrorMessageType.TooOldMistake.ToString());
+                return new ValidationResult(ErrorMessageType.TooOldRepetition.ToString());
             
             if (dateTime > DateTime.Now + TimeSpan.FromMinutes(5))
                 return new ValidationResult(ErrorMessageType.DateInFuture.ToString());
