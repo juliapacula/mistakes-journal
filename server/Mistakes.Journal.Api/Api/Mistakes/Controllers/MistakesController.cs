@@ -61,7 +61,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost("{mistakeId:guid}/clone")]
-        public async Task<ActionResult<MistakeWebModel>> CloneMistake(Guid mistakeId, [FromBody, MJIncorrectMistakeDate(Constants.MaxMistakeAgeInDays)] DateTime? firstOccurence)
+        public async Task<ActionResult<MistakeWebModel>> CloneMistake(Guid mistakeId)
         {
             var mistake = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
@@ -73,7 +73,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake is null)
                 return NotFound();
 
-            var newMistake = mistake.ToNewMistakeWebModel(firstOccurence);
+            var newMistake = mistake.ToNewMistakeWebModel();
 
             return await AddMistake(newMistake);
         }
@@ -97,7 +97,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake.IsSolved)
                 return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
 
-            mistake.Repetitions.Add(new Repetition(dateTime ?? DateTime.Now));
+            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.Now));
 
             await _dataContext.SaveChangesAsync();
 
@@ -143,7 +143,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 return BadRequest(ErrorMessageType.CannotBeSolved);
 
             mistake.IsSolved = true;
-            _dataContext.Entry(mistake).State = EntityState.Modified;
             await _dataContext.SaveChangesAsync();
 
             return Ok(mistake.ToWebModel());

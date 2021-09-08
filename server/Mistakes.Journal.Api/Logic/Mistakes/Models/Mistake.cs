@@ -44,7 +44,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 
         public bool CanBeSolved()
         {
-            return (DateTime.Now - Repetitions.Last().DateTime).TotalDays >= Constants.DaysToSolveMistake;
+            return (DateTime.Now - CreatedAt).TotalDays >= Constants.DaysToSolveMistake;
         }
     }
 }
