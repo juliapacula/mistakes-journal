@@ -19,8 +19,8 @@ namespace Mistakes.Journal.Api.Api.Shared
         private static IOrderedQueryable<Mistake> OrderByLastOccurence(IQueryable<Mistake> collection, bool desc)
         {
             return desc
-                ? collection.OrderByDescending(m => m.Repetitions.First().DateTime)
-                : collection.OrderBy(m => m.Repetitions.First().DateTime);
+                ? collection.OrderByDescending(m => m.CreatedAt)
+                : collection.OrderBy(m => m.CreatedAt);
         }
     }
 
