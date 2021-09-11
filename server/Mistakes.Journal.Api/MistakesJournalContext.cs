@@ -20,6 +20,11 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Priority).HasConversion<string>();
                 mistake.Property(m => m.CreatedAt).IsRequired();
                 mistake.Property(m => m.IsSolved).HasDefaultValue(false);
+                mistake.Property(m => m.Consequences);
+                mistake.Property(m => m.WhatCanIDoBetter);
+                mistake.Property(m => m.WhatDidILearn);
+                mistake.Property(m => m.CanIFixIt);
+                mistake.Property(m => m.OnlyResponsible);
             });
 
             modelBuilder.Entity<Tip>(tip =>

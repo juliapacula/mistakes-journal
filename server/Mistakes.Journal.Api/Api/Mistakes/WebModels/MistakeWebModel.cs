@@ -15,6 +15,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         public IReadOnlyCollection<RepetitionWebModel> RepetitionDates { get; set; }
         public DateTime CreatedAt { get; set; }
         public SolvingState CurrentSolvingState { get; set; }
+        public string Consequences { get; set; }
+        public string WhatCanIDoBetter { get; set; }
+        public string WhatDidILearn { get; set; }
+        public string CanIFixIt { get; set; }
+        public string OnlyResponsible { get; set; }
     }
 
     public enum SolvingState

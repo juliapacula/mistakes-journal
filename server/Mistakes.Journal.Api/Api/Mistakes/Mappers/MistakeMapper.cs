@@ -19,6 +19,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 RepetitionDates = mistake.Repetitions.Select(r => r.ToWebModel()).ToList(),
                 CreatedAt = mistake.CreatedAt,
                 CurrentSolvingState = mistake.IsSolved ? SolvingState.Solved : mistake.CanBeSolved() ? SolvingState.CanBeSolved : SolvingState.InProgress,
+                Consequences = mistake.Consequences,
+                WhatDidILearn = mistake.WhatDidILearn,
+                WhatCanIDoBetter = mistake.WhatCanIDoBetter,
+                CanIFixIt = mistake.CanIFixIt,
+                OnlyResponsible = mistake.OnlyResponsible,
             };
         }
 
@@ -27,7 +32,12 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             return new Mistake(
                 newMistake.Name,
                 newMistake.Goal,
-                newMistake.Priority.GetValueOrDefault());
+                newMistake.Priority.GetValueOrDefault(),
+                newMistake.Consequences,
+                newMistake.WhatCanIDoBetter,
+                newMistake.WhatDidILearn,
+                newMistake.CanIFixIt,
+                newMistake.OnlyResponsible);
         }
 
         public static NewMistakeWebModel ToNewMistakeWebModel(this Mistake mistake)
@@ -38,7 +48,12 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Goal = mistake.Goal,
                 Priority = mistake.Priority,
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
-                Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList()
+                Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList(),
+                Consequences = mistake.Consequences,
+                WhatDidILearn = mistake.WhatDidILearn,
+                WhatCanIDoBetter = mistake.WhatCanIDoBetter,
+                CanIFixIt = mistake.CanIFixIt,
+                OnlyResponsible = mistake.OnlyResponsible,
             };
         }
     }

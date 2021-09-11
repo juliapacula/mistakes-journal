@@ -231,6 +231,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             existingMistake.Name = mistake.Name ?? existingMistake.Name;
             existingMistake.Goal = mistake.Goal ?? existingMistake.Goal;
             existingMistake.Priority = mistake.Priority ?? existingMistake.Priority;
+            existingMistake.Consequences = mistake.Consequences ?? existingMistake.Consequences;
+            existingMistake.WhatCanIDoBetter = mistake.WhatCanIDoBetter ?? existingMistake.WhatCanIDoBetter;
+            existingMistake.WhatDidILearn = mistake.WhatDidILearn ?? existingMistake.WhatDidILearn;
+            existingMistake.CanIFixIt = mistake.CanIFixIt ?? existingMistake.CanIFixIt;
+            existingMistake.OnlyResponsible = mistake.OnlyResponsible ?? existingMistake.OnlyResponsible;
 
             if (mistake.Tips != null)
             {
