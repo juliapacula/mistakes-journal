@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
@@ -9,24 +10,29 @@ using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 using Mistakes.Journal.Api.Api.Shared.Validators;
+using Mistakes.Journal.Api.Logic.Identity.Services;
 using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("/api/mistakes")]
     public class MistakesController : ControllerBase
     {
         #region Fields & Constructors
 
         private readonly MistakesJournalContext _dataContext;
+        private readonly IUserProvider _userProvider;
 
         public MistakesController(
-            MistakesJournalContext dataContext
+            MistakesJournalContext dataContext,
+            IUserProvider userProvider
         )
         {
             _dataContext = dataContext;
+            _userProvider = userProvider;
         }
 
         #endregion
@@ -39,7 +45,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var mistake = newMistake.ToEntity();
+            var mistake = newMistake.ToEntity(_userProvider.GetId());
 
             if (newMistake.Tips != null)
                 mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(t)));
@@ -112,6 +118,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] MistakesSortingParameters sortingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
+                .Where(m => m.UserId == _userProvider.GetId())
                 .Include(m => m.Tips)
                 .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
@@ -134,10 +141,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<MistakeWebModel>> MarkAsSolved(Guid mistakeId)
         {
             var mistake = await _dataContext.Set<Mistake>()
-                .Include(m => m.Tips)
-                .Include(m => m.Repetitions)
-                .Include(m => m.MistakeLabels)
-                    .ThenInclude(m => m.Label)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
             if (mistake is null)
@@ -166,6 +169,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] PagingParameters pagingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
+                .Where(m => m.UserId == _userProvider.GetId())
                 .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
                 .OrderByField(sortingParameters)
                 .Skip(pagingParameters.StartAt)
@@ -204,11 +208,16 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult> RemoveMistake(Guid mistakeId)
         {
             var mistake = await _dataContext.Set<Mistake>()
+                .Include(m => m.Tips)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
             if (mistake is null)
                 return NotFound();
 
+            foreach (var tip in mistake.Tips)
+            {
+                _dataContext.Set<Tip>().Remove(tip);
+            }
             _dataContext.Set<Mistake>().Remove(mistake);
             await _dataContext.SaveChangesAsync();
 

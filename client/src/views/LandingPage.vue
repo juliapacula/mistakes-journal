@@ -1,8 +1,16 @@
 <template>
   <div class="">
-    <router-link :to="{ name: 'MistakesPage' }">
-      {{ $t('LandingPage.Nav.GetStarted') }}
+    <router-link
+      v-if="userName"
+      :to="{ name: 'MistakesPage' }">
+      {{ $t('LandingPage.Nav.GetStarted', { name: userName }) }}
     </router-link>
+    <button
+      v-else
+      class="btn btn-primary"
+      @click="login()">
+      {{ $t('LandingPage.Nav.Login') }}
+    </button>
   </div>
 </template>
 
@@ -11,6 +19,29 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'LandingPage',
+  computed: {
+    userName(): string {
+      const { user } = this.$store.state.user;
+
+      if (user === null) {
+        return '';
+      }
+
+      return `${user.firstName}`;
+    },
+    loginPath(): string {
+      return this.$store.state.user.configuration.loginPath.substr(1);
+    },
+  },
+  methods: {
+    login(): void {
+      if (process.env.NODE_ENV === 'development') {
+        window.location.href = `http://localhost:5001/${this.loginPath}?returnUrl=${window.location.pathname}`;
+      } else {
+        window.location.href = `${this.loginPath}?returnUrl=${window.location.pathname}`;
+      }
+    },
+  },
 });
 </script>
 
