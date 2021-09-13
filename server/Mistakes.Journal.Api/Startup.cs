@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Mistakes.Journal.Api.Api.Shared;
 
 namespace Mistakes.Journal.Api
 {
@@ -13,10 +15,12 @@ namespace Mistakes.Journal.Api
     {
         private const string ClientApp = "client";
         private readonly IWebHostEnvironment _currentEnvironment;
+        private readonly IConfiguration _configuration;
 
-        public Startup(IWebHostEnvironment env)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             _currentEnvironment = env;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -26,42 +30,39 @@ namespace Mistakes.Journal.Api
                 .AddMvcOptions(o => o.AllowEmptyInputInBodyModelBinding = true);
 
             services.AddSpaStaticFiles(options => options.RootPath = ClientApp);
-            services.AddDbContext<MistakesJournalContext>(options => options
-                .UseNpgsql(ParseDatabaseUri(Environment.GetEnvironmentVariable("DATABASE_URL")))
-                .UseSnakeCaseNamingConvention());
+
+            var databaseUri = (_configuration.GetConnectionString("DATABASE_URL").IsNullOrEmpty()
+                    ? Environment.GetEnvironmentVariable("DATABASE_URL")
+                    : _configuration.GetConnectionString("DATABASE_URL"))
+                    .ToDatabaseUri(_currentEnvironment.IsDevelopment());
+            services.AddDatabase(databaseUri);
+
+            services.AddIdentityServices();
+            services.AddIdentityPages();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
+            app.UseStaticFiles();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             if (env.IsDevelopment()) return;
 
-            app.UseDefaultFiles(new DefaultFilesOptions {DefaultFileNames = new List<string> {"index.html"}});
+            app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } });
             app.UseSpaStaticFiles();
             app.UseSpa(spa => { spa.Options.SourcePath = ClientApp; });
-        }
-
-        private string ParseDatabaseUri(string databaseUrl)
-        {
-            Uri.TryCreate(databaseUrl, UriKind.Absolute, out var uri);
-
-            if (uri == null)
-            {
-                return string.Empty;
-            }
-
-            var userInfo = uri.UserInfo.Split(':');
-            var connectionString = $"Host={uri.Host};Database={uri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};";
-
-            if (_currentEnvironment.IsDevelopment())
-            {
-                return connectionString;
-            }
-            
-            return connectionString + "SslMode=Require;TrustServerCertificate=true;";
         }
     }
 }

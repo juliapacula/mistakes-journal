@@ -3,17 +3,5 @@
   "stack": "container",
   "addons": [
     "heroku-postgresql:hobby-dev"
-  ],
-  "environments": {
-    "review": {
-      "env": {
-        "STAGING_DATABASE_URL": {
-          "required": true
-        }
-      },
-      "scripts": {
-        "postdeploy": "pg_dump -0x $STAGING_DATABASE_URL | psql $DATABASE_URL"
-      }
-    }
-  }
+  ]
 }

@@ -5,7 +5,13 @@ import MainPage from '@/views/MainPage.vue';
 import MistakeSolutionPage from '@/views/MistakeSolutionPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
 import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import VueRouter, {
+  NavigationGuardNext,
+  Route,
+  RouteConfig,
+  RouteRecord,
+} from 'vue-router';
+import store from '../store';
 
 Vue.use(VueRouter);
 
@@ -18,6 +24,9 @@ const routes: Array<RouteConfig> = [
   {
     path: '/journal',
     component: MainPage,
+    meta: {
+      requiresLogin: true,
+    },
     children: [
       {
         path: '',
@@ -54,6 +63,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
+  const isLoggedIn = store.state.user.user !== null;
+  const loginUrl = store.state.user.configuration?.loginPath.substr(1) ?? null;
+  const requiresLogin = to.matched.some((record: RouteRecord) => record.meta.requiresLogin);
+
+  if (requiresLogin && !isLoggedIn && loginUrl) {
+    window.location.href = process.env.NODE_ENV === 'development' ? `http://localhost:5001/${loginUrl}` : loginUrl;
+  } else if (requiresLogin && !isLoggedIn) {
+    next('/');
+  } else {
+    next();
+  }
 });
 
 export default router;

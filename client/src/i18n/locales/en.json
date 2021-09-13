@@ -23,7 +23,8 @@
   },
   "LandingPage": {
     "Nav": {
-      "GetStarted": "Get Started"
+      "GetStarted": "Hello {name}! Nice to see you",
+      "Login": "Log in"
     }
   },
   "Mistakes": {

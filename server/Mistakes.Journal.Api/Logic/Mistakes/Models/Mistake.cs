@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Mistakes.Journal.Api.Logic.Identity.Models;
 
 namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 {
     public class Mistake
     {
         public Guid Id { get; }
+        public Guid UserId { get; set; }
+        public MistakesJournalUser User { get; set; }
         public string Name { get; set; }
         public string Goal { get; set; }
         public MistakePriority Priority { get; set; }
@@ -19,10 +22,13 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         {
         }
 
-        public Mistake(string name,
+        public Mistake(
+            Guid createdBy,
+            string name,
             string goal,
             MistakePriority priority)
         {
+            UserId = createdBy;
             Name = name;
             Goal = goal;
             Priority = priority;
