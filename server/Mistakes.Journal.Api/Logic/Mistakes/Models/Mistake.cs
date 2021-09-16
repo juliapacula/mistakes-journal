@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Mistakes.Journal.Api.Api.Shared;
 
 namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 {
@@ -40,11 +38,6 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Low = 1,
             Medium = 2,
             High = 4,
-        }
-
-        public bool CanBeSolved()
-        {
-            return (DateTime.Now - CreatedAt).TotalDays >= Constants.DaysToSolveMistake;
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Mistakes.Journal.Api.Api.Shared
             return sortingParameters.Field switch
             {
                 _ => OrderByCreationDate(collection, sortingParameters.Desc),
-
                 // more options can be added
             };
         }
