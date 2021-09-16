@@ -4,6 +4,8 @@ import { Mistake } from '@/model/mistake';
 import {
   get,
   post,
+  put,
+  remove,
 } from '@/utils/api.utils';
 
 export class MistakesApiMethods {
@@ -40,6 +42,22 @@ export class MistakesApiMethods {
       name: m.name,
       priority: m.priority,
       tips: m.tips,
+    };
+  }
+
+  public static async delete(mistakeId: string): Promise<void> {
+    await remove(`/api/mistakes/${mistakeId}`);
+  }
+
+  public static async updateMistake(mistake: MistakeApiModel): Promise<Mistake> {
+    const result: MistakeApiModel = await put(`/api/mistakes/${mistake.id}`, mistake);
+
+    return {
+      id: result.id,
+      goal: result.goal,
+      name: result.name,
+      priority: result.priority,
+      tips: result.tips,
     };
   }
 }

@@ -1,0 +1,39 @@
+@use '../mistakes-journal';
+
+.dropdown-menu {
+  padding: 0;
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  li {
+    &:first-child {
+      .dropdown-item {
+        @include mistakes-journal.border-top-radius(mistakes-journal.$dropdown-inner-border-radius);
+      }
+    }
+
+    &:last-child {
+      .dropdown-item {
+        @include mistakes-journal.border-bottom-radius(mistakes-journal.$dropdown-inner-border-radius);
+      }
+    }
+  }
+}
+
+.dropdown-toggle-no-caret {
+  &::after {
+    display: none;
+  }
+}
+
+.dropdown-item {
+  &:first-child {
+    @include mistakes-journal.border-top-radius(0);
+  }
+
+  &:last-child {
+    @include mistakes-journal.border-bottom-radius(0);
+  }
+}

@@ -7,12 +7,15 @@
       <div
         v-for="mistake in $store.state.mistakes.mistakes"
         :key="mistake.id">
-        <div class="mj-mistake-item-title">
-          <router-link
-            :to="'/journal/mistakes/' + mistake.id"
-            class="mj-mistake-item-link">
-            {{ mistake.name }}
-          </router-link>
+        <div class="mj-mistake-first-line">
+          <div class="mj-mistake-item-title">
+            <router-link
+              :to="'/journal/mistakes/' + mistake.id"
+              class="mj-mistake-item-link">
+              {{ mistake.name }}
+            </router-link>
+          </div>
+          <mistake-options-menu :mistake-id="mistake.id" />
         </div>
         <mistake-priority :priority="mistake.priority" />
       </div>
@@ -22,6 +25,7 @@
 
 <script lang="ts">
 import AddNewMistakeButton from '@/components/AddNewMistakeButton.vue';
+import MistakeOptionsMenu from '@/components/MistakeOptionsMenu.vue';
 import MistakePriority from '@/components/MistakePriority.vue';
 import { MistakesActions } from '@/store/mistakes-module/actions';
 import Vue from 'vue';
@@ -31,6 +35,7 @@ export default Vue.extend({
   components: {
     AddNewMistakeButton,
     MistakePriority,
+    MistakeOptionsMenu,
   },
   async beforeCreate(): Promise<void> {
     await this.$store.dispatch(MistakesActions.GetAll);
@@ -57,6 +62,7 @@ export default Vue.extend({
   }
 
   &-title {
+    flex: 1;
     padding: 0.25rem 1rem;
     border-radius: 0.125rem;
 
@@ -64,6 +70,12 @@ export default Vue.extend({
       background-color: mistakes-journal.color('secondary', '50');
     }
   }
+
+}
+
+.mj-mistake-first-line {
+  display: flex;
+  align-items: center;
 }
 
 a {
