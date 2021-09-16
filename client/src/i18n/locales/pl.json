@@ -57,5 +57,11 @@
   "FormErrors": {
     "Required": "To pole jest wymagane.",
     "MaxLength": "Ilość znaków nie powinna być większa niż {max} znaków."
+  },
+  "MistakeOptions": {
+    "Label": "Opcje błędu",
+    "Edit": "Edytuj",
+    "Delete": "Usuń",
+    "Update": "Aktualizuj"
   }
 }

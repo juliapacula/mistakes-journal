@@ -86,16 +86,27 @@
             @click="cancel()">
             {{ $t('NewMistake.CancelButton') }}
           </button>
-          <button
-            :disabled="$v.$invalid"
-            class="btn btn-primary with-icon"
-            type="button"
-            @click="save()">
-            <mj-icon
-              class="btn-icon"
-              name="add_circle" />
-            <span class="btn-text">{{ $t('NewMistake.AddButton') }}</span>
-          </button>
+          <span v-if="mistakeEdit === null">
+            <button
+              :disabled="$v.$invalid"
+              class="btn btn-primary with-icon"
+              type="button"
+              @click="save()">
+              <mj-icon
+                class="btn-icon"
+                name="add_circle" />
+              <span class="btn-text">{{ $t('NewMistake.AddButton') }}</span>
+            </button>
+          </span>
+          <span v-else>
+            <button
+              :disabled="$v.$invalid"
+              class="btn btn-primary with-icon"
+              type="button"
+              @click="update()">
+              <span class="btn-text">{{ $t('MistakeOptions.Update') }}</span>
+            </button>
+          </span>
         </div>
       </div>
     </div>
@@ -110,10 +121,12 @@ import { getEnumValues } from '@/utils/object.utils';
 import { maxShortTextLength } from '@/utils/validators.utils';
 import Vue from 'vue';
 import { required } from 'vuelidate/lib/validators';
+import { Mistake } from '@/model/mistake';
+import { MistakesMutations } from '@/store/mistakes-module/mutations';
 
 export default Vue.extend({
-  name: 'NewMistake',
-  data(): { mistake: NewMistake, availablePriorities: string[] } {
+  name: 'MistakeForm',
+  data(): { mistake: NewMistake, availablePriorities: string[], mistakeEdit: Mistake | null } {
     return {
       mistake: {
         name: '',
@@ -122,7 +135,23 @@ export default Vue.extend({
         priority: MistakePriority.Medium,
       },
       availablePriorities: getEnumValues(MistakePriority),
+      mistakeEdit: null,
     };
+  },
+  watch: {
+    $route: 'fetchMistake',
+  },
+  async created(): Promise<void> {
+    await this.fetchMistake();
+    if (this.mistakeEdit !== null) {
+      this.mistake.name = this.mistakeEdit.name;
+      this.mistake.goal = !this.mistakeEdit.goal ? '' : this.mistakeEdit.goal;
+      this.mistake.tips = !this.mistakeEdit.tips.length ? [''] : this.mistakeEdit.tips;
+      this.mistake.priority = this.mistakeEdit.priority;
+    }
+  },
+  async destroyed(): Promise<void> {
+    await this.$store.commit(MistakesMutations.SetMistake, null);
   },
   validations: {
     mistake: {
@@ -144,6 +173,12 @@ export default Vue.extend({
     },
   },
   methods: {
+    async fetchMistake(): Promise<void> {
+      if (this.$route.params.id) {
+        await this.$store.dispatch(MistakesActions.Get, this.$route.params.id);
+        this.mistakeEdit = this.$store.state.mistakes.mistake;
+      }
+    },
     checkIfShouldAddATip(id: string, { target }: InputEvent): void {
       const inputValue = (target as HTMLInputElement).value;
       const index = parseInt(id, 10);
@@ -159,6 +194,10 @@ export default Vue.extend({
     },
     async save(): Promise<void> {
       await this.$store.dispatch(MistakesActions.AddMistake, this.mistake);
+      await this.$router.push('/journal/mistakes');
+    },
+    async update(): Promise<void> {
+      await this.$store.dispatch(MistakesActions.UpdateMistake, { mistakeId: this.mistakeEdit.id, mistake: this.mistake });
       await this.$router.push('/journal/mistakes');
     },
   },

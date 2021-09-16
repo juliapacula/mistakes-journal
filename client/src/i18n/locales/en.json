@@ -57,5 +57,11 @@
   "FormErrors": {
     "Required": "This field is required.",
     "MaxLength": "Length shouldn't be longer than {max} characters."
+  },
+  "MistakeOptions": {
+    "Label": "Mistake options",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Update": "Update"
   }
 }
