@@ -17,28 +17,45 @@
           </div>
           <mistake-options-menu :mistake-id="mistake.id" />
         </div>
-        <mistake-priority :priority="mistake.priority" />
+        <progress-bar :past-days="countMistakeDays(mistake)" />
+        <div class="mj-priority-repetition">
+          <mistake-priority :priority="mistake.priority" />
+          <repetition-button
+            :mistake-id="mistake.id"
+            :repetition-counter="mistake.repetitionDates.length" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
 import MistakeOptionsMenu from '@/components/mistakes/MistakeOptionsMenu.vue';
 import MistakePriority from '@/components/mistakes/MistakePriority.vue';
+import ProgressBar from '@/components/mistakes/ProgressBar.vue';
+import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
+import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import { Mistake } from '@/model/mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
+import moment from 'moment';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'MistakesList',
   components: {
+    ProgressBar,
+    RepetitionButton,
     AddNewMistakeButton,
     MistakePriority,
     MistakeOptionsMenu,
   },
   async beforeCreate(): Promise<void> {
     await this.$store.dispatch(MistakesActions.GetAll);
+  },
+  methods: {
+    countMistakeDays(mistake: Mistake): Number {
+      return moment().diff(moment.max(mistake.repetitionDates), 'days');
+    },
   },
 });
 </script>
@@ -86,6 +103,13 @@ a {
   &:active {
     text-decoration: none;
   }
+}
+
+.mj-priority-repetition {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
 }
 
 </style>

@@ -36,7 +36,8 @@
   },
   "Mistakes": {
     "Title": "Mistakes",
-    "AddButton": "Add mistake"
+    "AddButton": "Add mistake",
+    "RepetitionButton": "Repetition"
   },
   "Solutions": {
     "Title": "Solution",

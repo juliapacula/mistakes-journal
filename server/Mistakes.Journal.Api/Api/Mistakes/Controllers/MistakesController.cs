@@ -85,8 +85,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             return await AddMistake(newMistake);
         }
 
-        [HttpPost("{mistakeId:guid}/add-repetiton")]
-        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [FromBody, MJIncorrectRepetitionDate(1)] DateTime? occuredAt)
+        [HttpPost("{mistakeId:guid}/add-repetition")]
+        public async Task<ActionResult<MistakeWebModel>> AddRepetitionResetCounter(Guid mistakeId, [FromBody, MJIncorrectRepetitionDate(1)] DateTime? occurredAt)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -104,7 +104,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake.IsSolved)
                 return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
 
-            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.UtcNow));
+            mistake.Repetitions.Add(new Repetition(occurredAt ?? DateTime.UtcNow));
 
             await _dataContext.SaveChangesAsync();
 

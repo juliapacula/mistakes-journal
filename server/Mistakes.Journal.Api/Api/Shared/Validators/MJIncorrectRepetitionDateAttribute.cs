@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Mistakes.Journal.Api.Logic.Shared.Extensions;
 
 namespace Mistakes.Journal.Api.Api.Shared.Validators
 {
@@ -17,10 +18,10 @@ namespace Mistakes.Journal.Api.Api.Shared.Validators
             if (!(value is DateTime dateTime))
                 return ValidationResult.Success;
 
-            if (dateTime < DateTime.UtcNow - TimeSpan.FromDays(days))
+            if (dateTime.ToSeconds() < (DateTime.UtcNow - TimeSpan.FromDays(days)).ToSeconds())
                 return new ValidationResult(ErrorMessageType.TooOldRepetition.ToString());
             
-            if (dateTime > DateTime.UtcNow + TimeSpan.FromMinutes(5))
+            if (dateTime.ToSeconds().IsAfter(DateTime.UtcNow.ToSeconds()))
                 return new ValidationResult(ErrorMessageType.DateInFuture.ToString());
 
             return ValidationResult.Success;

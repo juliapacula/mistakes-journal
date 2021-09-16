@@ -1,10 +1,12 @@
 import { MistakesApiMethods } from '@/api/methods/mistakes.api-methods';
-import { MistakeApiModel } from '@/api/models/mistake.api-model';
 import { NewMistakeApiModel } from '@/api/models/new-mistake.api-model';
+import { RepetitionApiModel } from '@/api/models/repetition.api-model';
 import { NewMistake } from '@/model/new-mistake';
 import { MistakesMutations } from '@/store/mistakes-module/mutations';
 import { MistakesState } from '@/store/mistakes-module/state';
 import { State } from '@/store/state';
+import { convertToTimestamp } from '@/utils/date.utils';
+import { Moment } from 'moment';
 import {
   ActionContext,
   ActionTree,
@@ -18,6 +20,7 @@ export enum MistakesActions {
   Get = 'mistakes/Get',
   Delete = 'mistakes/Delete',
   UpdateMistake = 'mistakes/UpdateMistake',
+  MistakeRepetition = 'mistakes/AddRepetitionResetCounter',
 }
 
 export const actions: ActionTree<MistakesState, State> = {
@@ -55,16 +58,29 @@ export const actions: ActionTree<MistakesState, State> = {
     { commit }: Context,
     { mistakeId, mistake }: { mistakeId: string, mistake: NewMistake },
   ): Promise<void> {
-    const payload: MistakeApiModel = {
-      id: mistakeId,
+    const payload: NewMistakeApiModel = {
       name: mistake.name,
       goal: !mistake.goal ? null : mistake.goal,
       tips: mistake.tips.filter((t: string) => !!t),
       priority: mistake.priority,
     };
-
-    const updatedMistake = await MistakesApiMethods.updateMistake(payload);
+    const updatedMistake = await MistakesApiMethods.updateMistake(mistakeId, payload);
 
     commit(MistakesMutations.SetMistake, updatedMistake);
+  },
+
+  async [MistakesActions.MistakeRepetition](
+    { commit, dispatch }: Context,
+    { mistakeId, occurredAt }: { mistakeId: string, occurredAt?: Moment },
+  ): Promise<void> {
+    const payload: RepetitionApiModel = {
+      id: mistakeId,
+      occurredAt: occurredAt ? convertToTimestamp(occurredAt) : null,
+    };
+
+    const updatedMistake = await MistakesApiMethods.mistakeRepetition(payload);
+
+    commit(MistakesMutations.SetMistake, updatedMistake);
+    await dispatch(MistakesActions.GetAll);
   },
 };
