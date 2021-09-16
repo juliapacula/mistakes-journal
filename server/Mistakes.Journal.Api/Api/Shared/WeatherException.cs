@@ -2,11 +2,11 @@
 
 namespace Mistakes.Journal.Api.Api.Shared
 {
-    public class MJException : Exception
+    public class WeatherException : Exception
     {
         public ErrorMessageType ErrorMessageType { get; }
 
-        public MJException(ErrorMessageType errorMessageType, string msg = null)
+        public WeatherException(ErrorMessageType errorMessageType, string msg = null)
             : base(msg)
         {
             ErrorMessageType = errorMessageType;

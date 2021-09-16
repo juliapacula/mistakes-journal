@@ -1,6 +1,6 @@
 ﻿namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
 {
-    public class SolvedParameters : PagingParameters
+    public class SolvedParameters
     {
         public bool IncludeSolved { get; set; } = false;
 

@@ -1,6 +1,7 @@
 using System.Linq;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
+using Mistakes.Journal.Api.Logic.Mistakes.Shared;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
 {

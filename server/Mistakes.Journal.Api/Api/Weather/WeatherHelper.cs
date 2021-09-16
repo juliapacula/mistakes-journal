@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Newtonsoft.Json.Linq;
 
-namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
+namespace Mistakes.Journal.Api.Api.Weather
 {
-    public static class WeatherMapper
+    public static class WeatherHelper
     {
         // https://openweathermap.org/weather-conditions
         private static readonly long[] GoodWeatherCodes = { 600, 800, 801 };
@@ -27,41 +26,41 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Weather = GetWeatherType(weatherCode),
                 Temperature = GetTemperature(temperature),
                 TimeOfDay = GetTimeOfDay(sunrise, sunset, noon),
-                Place = place,
+                City = place,
             };
         }
 
-        private static TimeOfDayType GetTimeOfDay(DateTime sunrise, DateTime sunset, DateTime noon)
+        private static WeatherWebModel.TimeOfDayType GetTimeOfDay(DateTime sunrise, DateTime sunset, DateTime noon)
         {
             var now = DateTime.Now;
 
             if (now < sunrise || now > sunset)
-                return TimeOfDayType.Night;
+                return WeatherWebModel.TimeOfDayType.Night;
 
-            return now < noon ? TimeOfDayType.Morning : TimeOfDayType.Day;
+            return now < noon ? WeatherWebModel.TimeOfDayType.Morning : WeatherWebModel.TimeOfDayType.Day;
         }
 
-        private static TemperatureRange GetTemperature(float temperature)
+        private static WeatherWebModel.TemperatureRange GetTemperature(float temperature)
         {
             return temperature switch
             {
-                float n when n < 0 => TemperatureRange.Cold,
-                float n when n < 10 => TemperatureRange.Chilly,
-                float n when n < 22 => TemperatureRange.Medium,
-                float n when n < 34 => TemperatureRange.Hot,
-                _ => TemperatureRange.Tropical,
+                float n when n < 0 => WeatherWebModel.TemperatureRange.Cold,
+                float n when n < 10 => WeatherWebModel.TemperatureRange.Chilly,
+                float n when n < 22 => WeatherWebModel.TemperatureRange.Medium,
+                float n when n < 34 => WeatherWebModel.TemperatureRange.Hot,
+                _ => WeatherWebModel.TemperatureRange.Tropical,
             };
         }
 
-        private static WeatherType GetWeatherType(long weatherCode)
+        private static WeatherWebModel.WeatherType GetWeatherType(long weatherCode)
         {
             if (GoodWeatherCodes.Contains(weatherCode))
-                return WeatherType.Clear;
+                return WeatherWebModel.WeatherType.Clear;
 
             if (weatherCode >= 500 && weatherCode < 600)
-                return WeatherType.Rain;
+                return WeatherWebModel.WeatherType.Rain;
 
-            return WeatherType.Other;
+            return WeatherWebModel.WeatherType.Other;
         }
     }
 }
