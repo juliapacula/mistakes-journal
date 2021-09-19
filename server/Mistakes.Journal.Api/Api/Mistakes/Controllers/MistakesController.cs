@@ -9,6 +9,7 @@ using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 using Mistakes.Journal.Api.Api.Shared.Validators;
+using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
@@ -105,7 +106,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult<MistakeWebModel>> SearchMistakes(MistakeSearchWebModel searchModel, [FromQuery] MistakesSortingParameters parameters)
+        public async Task<ActionResult<MistakeWebModel>> SearchMistakes(
+            MistakeSearchWebModel searchModel,
+            [FromQuery] SolvedParameters solvedParameters,
+            [FromQuery] MistakesSortingParameters sortingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
@@ -113,12 +117,12 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)
                 .WhereIf(searchModel.Name.IsPresent(), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .Where(m => m.IsSolved && parameters.IncludeSolved || !m.IsSolved && parameters.IncludeUnsolved)
+                .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
                 .WhereIf(searchModel.Goal.IsPresent(), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
                 .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
                 .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Any(ml => searchModel.Labels.Contains(ml.LabelId)))
                 .AsQueryable()
-                .OrderByField(parameters)
+                .OrderByField(sortingParameters)
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
                 .ToListAsync();
@@ -156,13 +160,16 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #region GET
 
         [HttpGet]
-        public async Task<ActionResult<MistakeWebModel>> GetMistakes([FromQuery] MistakesSortingParameters parameters)
+        public async Task<ActionResult<MistakeWebModel>> GetMistakes(
+            [FromQuery] SolvedParameters solvedParameters,
+            [FromQuery] MistakesSortingParameters sortingParameters,
+            [FromQuery] PagingParameters pagingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.IsSolved && parameters.IncludeSolved || !m.IsSolved && parameters.IncludeUnsolved)
-                .OrderByField(parameters)
-                .Skip(parameters.StartAt)
-                .Take(parameters.MaxResults)
+                .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
+                .OrderByField(sortingParameters)
+                .Skip(pagingParameters.StartAt)
+                .Take(pagingParameters.MaxResults)
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)

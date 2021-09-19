@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using Mistakes.Journal.Api.Api.Shared;
+using System.Linq;
 
 namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 {
@@ -57,11 +57,6 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Low = 1,
             Medium = 2,
             High = 4,
-        }
-
-        public bool CanBeSolved()
-        {
-            return (DateTime.Now - CreatedAt).TotalDays >= Constants.DaysToSolveMistake;
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
+﻿using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
+
+namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
 {
-    public class MistakesSortingParameters : SolvedParameters
+    public class MistakesSortingParameters
     {
         public MistakeSortingField Field { get; set; } = MistakeSortingField.CreatedAt;
 
