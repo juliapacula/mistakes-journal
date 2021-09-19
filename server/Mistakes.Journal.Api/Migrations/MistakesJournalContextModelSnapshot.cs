@@ -49,14 +49,6 @@ namespace Mistakes.Journal.Api.Migrations
                         .HasColumnName("id")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("CanIFixIt")
-                        .HasColumnName("can_i_fix_it")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Consequences")
-                        .HasColumnName("consequences")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnName("created_at")
                         .HasColumnType("timestamp without time zone");
@@ -65,32 +57,14 @@ namespace Mistakes.Journal.Api.Migrations
                         .HasColumnName("goal")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsSolved")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("is_solved")
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("name")
                         .HasColumnType("text");
 
-                    b.Property<string>("OnlyResponsible")
-                        .HasColumnName("only_responsible")
-                        .HasColumnType("text");
-
                     b.Property<string>("Priority")
                         .IsRequired()
                         .HasColumnName("priority")
-                        .HasColumnType("text");
-
-                    b.Property<string>("WhatCanIDoBetter")
-                        .HasColumnName("what_can_i_do_better")
-                        .HasColumnType("text");
-
-                    b.Property<string>("WhatDidILearn")
-                        .HasColumnName("what_did_i_learn")
                         .HasColumnType("text");
 
                     b.HasKey("Id")

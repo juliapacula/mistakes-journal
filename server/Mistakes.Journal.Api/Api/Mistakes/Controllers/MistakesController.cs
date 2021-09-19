@@ -223,6 +223,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(ml => ml.Label)
                 .Include(m => m.Repetitions)
+                .Include(m => m.AdditonalQuestions)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
             if (existingMistake is null)
@@ -231,11 +232,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             existingMistake.Name = mistake.Name ?? existingMistake.Name;
             existingMistake.Goal = mistake.Goal ?? existingMistake.Goal;
             existingMistake.Priority = mistake.Priority ?? existingMistake.Priority;
-            existingMistake.Consequences = mistake.Consequences ?? existingMistake.Consequences;
-            existingMistake.WhatCanIDoBetter = mistake.WhatCanIDoBetter ?? existingMistake.WhatCanIDoBetter;
-            existingMistake.WhatDidILearn = mistake.WhatDidILearn ?? existingMistake.WhatDidILearn;
-            existingMistake.CanIFixIt = mistake.CanIFixIt ?? existingMistake.CanIFixIt;
-            existingMistake.OnlyResponsible = mistake.OnlyResponsible ?? existingMistake.OnlyResponsible;
+            existingMistake.AdditonalQuestions.Consequences = mistake.Consequences ?? existingMistake.AdditonalQuestions.Consequences;
+            existingMistake.AdditonalQuestions.WhatCanIDoBetter = mistake.WhatCanIDoBetter ?? existingMistake.AdditonalQuestions.WhatCanIDoBetter;
+            existingMistake.AdditonalQuestions.WhatDidILearn = mistake.WhatDidILearn ?? existingMistake.AdditonalQuestions.WhatDidILearn;
+            existingMistake.AdditonalQuestions.CanIFixIt = mistake.CanIFixIt ?? existingMistake.AdditonalQuestions.CanIFixIt;
+            existingMistake.AdditonalQuestions.OnlyResponsible = mistake.OnlyResponsible ?? existingMistake.AdditonalQuestions.OnlyResponsible;
 
             if (mistake.Tips != null)
             {
