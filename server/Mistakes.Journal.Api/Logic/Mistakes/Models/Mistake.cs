@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System.Linq;
 
 namespace Mistakes.Journal.Api.Logic.Mistakes.Models
 {
@@ -16,7 +14,6 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public ICollection<Tip> Tips { get; set; }
         public ICollection<MistakeLabel> MistakeLabels { get; set; }
         public bool IsSolved { get; set; }
-        public Guid AdditonalQuestionsId { get; set; }
         public AdditionalQuestions AdditonalQuestions { get; set; }
 
         private Mistake()

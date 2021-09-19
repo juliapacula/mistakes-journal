@@ -20,11 +20,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 RepetitionDates = mistake.Repetitions.Select(r => r.ToWebModel()).ToList(),
                 CreatedAt = mistake.CreatedAt,
                 CurrentSolvingState = mistake.IsSolved ? SolvingState.Solved : mistake.CanBeSolved() ? SolvingState.CanBeSolved : SolvingState.InProgress,
-                Consequences = mistake.AdditonalQuestions.Consequences,
-                WhatDidILearn = mistake.AdditonalQuestions.WhatDidILearn,
-                WhatCanIDoBetter = mistake.AdditonalQuestions.WhatCanIDoBetter,
-                CanIFixIt = mistake.AdditonalQuestions.CanIFixIt,
-                OnlyResponsible = mistake.AdditonalQuestions.OnlyResponsible,
+                AdditionalQuestions = mistake.AdditonalQuestions?.ToWebModel(),
             };
         }
 
@@ -50,11 +46,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 Priority = mistake.Priority,
                 Tips = mistake.Tips.Select(t => t.Content).ToList(),
                 Labels = mistake.MistakeLabels.Select(ml => ml.LabelId).ToList(),
-                Consequences = mistake.AdditonalQuestions.Consequences,
-                WhatDidILearn = mistake.AdditonalQuestions.WhatDidILearn,
-                WhatCanIDoBetter = mistake.AdditonalQuestions.WhatCanIDoBetter,
-                CanIFixIt = mistake.AdditonalQuestions.CanIFixIt,
-                OnlyResponsible = mistake.AdditonalQuestions.OnlyResponsible,
+                Consequences = mistake.AdditonalQuestions?.Consequences,
+                WhatDidILearn = mistake.AdditonalQuestions?.WhatDidILearn,
+                WhatCanIDoBetter = mistake.AdditonalQuestions?.WhatCanIDoBetter,
+                CanIFixIt = mistake.AdditonalQuestions?.CanIFixIt,
+                OnlyResponsible = mistake.AdditonalQuestions?.OnlyResponsible,
             };
         }
     }

@@ -239,6 +239,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             existingMistake.Name = mistake.Name ?? existingMistake.Name;
             existingMistake.Goal = mistake.Goal ?? existingMistake.Goal;
             existingMistake.Priority = mistake.Priority ?? existingMistake.Priority;
+
+            existingMistake.AdditonalQuestions ??= new AdditionalQuestions();
             existingMistake.AdditonalQuestions.Consequences = mistake.Consequences ?? existingMistake.AdditonalQuestions.Consequences;
             existingMistake.AdditonalQuestions.WhatCanIDoBetter = mistake.WhatCanIDoBetter ?? existingMistake.AdditonalQuestions.WhatCanIDoBetter;
             existingMistake.AdditonalQuestions.WhatDidILearn = mistake.WhatDidILearn ?? existingMistake.AdditonalQuestions.WhatDidILearn;
