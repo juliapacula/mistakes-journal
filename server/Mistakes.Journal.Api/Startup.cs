@@ -27,7 +27,7 @@ namespace Mistakes.Journal.Api
 
             services.AddSpaStaticFiles(options => options.RootPath = ClientApp);
             services.AddDbContext<MistakesJournalContext>(options => options
-                .UseNpgsql(ParseDatabaseUri("postgres://postgres:mistakeSJournal@localhost/mistakes_journal"))
+                .UseNpgsql(ParseDatabaseUri(Environment.GetEnvironmentVariable("DATABASE_URL")))
                 .UseSnakeCaseNamingConvention());
         }
 
