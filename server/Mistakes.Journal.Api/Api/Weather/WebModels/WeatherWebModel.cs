@@ -1,12 +1,10 @@
-namespace Mistakes.Journal.Api.Api.Weather
+namespace Mistakes.Journal.Api.Api.Weather.WebModels
 {
     public class WeatherWebModel
     {
         public WeatherType Weather { get; set; }
 
         public TemperatureRange Temperature { get; set; }
-
-        public TimeOfDayType TimeOfDay { get; set; }
 
         public string City { get; set; }
 
@@ -17,13 +15,6 @@ namespace Mistakes.Journal.Api.Api.Weather
             Medium = 2,
             Hot = 3,
             Tropical = 4,
-        }
-
-        public enum TimeOfDayType
-        {
-            Morning = 0,
-            Day = 1,
-            Night = 2,
         }
 
         public enum WeatherType

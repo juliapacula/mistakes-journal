@@ -5,13 +5,15 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mistakes.Journal.Api.Api.Shared;
+using Mistakes.Journal.Api.Api.Weather.Mapper;
+using Mistakes.Journal.Api.Api.Weather.WebModels;
 using Newtonsoft.Json.Linq;
 
-namespace Mistakes.Journal.Api.Api.Weather
+namespace Mistakes.Journal.Api.Api.Weather.Controller
 {
     [ApiController]
-    [Route("/api/weather")]
-    public class WeatherController : ControllerBase
+    [Route("/api/user-location-data")]
+    public class UserLocationDataController : ControllerBase
     {
         private readonly Uri _owmApiUri = new Uri("http://api.openweathermap.org");
         private readonly Uri _ssApiUri = new Uri("https://api.sunrise-sunset.org");
@@ -19,7 +21,7 @@ namespace Mistakes.Journal.Api.Api.Weather
         private readonly string _owKey = Environment.GetEnvironmentVariable("OPEN_WEATHER_API_KEY");
 
         [HttpGet]
-        public async Task<ActionResult<WeatherWebModel>> GetWeatherInfo(string lat, string lon)
+        public async Task<ActionResult<WeatherWebModel>> GetUserLocationData(string lat, string lon)
         {
             string weatherJson, sunsetJson;
 
@@ -33,7 +35,14 @@ namespace Mistakes.Journal.Api.Api.Weather
                 return Problem(type: e.ErrorMessageType.ToString(), detail: e.Message);
             }
 
-            return Ok(WeatherHelper.ToWeatherWebModel(weatherJson, sunsetJson));
+            var weatherWebModel = weatherJson.ToWeatherWebModel();
+            var timeOfDayWebModel = sunsetJson.ToTimeOfDayWebModel();
+
+            return Ok(new UserLocationDataWebModel
+            {
+                TimeOfDayWebModel = timeOfDayWebModel,
+                WeatherWebModel = weatherWebModel
+            });
         }
 
         private async Task<string> GetWeather(string lat, string lon)

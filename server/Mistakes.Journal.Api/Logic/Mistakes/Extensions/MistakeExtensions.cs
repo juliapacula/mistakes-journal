@@ -2,7 +2,7 @@
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
-namespace Mistakes.Journal.Api.Logic.Mistakes.Shared
+namespace Mistakes.Journal.Api.Logic.Mistakes.Extensions
 {
     public static class MistakeExtensions
     {
