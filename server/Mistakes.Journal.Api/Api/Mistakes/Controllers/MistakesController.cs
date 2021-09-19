@@ -9,8 +9,8 @@ using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
 using Mistakes.Journal.Api.Api.Shared.Validators;
+using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
-using Mistakes.Journal.Api.Logic.Mistakes.Shared;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 {

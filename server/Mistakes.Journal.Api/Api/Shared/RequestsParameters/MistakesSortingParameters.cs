@@ -1,4 +1,6 @@
-﻿namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
+﻿using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
+
+namespace Mistakes.Journal.Api.Api.Shared.RequestsParameters
 {
     public class MistakesSortingParameters
     {
