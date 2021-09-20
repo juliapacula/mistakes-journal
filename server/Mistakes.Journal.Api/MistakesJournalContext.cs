@@ -38,6 +38,7 @@ namespace Mistakes.Journal.Api
                 tip.HasOne(t => t.Mistake)
                     .WithMany(m => m.Tips)
                     .HasForeignKey(t => t.MistakeId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired(false);
             });
 
@@ -68,6 +69,7 @@ namespace Mistakes.Journal.Api
                 r.HasOne(t => t.Mistake)
                     .WithMany(m => m.Repetitions)
                     .HasForeignKey(t => t.MistakeId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             });
         }

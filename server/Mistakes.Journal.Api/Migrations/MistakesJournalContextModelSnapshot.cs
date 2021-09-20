@@ -2,8 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Mistakes.Journal.Api;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Mistakes.Journal.Api.Migrations
