@@ -23,7 +23,8 @@
   },
   "LandingPage": {
     "Nav": {
-      "GetStarted": "Przejdź do aplikacji"
+      "GetStarted": "Witaj {name}! Miło Cię widzieć",
+      "Login": "Zaloguj się"
     }
   },
   "Mistakes": {

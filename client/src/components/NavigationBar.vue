@@ -23,6 +23,7 @@
     <div class="mj-nav-actions">
       <add-new-mistake-button class="mj-new" />
       <language-change-button />
+      <logout-button />
     </div>
   </div>
 </template>
@@ -30,13 +31,14 @@
 <script lang="ts">
 import AddNewMistakeButton from '@/components/AddNewMistakeButton.vue';
 import LanguageChangeButton from '@/components/LanguageChangeButton.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'NavigationBar',
-  components: { AddNewMistakeButton, LanguageChangeButton },
+  components: { LogoutButton, AddNewMistakeButton, LanguageChangeButton },
   computed: {
     isSidebarVisible(): boolean {
       return this.$store.state.uiState.isSidebarVisible;

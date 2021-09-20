@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
@@ -13,6 +14,7 @@ using Mistakes.Journal.Api.Logic.Mistakes.Models;
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("/api/labels")]
     public class LabelsController : ControllerBase
     {

@@ -3,13 +3,11 @@
   "profiles": {
     "Mistakes.Journal.Api": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "http://localhost:8080",
       "environmentVariables": {
-        "DATABASE_URL": "postgres://postgres:mistakeSJournal@localhost/mistakes_journal",
         "DOTNET_ENVIRONMENT": "Development",
         "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "true",
-        "ASPNETCORE_ENVIRONMENT": "Development",
         "OPEN_WEATHER_API_KEY": "0306bc59a1462da854247c51a797ad48"
       }
     }

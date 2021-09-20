@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Extensions;
@@ -24,9 +25,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             };
         }
 
-        public static Mistake ToEntity(this NewMistakeWebModel newMistake)
+        public static Mistake ToEntity(this NewMistakeWebModel newMistake, Guid userId)
         {
             return new Mistake(
+                userId,
                 newMistake.Name,
                 newMistake.Goal,
                 newMistake.Priority.GetValueOrDefault(),
