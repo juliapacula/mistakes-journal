@@ -5,15 +5,15 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
 {
     public static class AdditionalQuestionsMapper
     {
-        public static AdditionalQuestionsWebModel ToWebModel(this AdditionalQuestions additionalQuestions)
+        public static MistakeWebModel.MistakeAdditionalQuestionsWebModel ToWebModel(this Mistake.MistakeAdditionalQuestions mistakeAdditionalQuestions)
         {
-            return additionalQuestions is null ? null : new AdditionalQuestionsWebModel
+            return mistakeAdditionalQuestions is null ? null : new MistakeWebModel.MistakeAdditionalQuestionsWebModel
             {
-                Consequences = additionalQuestions.Consequences,
-                CanIFixIt = additionalQuestions.CanIFixIt,
-                WhatDidILearn = additionalQuestions.WhatDidILearn,
-                WhatCanIDoBetter = additionalQuestions.WhatCanIDoBetter,
-                OnlyResponsible = additionalQuestions.OnlyResponsible
+                Consequences = mistakeAdditionalQuestions.Consequences,
+                CanIFixIt = mistakeAdditionalQuestions.CanIFixIt,
+                WhatDidILearn = mistakeAdditionalQuestions.WhatDidILearn,
+                WhatCanIDoBetter = mistakeAdditionalQuestions.WhatCanIDoBetter,
+                OnlyResponsible = mistakeAdditionalQuestions.OnlyResponsible
             };
         }
     }

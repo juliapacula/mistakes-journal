@@ -17,7 +17,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public ICollection<Tip> Tips { get; set; }
         public ICollection<MistakeLabel> MistakeLabels { get; set; }
         public bool IsSolved { get; set; }
-        public AdditionalQuestions AdditonalQuestions { get; set; }
+        public MistakeAdditionalQuestions AdditonalQuestions { get; set; }
 
         private Mistake()
         {
@@ -43,7 +43,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             MistakeLabels = new List<MistakeLabel>();
             CreatedAt = DateTime.Now;
 
-            AdditonalQuestions = new AdditionalQuestions
+            AdditonalQuestions = new MistakeAdditionalQuestions
             {
                 Consequences = consequences,
                 WhatCanIDoBetter = whatCanIDoBetter,
@@ -59,6 +59,15 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Low = 1,
             Medium = 2,
             High = 4,
+        }
+
+        public class MistakeAdditionalQuestions
+        {
+            public string Consequences { get; set; }
+            public string WhatCanIDoBetter { get; set; }
+            public string WhatDidILearn { get; set; }
+            public string CanIFixIt { get; set; }
+            public string OnlyResponsible { get; set; }
         }
     }
 }

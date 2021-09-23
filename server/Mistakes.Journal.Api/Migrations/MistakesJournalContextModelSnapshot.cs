@@ -470,11 +470,8 @@ namespace Mistakes.Journal.Api.Migrations
                         .HasConstraintName("fk_mistake_users_user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Mistakes.Journal.Api.Logic.Mistakes.Models.Mistake", b =>
-                {
-                    b.OwnsOne("Mistakes.Journal.Api.Logic.Mistakes.Models.AdditionalQuestions", "AdditonalQuestions", b1 =>
+                    b.OwnsOne("Mistakes.Journal.Api.Logic.Mistakes.Models.Mistake+MistakeAdditionalQuestions", "AdditonalQuestions", b1 =>
                         {
                             b1.Property<Guid>("MistakeId")
                                 .HasColumnName("id")
@@ -507,7 +504,7 @@ namespace Mistakes.Journal.Api.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("MistakeId")
-                                .HasConstraintName("fk_additional_questions_mistake_mistake_id");
+                                .HasConstraintName("fk_mistake_additional_questions_mistake_mistake_id");
                         });
                 });
 

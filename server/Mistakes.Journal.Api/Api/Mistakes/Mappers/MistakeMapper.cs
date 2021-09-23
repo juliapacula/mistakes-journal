@@ -21,7 +21,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
                 RepetitionDates = mistake.Repetitions.Select(r => r.ToWebModel()).ToList(),
                 CreatedAt = mistake.CreatedAt,
                 CurrentSolvingState = mistake.IsSolved ? SolvingState.Solved : mistake.CanBeSolved() ? SolvingState.CanBeSolved : SolvingState.InProgress,
-                AdditionalQuestions = mistake.AdditonalQuestions?.ToWebModel(),
+                MistakeAdditionalQuestions = mistake.AdditonalQuestions?.ToWebModel(),
             };
         }
 
