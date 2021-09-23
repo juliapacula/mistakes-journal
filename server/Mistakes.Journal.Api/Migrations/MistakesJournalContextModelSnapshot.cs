@@ -470,6 +470,42 @@ namespace Mistakes.Journal.Api.Migrations
                         .HasConstraintName("fk_mistake_users_user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("Mistakes.Journal.Api.Logic.Mistakes.Models.Mistake+MistakeAdditionalQuestions", "AdditonalQuestions", b1 =>
+                        {
+                            b1.Property<Guid>("MistakeId")
+                                .HasColumnName("id")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("CanIFixIt")
+                                .HasColumnName("can_i_fix_it")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Consequences")
+                                .HasColumnName("consequences")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("OnlyResponsible")
+                                .HasColumnName("only_responsible")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("WhatCanIDoBetter")
+                                .HasColumnName("what_can_i_do_better")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("WhatDidILearn")
+                                .HasColumnName("what_did_i_learn")
+                                .HasColumnType("text");
+
+                            b1.HasKey("MistakeId")
+                                .HasName("pk_mistake");
+
+                            b1.ToTable("mistake");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MistakeId")
+                                .HasConstraintName("fk_mistake_additional_questions_mistake_mistake_id");
+                        });
                 });
 
             modelBuilder.Entity("Mistakes.Journal.Api.Logic.Mistakes.Models.MistakeLabel", b =>
@@ -504,7 +540,8 @@ namespace Mistakes.Journal.Api.Migrations
                     b.HasOne("Mistakes.Journal.Api.Logic.Mistakes.Models.Mistake", "Mistake")
                         .WithMany("Tips")
                         .HasForeignKey("MistakeId")
-                        .HasConstraintName("fk_tip_mistake_mistake_id1");
+                        .HasConstraintName("fk_tip_mistake_mistake_id1")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;

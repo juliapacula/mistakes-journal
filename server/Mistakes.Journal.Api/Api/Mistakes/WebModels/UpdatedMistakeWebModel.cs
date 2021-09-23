@@ -16,5 +16,20 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 
         [MJEachElementMaxLength(Constants.ShortTextMaxLength)]
         public IReadOnlyCollection<string> Tips { get; set; }
+
+        [MJMaxLength(Constants.LongTextMaxLength)]
+        public string Consequences { get; set; }
+
+        [MJMaxLength(Constants.LongTextMaxLength)]
+        public string WhatCanIDoBetter { get; set; }
+
+        [MJMaxLength(Constants.LongTextMaxLength)]
+        public string WhatDidILearn { get; set; }
+
+        [MJMaxLength(Constants.LongTextMaxLength)]
+        public string CanIFixIt { get; set; }
+
+        [MJMaxLength(Constants.LongTextMaxLength)]
+        public string OnlyResponsible { get; set; }
     }
 }

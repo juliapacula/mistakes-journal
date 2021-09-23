@@ -32,11 +32,19 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Priority).HasConversion<string>();
                 mistake.Property(m => m.CreatedAt).IsRequired();
                 mistake.Property(m => m.IsSolved).HasDefaultValue(false);
+                mistake.OwnsOne(m => m.AdditonalQuestions, 
+                    m =>
+                    {
+                        m.Property(a => a.Consequences);
+                        m.Property(a => a.WhatCanIDoBetter);
+                        m.Property(a => a.WhatDidILearn);
+                        m.Property(a => a.CanIFixIt);
+                        m.Property(a => a.OnlyResponsible);
+                    });
                 mistake.HasOne(m => m.User)
                     .WithMany(u => u.Mistakes)
                     .HasForeignKey(m => m.UserId)
                     .IsRequired();
-
                 mistake.HasQueryFilter(m => m.UserId == _userProvider.GetId());
             });
 
@@ -47,6 +55,7 @@ namespace Mistakes.Journal.Api
                 tip.HasOne(t => t.Mistake)
                     .WithMany(m => m.Tips)
                     .HasForeignKey(t => t.MistakeId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired(false);
 
                 tip.HasQueryFilter(t => t.Mistake.UserId == _userProvider.GetId());
@@ -79,6 +88,7 @@ namespace Mistakes.Journal.Api
                 r.HasOne(t => t.Mistake)
                     .WithMany(m => m.Repetitions)
                     .HasForeignKey(t => t.MistakeId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             });
         }
