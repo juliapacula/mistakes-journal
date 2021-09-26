@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
+using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
+using Mistakes.Journal.Api.Logic.Identity.Services;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
@@ -17,12 +19,14 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
     public class TipsController : ControllerBase
     {
         private readonly MistakesJournalContext _dataContext;
+        private readonly IUserProvider _userProvider;
 
         public TipsController(
-            MistakesJournalContext dataContext
-        )
+            MistakesJournalContext dataContext,
+            IUserProvider userProvider)
         {
             _dataContext = dataContext;
+            _userProvider = userProvider;
         }
 
         [HttpPost]
@@ -31,7 +35,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var tip = newTip.ToEntity();
+            var tip = newTip.ToEntity(_userProvider.GetId());
+
+            if (tip.UserId == Guid.Empty)
+                return BadRequest(ErrorMessageType.NotLogged);
 
             await _dataContext.Set<Tip>().AddAsync(tip);
             await _dataContext.SaveChangesAsync();
@@ -42,7 +49,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         [HttpGet]
         public async Task<ActionResult<TipWebModel>> GetTips([FromQuery] PagingParameters pagingParameters)
         {
+            var userId = _userProvider.GetId();
+
             var tips = await _dataContext.Set<Tip>()
+                .Where(t => t.UserId == userId)
                 .Skip(pagingParameters.StartAt)
                 .Take(pagingParameters.MaxResults)
                 .ToListAsync();
@@ -54,9 +64,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<TipWebModel>> GetTip(Guid tipId)
         {
             var tip = await _dataContext.Set<Tip>()
-                .SingleOrDefaultAsync(m => m.Id == tipId);
+                .SingleOrDefaultAsync(t => t.Id == tipId);
 
-            if (tip is null)
+            if (tip is null || tip.UserId != _userProvider.GetId())
                 return NotFound();
 
             return Ok(tip.ToWebModel());

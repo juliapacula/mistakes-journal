@@ -22,7 +22,7 @@ namespace Mistakes.Journal.Api
         {
             base.OnModelCreating(modelBuilder);
 
-            buildIdentity(modelBuilder);
+            BuildIdentity(modelBuilder);
 
             modelBuilder.Entity<Mistake>(mistake =>
             {
@@ -44,6 +44,7 @@ namespace Mistakes.Journal.Api
                 mistake.HasOne(m => m.User)
                     .WithMany(u => u.Mistakes)
                     .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
                 mistake.HasQueryFilter(m => m.UserId == _userProvider.GetId());
             });
@@ -57,7 +58,11 @@ namespace Mistakes.Journal.Api
                     .HasForeignKey(t => t.MistakeId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired(false);
-
+                tip.HasOne(m => m.User)
+                    .WithMany(u => u.Tips)
+                    .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
                 tip.HasQueryFilter(t => t.Mistake.UserId == _userProvider.GetId());
             });
 
@@ -66,6 +71,11 @@ namespace Mistakes.Journal.Api
                 label.HasKey(l => l.Id);
                 label.Property(l => l.Name).IsRequired();
                 label.Property(l => l.Color).IsRequired();
+                label.HasOne(m => m.User)
+                    .WithMany(u => u.Labels)
+                    .HasForeignKey(m => m.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<MistakeLabel>(mistakeLabel =>
@@ -93,7 +103,7 @@ namespace Mistakes.Journal.Api
             });
         }
 
-        private void buildIdentity(ModelBuilder modelBuilder)
+        private void BuildIdentity(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MistakesJournalUser>(user =>
             {

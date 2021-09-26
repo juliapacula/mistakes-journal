@@ -6,7 +6,7 @@ namespace Mistakes.Journal.Api.Logic.Identity.Services
 {
     public interface IUserProvider
     {
-        public Guid GetId();
+        Guid GetId();
     }
 
     public class MistakesJournalUserProvider : IUserProvider

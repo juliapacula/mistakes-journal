@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Shared.Validators;
@@ -13,6 +14,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
         [MJMaxLength(Constants.ShortTextMaxLength)]
         public string Goal { get; set; }
         public Mistake.MistakePriority? Priority { get; set; }
+
+        public IReadOnlyCollection<Guid> Labels { get; set; }
 
         [MJEachElementMaxLength(Constants.ShortTextMaxLength)]
         public IReadOnlyCollection<string> Tips { get; set; }
