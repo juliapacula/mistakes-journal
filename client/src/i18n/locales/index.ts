@@ -10,12 +10,10 @@ export const LOCALES = [
   {
     value: Locale.EN,
     caption: 'English',
-    icon: '🇬🇧',
   },
   {
     value: Locale.PL,
     caption: 'Polski',
-    icon: '🇵🇱',
   },
 ];
 

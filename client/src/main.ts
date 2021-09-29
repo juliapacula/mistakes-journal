@@ -10,7 +10,7 @@ import {
 import VTooltip from 'v-tooltip';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { DropdownPlugin } from 'bootstrap-vue';
+import { DropdownPlugin, NavbarPlugin } from 'bootstrap-vue';
 import App from './App.vue';
 import i18n from './i18n';
 import router from './router';
@@ -32,6 +32,7 @@ Vue.use(VTooltip, {
 Vue.use(Vuelidate);
 
 Vue.use(DropdownPlugin);
+Vue.use(NavbarPlugin);
 
 Vue.config.productionTip = false;
 

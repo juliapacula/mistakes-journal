@@ -1,6 +1,7 @@
 <template>
   <div class="mj-application-title">
     <img
+      v-if="withIcon"
       alt="Application Logo"
       class="mj-application-title-logo"
       src="@/assets/icons/ice_cream_broken.svg">
@@ -29,12 +30,12 @@ export default Vue.extend({
 @use '../../styles/mistakes-journal';
 
 .mj-application-title {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
   span {
-    @include mistakes-journal.font-semi-bold(1rem);
+    @include mistakes-journal.font-semi-bold(1em);
   }
 
   &-logo {
