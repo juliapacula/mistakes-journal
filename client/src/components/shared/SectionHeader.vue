@@ -29,7 +29,7 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-section-header {
   --header-size: 1.5rem;

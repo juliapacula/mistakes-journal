@@ -1,16 +1,18 @@
 <template>
   <div class="row">
-    <div class="col-12 col-md-8 col-xl-6 col-xxl-4">
+    <div
+      v-if="isMistakeLoaded"
+      class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
         <div class="col-12">
           <label
             class="form-label"
-            for="mistakeName">{{ $t('NewMistake.Name') }}</label>
+            for="mistakeName">{{ $t('MistakeForm.Name') }}</label>
           <input
             id="mistakeName"
             v-model="$v.mistake.name.$model"
             :class="{ 'is-invalid': $v.mistake.name.$dirty && $v.mistake.name.$invalid }"
-            :placeholder="$t('NewMistake.NamePlaceholder')"
+            :placeholder="$t('MistakeForm.NamePlaceholder')"
             class="form-control"
             type="text">
           <mj-error :is-visible="!$v.mistake.name.required">
@@ -23,12 +25,12 @@
         <div class="col-12">
           <label
             class="form-label"
-            for="mistakeGoal">{{ $t('NewMistake.Goal') }}</label>
+            for="mistakeGoal">{{ $t('MistakeForm.Goal') }}</label>
           <input
             id="mistakeGoal"
             v-model="$v.mistake.goal.$model"
             :class="{ 'is-invalid': $v.mistake.goal.$dirty && $v.mistake.goal.$invalid }"
-            :placeholder="$t('NewMistake.GoalPlaceholder')"
+            :placeholder="$t('MistakeForm.GoalPlaceholder')"
             class="form-control"
             type="text">
           <mj-error :is-visible="!$v.mistake.goal.maxLength">
@@ -36,7 +38,7 @@
           </mj-error>
         </div>
         <div class="col-12">
-          <label class="form-label">{{ $t('NewMistake.Tips') }}</label>
+          <label class="form-label">{{ $t('MistakeForm.Tips') }}</label>
           <div class="mj-mistake-tips">
             <div
               v-for="(v, index) in $v.mistake.tips.$each.$iter"
@@ -62,7 +64,7 @@
         <div class="col-12">
           <label
             class="form-label"
-            for="mistakePriority">{{ $t('NewMistake.Priority') }}</label>
+            for="mistakePriority">{{ $t('MistakeForm.Priority') }}</label>
           <select
             id="mistakePriority"
             v-model="$v.mistake.priority.$model"
@@ -84,9 +86,9 @@
             class="btn btn-outline-secondary"
             type="button"
             @click="cancel()">
-            {{ $t('NewMistake.CancelButton') }}
+            {{ $t('MistakeForm.CancelButton') }}
           </button>
-          <span v-if="mistakeEdit === null">
+          <span v-if="!isEditingMistake">
             <button
               :disabled="$v.$invalid"
               class="btn btn-primary with-icon"
@@ -95,7 +97,7 @@
               <mj-icon
                 class="btn-icon"
                 name="add_circle" />
-              <span class="btn-text">{{ $t('NewMistake.AddButton') }}</span>
+              <span class="btn-text">{{ $t('MistakeForm.AddButton') }}</span>
             </button>
           </span>
           <span v-else>
@@ -104,7 +106,7 @@
               class="btn btn-primary with-icon"
               type="button"
               @click="update()">
-              <span class="btn-text">{{ $t('MistakeOptions.Update') }}</span>
+              <span class="btn-text">{{ $t('MistakeForm.UpdateButton') }}</span>
             </button>
           </span>
         </div>
@@ -114,19 +116,20 @@
 </template>
 
 <script lang="ts">
+import { Mistake } from '@/model/mistake';
 import { MistakePriority } from '@/model/mistake-priority.enum';
 import { NewMistake } from '@/model/new-mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
+import { MistakesMutations } from '@/store/mistakes-module/mutations';
 import { getEnumValues } from '@/utils/object.utils';
 import { maxShortTextLength } from '@/utils/validators.utils';
 import Vue from 'vue';
+import { Route } from 'vue-router';
 import { required } from 'vuelidate/lib/validators';
-import { Mistake } from '@/model/mistake';
-import { MistakesMutations } from '@/store/mistakes-module/mutations';
 
 export default Vue.extend({
   name: 'MistakeForm',
-  data(): { mistake: NewMistake, availablePriorities: string[], mistakeEdit: Mistake | null } {
+  data(): { mistake: NewMistake, availablePriorities: string[] } {
     return {
       mistake: {
         name: '',
@@ -135,20 +138,44 @@ export default Vue.extend({
         priority: MistakePriority.Medium,
       },
       availablePriorities: getEnumValues(MistakePriority),
-      mistakeEdit: null,
     };
   },
+  computed: {
+    isEditingMistake(): boolean {
+      return this.$route.name === 'MistakeEdit';
+    },
+    isMistakeLoaded(): boolean {
+      return !this.isEditingMistake || (this.isEditingMistake && !!this.mistakeToEdit);
+    },
+    mistakeToEdit(): Mistake | null {
+      return this.$store.state.mistakes.mistake;
+    },
+  },
   watch: {
-    $route: 'fetchMistake',
+    async $route(route: Route) {
+      if (route.params.id) {
+        await this.fetchMistake();
+      }
+    },
+    mistakeToEdit(mistake: Mistake) {
+      if (!this.isEditingMistake) {
+        return;
+      }
+
+      this.mistake = {
+        name: mistake.name,
+        goal: mistake.goal ?? '',
+        priority: mistake.priority,
+        tips: mistake.tips?.length > 0 ? mistake.tips : [''],
+      };
+    },
   },
   async created(): Promise<void> {
-    await this.fetchMistake();
-    if (this.mistakeEdit !== null) {
-      this.mistake.name = this.mistakeEdit.name;
-      this.mistake.goal = !this.mistakeEdit.goal ? '' : this.mistakeEdit.goal;
-      this.mistake.tips = !this.mistakeEdit.tips.length ? [''] : this.mistakeEdit.tips;
-      this.mistake.priority = this.mistakeEdit.priority;
+    if (!this.isEditingMistake) {
+      return;
     }
+
+    await this.fetchMistake();
   },
   async destroyed(): Promise<void> {
     await this.$store.commit(MistakesMutations.SetMistake, null);
@@ -174,14 +201,15 @@ export default Vue.extend({
   },
   methods: {
     async fetchMistake(): Promise<void> {
-      if (this.$route.params.id) {
-        await this.$store.dispatch(MistakesActions.Get, this.$route.params.id);
-        this.mistakeEdit = this.$store.state.mistakes.mistake;
-      }
+      await this.$store.dispatch(MistakesActions.Get, this.$route.params.id);
     },
     checkIfShouldAddATip(id: string, { target }: InputEvent): void {
       const inputValue = (target as HTMLInputElement).value;
       const index = parseInt(id, 10);
+
+      if (!inputValue && this.mistake.tips.length === 1) {
+        return;
+      }
 
       if (!inputValue) {
         this.mistake.tips.splice(index, 1);
@@ -189,16 +217,23 @@ export default Vue.extend({
         this.mistake.tips.push('');
       }
     },
-    cancel(): void {
-      this.$router.push('/journal/mistakes');
+    async cancel(): Promise<void> {
+      await this.goToMistakesList();
     },
     async save(): Promise<void> {
       await this.$store.dispatch(MistakesActions.AddMistake, this.mistake);
-      await this.$router.push('/journal/mistakes');
+      await this.goToMistakesList();
     },
     async update(): Promise<void> {
-      await this.$store.dispatch(MistakesActions.UpdateMistake, { mistakeId: this.mistakeEdit.id, mistake: this.mistake });
-      await this.$router.push('/journal/mistakes');
+      await this.$store.dispatch(MistakesActions.UpdateMistake, { mistakeId: this.$route.params.id, mistake: this.mistake });
+      await this.goToMistakesList(this.$route.params.id);
+    },
+    async goToMistakesList(id?: string): Promise<void> {
+      if (id) {
+        await this.$router.push(`/journal/mistakes/${id}`);
+      } else {
+        await this.$router.push('/journal/mistakes');
+      }
     },
   },
 });

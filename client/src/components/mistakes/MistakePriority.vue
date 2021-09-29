@@ -71,7 +71,7 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-mistake-priority {
   display: flex;

@@ -39,7 +39,7 @@
     "NoGoal": "Cel nie jest dodany.",
     "NoTips": "Nie ma żadnych porad."
   },
-  "NewMistake": {
+  "MistakeForm": {
     "Name": "Nazwa",
     "NamePlaceholder": "np. Spędzam dużo czasu na Netflixie.",
     "Goal": "Cel",
@@ -47,7 +47,8 @@
     "Priority": "Priorytet",
     "Tips": "Porady",
     "CancelButton": "Anuluj",
-    "AddButton": "Dodaj"
+    "AddButton": "Dodaj",
+    "UpdateButton": "Zapisz"
   },
   "Priority": {
     "Low": "Niski",
@@ -59,9 +60,8 @@
     "MaxLength": "Ilość znaków nie powinna być większa niż {max} znaków."
   },
   "MistakeOptions": {
-    "Label": "Opcje błędu",
+    "Label": "Opcje",
     "Edit": "Edytuj",
-    "Delete": "Usuń",
-    "Update": "Aktualizuj"
+    "Delete": "Usuń"
   }
 }

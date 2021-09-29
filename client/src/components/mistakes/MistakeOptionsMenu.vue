@@ -1,5 +1,6 @@
 <template>
   <b-dropdown
+    v-tooltip="$t('MistakeOptions.Label')"
     dropleft
     no-caret
     variant="link">
@@ -7,7 +8,7 @@
       <fa-icon
         :icon="['fas', 'ellipsis-v']" />
     </template>
-    <b-dropdown-item-button @click="editMistake">
+    <b-dropdown-item :to="'/journal/mistakes/edit/' + mistakeId">
       <span class="mj-options">
         <fa-icon
           :icon="['fas', 'pen']" />
@@ -15,7 +16,7 @@
           {{ $t('MistakeOptions.Edit') }}
         </span>
       </span>
-    </b-dropdown-item-button>
+    </b-dropdown-item>
     <b-dropdown-item-button @click="deleteMistake">
       <span class="mj-options">
         <fa-icon

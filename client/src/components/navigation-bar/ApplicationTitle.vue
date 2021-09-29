@@ -26,7 +26,7 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-application-title {
   display: flex;
