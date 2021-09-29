@@ -20,7 +20,9 @@
           class="mj-sidebar-item-link">{{ $t(item.translationKey) }}</span>
       </router-link>
     </ul>
-    <application-title class="mj-sidebar-title" />
+    <application-title
+      :with-icon="true"
+      class="mj-sidebar-title" />
   </div>
 </template>
 

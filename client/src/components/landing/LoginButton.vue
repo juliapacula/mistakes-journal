@@ -1,19 +1,31 @@
 <template>
-  <div class="">
-    <landing-navigation-bar />
-    <about-mistakes-journal />
+  <div>
+    <router-link
+      v-if="isLoggedIn"
+      :to="{ name: 'MistakesPage' }"
+      class="btn btn-primary"
+      role="button"
+      tag="a">
+      {{ $t('LandingPage.Nav.GetStarted', { name: userName }) }}
+    </router-link>
+    <button
+      v-else
+      class="btn btn-primary"
+      @click="login()">
+      {{ $t('LandingPage.Nav.Login') }}
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import AboutMistakesJournal from '@/components/landing/AboutMistakesJournal.vue';
-import LandingNavigationBar from '@/components/landing/LandingNavigationBar.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'LandingPage',
-  components: { AboutMistakesJournal, LandingNavigationBar },
+  name: 'LoginButton',
   computed: {
+    isLoggedIn(): boolean {
+      return !!this.$store.state.user.user;
+    },
     userName(): string {
       const { user } = this.$store.state.user;
 

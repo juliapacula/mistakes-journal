@@ -3,10 +3,11 @@
     <button
       v-for="locale in availableLocales"
       :key="locale.value"
+      :class="{ 'btn-primary': !isTransparent }"
       :disabled="locale.value === $i18n.locale"
-      class="btn btn-primary"
+      class="btn"
       @click="changeLocale(locale.value)">
-      {{ locale.icon }}
+      <mj-icon :name="locale.value" />
     </button>
   </div>
 </template>
@@ -20,7 +21,13 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'LanguageChangeButton',
-  data(): { availableLocales: { caption: string, value: Locale, icon: string }[] } {
+  props: {
+    isTransparent: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data(): { availableLocales: { caption: string, value: Locale }[] } {
     return {
       availableLocales: LOCALES,
     };

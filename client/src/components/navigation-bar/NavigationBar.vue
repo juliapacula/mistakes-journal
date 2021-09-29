@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
-import LanguageChangeButton from '@/components/navigation-bar/LanguageChangeButton.vue';
+import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
 import LogoutButton from '@/components/navigation-bar/LogoutButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';

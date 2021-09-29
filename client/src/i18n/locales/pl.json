@@ -23,8 +23,15 @@
   },
   "LandingPage": {
     "Nav": {
-      "GetStarted": "Witaj {name}! Miło Cię widzieć",
+      "GetStarted": "Witaj {name}!",
       "Login": "Zaloguj się"
+    },
+    "AboutMistakesJournal": {
+      "HeaderFirstPart": "Czerp najwięcej nauki z własnych błędów",
+      "HeaderSecondPart": "utrzymując",
+      "Step1": "Rozpoznaj",
+      "Step2": "Analizuj",
+      "Step3": "Kontroluj"
     }
   },
   "Mistakes": {
