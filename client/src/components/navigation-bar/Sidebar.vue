@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import ApplicationTitle from '@/components/ApplicationTitle.vue';
+import ApplicationTitle from '@/components/navigation-bar/ApplicationTitle.vue';
 import Vue from 'vue';
 
 interface SidebarItem {
@@ -89,7 +89,7 @@ export default Vue.extend({
   lang="scss"
   scoped>
 @use 'sass:color';
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-sidebar-container {
   display: flex;

@@ -6,9 +6,9 @@
       {{ $t('Solutions.Name') }}
     </div>
     <div class="mj-solution-section-items-content">
-      <fa-icon
-        :icon="['far', 'star']"
-        transform="grow-5" />
+      <span class="mj-solution-section-items-icon">
+        <fa-icon :icon="['far', 'star']" />
+      </span>
       <span class="mj-solution-section-items-text">
         {{ mistake.name }}
       </span>
@@ -19,9 +19,9 @@
     <div
       v-if="mistake.goal"
       class="mj-solution-section-items-content">
-      <fa-icon
-        :icon="['far', 'dot-circle']"
-        transform="grow-5" />
+      <span class="mj-solution-section-items-icon">
+        <fa-icon :icon="['far', 'dot-circle']" />
+      </span>
       <span class="mj-solution-section-items-text">
         {{ mistake.goal }}
       </span>
@@ -41,9 +41,9 @@
         v-for="tip in mistake.tips"
         :key="tip"
         class="mj-solution-section-items-content">
-        <fa-icon
-          :icon="['far', 'lightbulb']"
-          transform="grow-5" />
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['far', 'lightbulb']" />
+        </span>
         <span class="mj-solution-section-items-text">
           {{ tip }}
         </span>
@@ -51,8 +51,10 @@
     </div>
     <div
       v-else
-      class="mj-solution-section-items-text">
-      {{ $t('Solutions.NoTips') }}
+      class="mj-solution-section-items-content">
+      <span class="mj-solution-section-items-text">
+        {{ $t('Solutions.NoTips') }}
+      </span>
     </div>
   </div>
 </template>
@@ -105,6 +107,14 @@ export default Vue.extend({
     display: flex;
     align-items: center;
     padding: 1rem;
+  }
+
+  &-items-icon {
+    $size-width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    width: $size-width;
+    font-size: $size-width;
   }
 
   &-items-text {

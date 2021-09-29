@@ -39,7 +39,7 @@
     "NoGoal": "Goal is not set.",
     "NoTips": "You've got no tips."
   },
-  "NewMistake": {
+  "MistakeForm": {
     "Name": "Name",
     "NamePlaceholder": "e.g. I spend too much time on Netflix.",
     "Goal": "Goal",
@@ -47,7 +47,8 @@
     "Priority": "Priority",
     "Tips": "Tips",
     "CancelButton": "Cancel",
-    "AddButton": "Add"
+    "AddButton": "Add",
+    "UpdateButton": "Save"
   },
   "Priority": {
     "Low": "Low",
@@ -59,7 +60,7 @@
     "MaxLength": "Length shouldn't be longer than {max} characters."
   },
   "MistakeOptions": {
-    "Label": "Mistake options",
+    "Label": "Options",
     "Edit": "Edit",
     "Delete": "Delete",
     "Update": "Update"

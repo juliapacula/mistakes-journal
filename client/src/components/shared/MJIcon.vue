@@ -20,7 +20,7 @@ export default Vue.extend({
     },
   },
   data(): { iconPath: string } {
-    const images = require.context('../assets/icons', false, /\.svg$/);
+    const images = require.context('../../assets/icons', false, /\.svg$/);
 
     return {
       iconPath: images(`./${this.name}.svg`),

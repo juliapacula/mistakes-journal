@@ -29,9 +29,9 @@
 </template>
 
 <script lang="ts">
-import AddNewMistakeButton from '@/components/AddNewMistakeButton.vue';
-import LanguageChangeButton from '@/components/LanguageChangeButton.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
+import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import LanguageChangeButton from '@/components/navigation-bar/LanguageChangeButton.vue';
+import LogoutButton from '@/components/navigation-bar/LogoutButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 import { mapActions } from 'vuex';
@@ -55,7 +55,7 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-nav-container {
   display: flex;

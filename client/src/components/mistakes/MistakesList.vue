@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts">
-import AddNewMistakeButton from '@/components/AddNewMistakeButton.vue';
-import MistakeOptionsMenu from '@/components/MistakeOptionsMenu.vue';
-import MistakePriority from '@/components/MistakePriority.vue';
+import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import MistakeOptionsMenu from '@/components/mistakes/MistakeOptionsMenu.vue';
+import MistakePriority from '@/components/mistakes/MistakePriority.vue';
 import { MistakesActions } from '@/store/mistakes-module/actions';
 import Vue from 'vue';
 
@@ -47,7 +47,7 @@ export default Vue.extend({
   lang="scss"
   scoped>
 @use 'sass:color';
-@use '../styles/mistakes-journal';
+@use '../../styles/mistakes-journal';
 
 .mj-mistake-items {
   width: 100%;

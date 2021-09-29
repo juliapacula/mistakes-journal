@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import SectionHeader from '@/components/SectionHeader.vue';
+import SectionHeader from '@/components/shared/SectionHeader.vue';
 import Vue from 'vue';
 
 export default Vue.extend({

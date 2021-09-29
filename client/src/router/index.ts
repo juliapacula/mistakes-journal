@@ -1,11 +1,11 @@
-import MistakesList from '@/components/MistakesList.vue';
+import MistakeForm from '@/components/mistake/MistakeForm.vue';
+import MistakesList from '@/components/mistakes/MistakesList.vue';
 import LandingPage from '@/views/LandingPage.vue';
 import MainPage from '@/views/MainPage.vue';
 import MistakeSolutionPage from '@/views/MistakeSolutionPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import MistakeForm from '@/components/MistakeForm.vue';
 
 Vue.use(VueRouter);
 

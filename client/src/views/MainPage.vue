@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts">
-import NavigationBar from '@/components/NavigationBar.vue';
-import Sidebar from '@/components/Sidebar.vue';
+import NavigationBar from '@/components/navigation-bar/NavigationBar.vue';
+import Sidebar from '@/components/navigation-bar/Sidebar.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
