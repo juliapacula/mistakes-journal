@@ -6,7 +6,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
     public class NewLabelWebModel
     {
         [MJRequired]
-        [MJMaxLength(Constants.ShortTextMaxLength)]
+        [MJMaxLength(Constants.VeryShortTextMaxLength)]
         public string Name { get; set; }
         
         [MJRequired]

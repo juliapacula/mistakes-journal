@@ -5,6 +5,7 @@
 $font-family-sans-serif: Montserrat, sans-serif;
 $body-color: mistakes-journal.color('text');
 $primary: mistakes-journal.color('primary');
+$info: mistakes-journal.color('gray', '100');
 $btn-border-radius: 10rem;
 $btn-focus-width: 0;
 $btn-focus-box-shadow: none;
@@ -17,6 +18,13 @@ $input-group-addon-bg: transparent;
 $input-border-radius: 5rem;
 $form-label-font-size: 0.8rem;
 $form-label-margin-bottom: 0.25rem;
+$modal-header-border-width: 1px;
+$modal-content-border-width: 0;
+$modal-footer-border-width: 0;
+$modal-content-box-shadow-xs: 0 0.5rem 1rem rgba(#000000, 0.15);
+$modal-content-border-radius: 1rem;
+$modal-backdrop-opacity: 0.2;
+$modal-dialog-margin-y-sm-up: 5rem;
 
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
