@@ -29,15 +29,15 @@ namespace Mistakes.Journal.Api.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email is required.")]
+            [EmailAddress(ErrorMessage = "Email is incorrect.")]
             public string Email { get; set; }
 
-            [Required]
-            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "Password is required.")]
+            [DataType(DataType.Password, ErrorMessage = "Password is incorrect.")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")] public bool RememberMe { get; set; }
+            [Display(Name = "Remember credentials")] public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
