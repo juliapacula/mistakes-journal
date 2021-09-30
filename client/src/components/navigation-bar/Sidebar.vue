@@ -1,24 +1,61 @@
 <template>
   <div class="mj-sidebar-container">
     <ul class="mj-sidebar-items">
+      <li class="mj-sidebar-item disabled">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="calendar-2" />
+        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Calendar') }}</span>
+      </li>
       <router-link
-        :is="item.isEnabled ? 'router-link' : 'li'"
-        v-for="item in items"
-        :key="item.translationKey"
-        :class="{ 'disabled': !item.isEnabled }"
-        :to="item.path"
         class="mj-sidebar-item"
-        tag="li">
-        <mj-icon
-          :name="item.iconName"
-          class="mj-sidebar-item-icon" />
-        <a
-          v-if="item.isEnabled"
-          class="mj-sidebar-item-link">{{ $t(item.translationKey) }}</a>
-        <span
-          v-else
-          class="mj-sidebar-item-link">{{ $t(item.translationKey) }}</span>
+        tag="li"
+        to="/journal/mistakes">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="booklet" />
+        <a class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Mistakes') }}</a>
       </router-link>
+      <li class="mj-sidebar-item disabled">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="lightbulb" />
+        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Tips') }}</span>
+      </li>
+      <li class="mj-sidebar-item disabled">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="folder" />
+        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Groups') }}</span>
+      </li>
+      <li class="mj-sidebar-item">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="price-tag-3" />
+        <button
+          class="btn mj-sidebar-item-link"
+          type="button"
+          @click="toggleLabels()">
+          {{ $t('Sidebar.Links.Labels') }}
+        </button>
+        <button
+          class="btn btn-icon mj-sidebar-item-toggle"
+          type="button"
+          @click="toggleLabels()">
+          <fa-icon :icon="['fa', areLabelsExpanded ? 'chevron-up' : 'chevron-down']" />
+        </button>
+      </li>
+      <li
+        v-if="areLabelsExpanded"
+        class="mj-sidebar-sub-items">
+        <sidebar-labels-list />
+      </li>
+      <li class="mj-sidebar-item disabled">
+        <remix-icon
+          class="mj-sidebar-item-icon"
+          icon="vip-diamond" />
+        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Solved') }}</span>
+      </li>
     </ul>
     <application-title
       :with-icon="true"
@@ -27,69 +64,30 @@
 </template>
 
 <script lang="ts">
+import SidebarLabelsList from '@/components/labels/SidebarLabelsList.vue';
 import ApplicationTitle from '@/components/navigation-bar/ApplicationTitle.vue';
 import Vue from 'vue';
-
-interface SidebarItem {
-  translationKey: string;
-  path: string;
-  iconName: string;
-  isEnabled: boolean;
-}
 
 export default Vue.extend({
   name: 'Sidebar',
   components: {
+    SidebarLabelsList,
     ApplicationTitle,
   },
-  data(): { items: SidebarItem[] } {
+  data(): { areLabelsExpanded: boolean } {
     return {
-      items: [
-        {
-          translationKey: 'Sidebar.Links.Calendar',
-          path: '/journal/calendar',
-          isEnabled: false,
-          iconName: 'calendar',
-        },
-        {
-          translationKey: 'Sidebar.Links.Mistakes',
-          path: '/journal/mistakes',
-          isEnabled: true,
-          iconName: 'mistake',
-        },
-        {
-          translationKey: 'Sidebar.Links.Tips',
-          path: '/journal/tips',
-          isEnabled: false,
-          iconName: 'tips',
-        },
-        {
-          translationKey: 'Sidebar.Links.Groups',
-          path: '/journal/tips',
-          isEnabled: false,
-          iconName: 'group',
-        },
-        {
-          translationKey: 'Sidebar.Links.Labels',
-          path: '/journal/tips',
-          isEnabled: false,
-          iconName: 'label',
-        },
-        {
-          translationKey: 'Sidebar.Links.Solved',
-          path: '/journal/tips',
-          isEnabled: false,
-          iconName: 'solved',
-        },
-      ] as SidebarItem[],
+      areLabelsExpanded: false,
     };
+  },
+  methods: {
+    toggleLabels(): void {
+      this.areLabelsExpanded = !this.areLabelsExpanded;
+    },
   },
 });
 </script>
 
-<style
-  lang="scss"
-  scoped>
+<style lang="scss">
 @use 'sass:color';
 @use '../../styles/mistakes-journal';
 
@@ -115,20 +113,28 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.25rem 1rem;
+  padding: 0.25em 1em;
   overflow-x: hidden;
-  border-radius: 5rem 0 0 5rem;
+  border-radius: 5em 0 0 5em;
   word-break: keep-all;
   white-space: nowrap;
 
   &-icon {
-    margin: 0.25em 0.5rem 0.25rem 0.25rem;
-    font-size: 1.5rem;
+    margin: 0 0.25em;
+    font-size: 1.5em;
   }
 
   &-link {
     @include mistakes-journal.font-medium;
     color: mistakes-journal.color('text');
+
+    &.btn {
+      padding: 0;
+    }
+  }
+
+  &-toggle {
+    margin-left: auto;
   }
 
   a {
@@ -138,6 +144,12 @@ export default Vue.extend({
     &:focus,
     &:active {
       text-decoration: none;
+    }
+  }
+
+  &:not(.disabled) {
+    &:hover {
+      background-color: mistakes-journal.color('secondary', '500');
     }
   }
 
@@ -155,5 +167,11 @@ export default Vue.extend({
       color: color.scale(mistakes-journal.color('text'), $lightness: 50%);
     }
   }
+}
+
+.mj-sidebar-sub-items {
+  width: 100%;
+  padding: 0.25em 0;
+  font-size: 0.8em;
 }
 </style>

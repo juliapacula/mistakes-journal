@@ -5,7 +5,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.WebModels
 {
     public class UpdatedLabelWebModel
     {
-        [MJMaxLength(Constants.ShortTextMaxLength)]
+        [MJMaxLength(Constants.VeryShortTextMaxLength)]
         public string Name { get; set; }
         
         [MJMatchPattern(Constants.ColorPattern)]

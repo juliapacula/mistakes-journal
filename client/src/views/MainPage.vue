@@ -13,10 +13,12 @@
     <div class="mj-content">
       <router-view />
     </div>
+    <label-modal />
   </div>
 </template>
 
 <script lang="ts">
+import LabelModal from '@/components/labels/LabelModal.vue';
 import NavigationBar from '@/components/navigation-bar/NavigationBar.vue';
 import Sidebar from '@/components/navigation-bar/Sidebar.vue';
 import Vue from 'vue';
@@ -24,6 +26,7 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MainPage',
   components: {
+    LabelModal,
     NavigationBar,
     Sidebar,
   },

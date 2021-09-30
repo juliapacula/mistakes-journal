@@ -1,4 +1,5 @@
-export const get = async (url: string) => {
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
+export const get = async (url: string): Promise<any> => {
   const response = await fetch(url, {
     method: 'GET',
   });
@@ -14,7 +15,7 @@ export const get = async (url: string) => {
   }
 };
 
-export const post = async (url: string, body: any) => {
+export const post = async (url: string, body: any): Promise<any> => {
   const response = await fetch(url, {
     body: JSON.stringify(body),
     headers: {
@@ -34,7 +35,7 @@ export const post = async (url: string, body: any) => {
   }
 };
 
-export const put = async (url: string, body: any) => {
+export const put = async (url: string, body: any): Promise<any> => {
   const response = await fetch(url, {
     body: JSON.stringify(body),
     headers: {
@@ -54,7 +55,7 @@ export const put = async (url: string, body: any) => {
   }
 };
 
-export const remove = async (url: string) => {
+export const remove = async (url: string): Promise<any> => {
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import labels from './labels-module';
 import mistakes from './mistakes-module';
 import { State } from './state';
 import uiState from './ui-state-module';
@@ -12,5 +13,6 @@ export default new Vuex.Store<State>({
     mistakes,
     uiState,
     user,
+    labels,
   },
 });

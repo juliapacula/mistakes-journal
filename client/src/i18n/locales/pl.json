@@ -19,6 +19,12 @@
       "Labels": "Etykiety",
       "Tips": "Porady",
       "Solved": "Rozwiązane"
+    },
+    "Labels": {
+      "Create": "Nowa etykieta",
+      "Options": "Opcje",
+      "Edit": "Edytuj",
+      "Delete": "Usuń"
     }
   },
   "LandingPage": {
@@ -77,5 +83,46 @@
     "Label": "Opcje",
     "Edit": "Edytuj",
     "Delete": "Usuń"
+  },
+  "LabelModal": {
+    "Title": {
+      "NewLabel": "Nowa etykieta",
+      "ExistingLabel": "Edycja {name}"
+    },
+    "Name": "Nazwa",
+    "Color": "Kolor",
+    "Action": {
+      "Add": "Dodaj",
+      "Save": "Zapisz"
+    }
+  },
+  "LabelOptions": {
+    "Label": "Opcje",
+    "Edit": "Edytuj",
+    "Delete": "Usuń"
+  },
+  "DeleteLabel": {
+    "Title": "Usuwanie etykiety",
+    "Content": "Czy na pewno chcesz usunąć etykietę {name}?",
+    "Ok": "Tak",
+    "Cancel": "Anuluj"
+  },
+  "LabelColors": {
+    "PastelGreen": "Pastelowy zielony",
+    "BabyBlue": "Pastelowy niebieski",
+    "Turquoise": "Turkusowy",
+    "BlueGreen": "Niebieska zieleń",
+    "Mint": "Miętowy",
+    "LightGreen": "Jasna zieleń",
+    "Purple": "Purpurowy",
+    "Lilac": "Liliowy",
+    "Yellow": "Żółty",
+    "Orange": "Pomarańczowy",
+    "Pink": "Różowy",
+    "PastelPink": "Pudrowy róż",
+    "PastelPurple": "Pastelowy purpurowy"
+  },
+  "Modal": {
+    "Close": "Zamknij"
   }
 }

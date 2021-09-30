@@ -1,0 +1,20 @@
+@use '../mistakes-journal';
+
+.modal-backdrop {
+  opacity: mistakes-journal.$modal-backdrop-opacity;
+}
+
+.modal-header {
+  h1 {
+    @include mistakes-journal.font-semi-bold(1.2rem);
+    margin: 0;
+  }
+}
+
+.modal-footer {
+  button:only-of-type {
+    width: 100%;
+  }
+}
+
+

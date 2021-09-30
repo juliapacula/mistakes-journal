@@ -63,8 +63,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .WhereIf(searchModel.Name.IsPresent(),
                     l => l.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), l => searchModel.Colors.Contains(l.Color))
-                .Skip(searchModel.StartAt)
-                .Take(searchModel.MaxResults)
                 .Include(l => l.MistakeLabels)
                 .ToListAsync();
 
@@ -118,6 +116,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 return BadRequest(ModelState);
 
             var existingLabel = await _dataContext.Set<Label>()
+                .Include(l => l.MistakeLabels)
                 .FirstOrDefaultAsync(l => l.Id == labelId);
 
             if (existingLabel is null)

@@ -3,6 +3,7 @@
     public static class Constants
     {
         /* Requirements */
+        public const int VeryShortTextMaxLength = 20;
         public const int ShortTextMaxLength = 100;
         public const int LongTextMaxLength = 500;
 
