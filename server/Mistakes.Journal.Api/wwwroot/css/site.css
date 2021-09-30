@@ -1,65 +1,96 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿:root {
+    --color-primary-700: #37d087;
+    --color-secondary-700: #e9c443;
+    --color-error-50: #f2dada;
+    --color-error-500: #f24848;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+/* Bootstrap */
 
-.container {
-  max-width: 960px;
-}
-
-.pricing-header {
-  max-width: 700px;
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:hover:focus {
+    color: #ffffff;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    background-color: #F8FAFC !important;
+    font-family: 'Montserrat', sans-serif;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  overflow: scroll;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+
+/* Application logo */
+
+.mj-logo {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.mj-logo img {
+    height: 1.5em;
+}
+
+.mj-logo span:first-of-type {
+    margin-right: 0.25rem;
+    color: var(--color-primary-700);
+}
+
+.mj-logo span:last-of-type {
+    color: var(--color-secondary-700);
+}
+
+.mj-logo span {
+    font-weight: 600;
+}
+
+/* Card */
+
+.mj-card {
+    background-color: #ffffff;
+    border: #E2E8F0 solid 2px;
+    border-radius: 2.5rem;
+    padding: 3rem 2rem;
+}
+
+.mj-card-title {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.mj-card-title h1 {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.mj-card-title h2 {
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.mj-card-footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #94A3B8;
+    text-align: center;
+}
+
+.mj-card .mj-action {
+    width: 100%;
+}
+
+/* Forms */
+
+.mj-form-group {
+    margin-bottom: 1rem;
+}
+
+.mj-validation-summary {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-error-500);
+    background-color: var(--color-error-50);
+    color: var(--color-error-500);
+}
+
+.mj-validation-summary ul {
+    margin: 0;
+    padding: 0;
+    list-style-type:none;
 }

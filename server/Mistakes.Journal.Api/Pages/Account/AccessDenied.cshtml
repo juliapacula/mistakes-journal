@@ -4,7 +4,18 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header class="mt-2 text-center">
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6 col-xxl-4">
+        <section class="mj-card mt-4">
+            <div class="mj-logo mb-4">
+                <img alt="Mistakes Journal logo" src="/images/ice_cream_broken.svg">
+                <span>mistakes</span>
+                <span>journal</span>
+            </div>
+            <div class="text-center">
+                <h1>@ViewData["Title"]</h1>
+                <p>You do not have access to this resource.</p>
+            </div>
+        </section>
+    </div>
+</div>
