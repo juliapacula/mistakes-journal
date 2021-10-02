@@ -58,12 +58,12 @@ namespace Mistakes.Journal.Api
                     .HasForeignKey(t => t.MistakeId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired(false);
-                tip.HasOne(m => m.User)
+                tip.HasOne(t => t.User)
                     .WithMany(u => u.Tips)
-                    .HasForeignKey(m => m.UserId)
+                    .HasForeignKey(t => t.UserId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
-                tip.HasQueryFilter(t => t.Mistake.UserId == _userProvider.GetId());
+                tip.HasQueryFilter(t => t.UserId == _userProvider.GetId());
             });
 
             modelBuilder.Entity<Label>(label =>
@@ -71,11 +71,12 @@ namespace Mistakes.Journal.Api
                 label.HasKey(l => l.Id);
                 label.Property(l => l.Name).IsRequired();
                 label.Property(l => l.Color).IsRequired();
-                label.HasOne(m => m.User)
+                label.HasOne(l => l.User)
                     .WithMany(u => u.Labels)
-                    .HasForeignKey(m => m.UserId)
+                    .HasForeignKey(l => l.UserId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
+                label.HasQueryFilter(l => l.UserId == _userProvider.GetId());
             });
 
             modelBuilder.Entity<MistakeLabel>(mistakeLabel =>
@@ -89,6 +90,7 @@ namespace Mistakes.Journal.Api
                     .WithMany(m => m.MistakeLabels)
                     .HasForeignKey(ml => ml.LabelId)
                     .OnDelete(DeleteBehavior.Cascade);
+                mistakeLabel.HasQueryFilter(ml => ml.Mistake.UserId == _userProvider.GetId());
             });
 
             modelBuilder.Entity<Repetition>(r =>
@@ -100,6 +102,7 @@ namespace Mistakes.Journal.Api
                     .HasForeignKey(t => t.MistakeId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
+                r.HasQueryFilter(rep => rep.Mistake.UserId == _userProvider.GetId());
             });
         }
 

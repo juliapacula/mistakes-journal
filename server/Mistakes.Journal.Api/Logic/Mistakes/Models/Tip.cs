@@ -12,6 +12,10 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public Guid? MistakeId { get; }
         public Mistake Mistake { get; }
 
+        private Tip()
+        {
+        }
+
         public Tip(
             Guid createdBy,
             string content

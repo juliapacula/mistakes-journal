@@ -49,10 +49,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         [HttpGet]
         public async Task<ActionResult<TipWebModel>> GetTips([FromQuery] PagingParameters pagingParameters)
         {
-            var userId = _userProvider.GetId();
-
             var tips = await _dataContext.Set<Tip>()
-                .Where(t => t.UserId == userId)
                 .Skip(pagingParameters.StartAt)
                 .Take(pagingParameters.MaxResults)
                 .ToListAsync();
@@ -66,7 +63,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var tip = await _dataContext.Set<Tip>()
                 .SingleOrDefaultAsync(t => t.Id == tipId);
 
-            if (tip is null || tip.UserId != _userProvider.GetId())
+            if (tip is null)
                 return NotFound();
 
             return Ok(tip.ToWebModel());

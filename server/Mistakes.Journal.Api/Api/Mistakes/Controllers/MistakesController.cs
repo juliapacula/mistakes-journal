@@ -57,7 +57,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             {
                 var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelId);
 
-                if (label is null || label.UserId != _userProvider.GetId())
+                if (label is null)
                     return BadRequest(ErrorMessageType.LabelDoesNotExist);
 
                 var mistakeLabel = new MistakeLabel(label, mistake);
@@ -80,7 +80,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Repetitions)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
-            if (mistake is null || mistake.UserId != _userProvider.GetId())
+            if (mistake is null)
                 return NotFound();
 
             var newMistake = mistake.ToNewMistakeWebModel();
@@ -101,7 +101,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Tips)
                 .SingleOrDefaultAsync(m => m.Id == mistakeId);
 
-            if (mistake is null || mistake.UserId != _userProvider.GetId())
+            if (mistake is null)
                 return NotFound();
 
             if (mistake.IsSolved)
@@ -121,7 +121,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] MistakesSortingParameters sortingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.UserId == _userProvider.GetId())
                 .Include(m => m.Tips)
                 .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
@@ -146,7 +145,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var mistake = await _dataContext.Set<Mistake>()
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
-            if (mistake is null || mistake.UserId != _userProvider.GetId())
+            if (mistake is null)
                 return NotFound();
 
             if (mistake.IsSolved)
@@ -172,7 +171,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] PagingParameters pagingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.UserId == _userProvider.GetId())
                 .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
                 .OrderByField(sortingParameters)
                 .Skip(pagingParameters.StartAt)
@@ -197,7 +195,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Repetitions)
                 .FirstOrDefaultAsync();
 
-            if (mistake is null || mistake.UserId != _userProvider.GetId())
+            if (mistake is null)
                 return NotFound();
 
             return Ok(mistake.ToWebModel());
@@ -214,7 +212,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.Tips)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
-            if (mistake is null || mistake.UserId != _userProvider.GetId())
+            if (mistake is null)
                 return NotFound();
 
             foreach (var tip in mistake.Tips)
@@ -246,7 +244,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.AdditonalQuestions)
                 .FirstOrDefaultAsync(m => m.Id == mistakeId);
 
-            if (existingMistake is null || existingMistake.UserId != _userProvider.GetId())
+            if (existingMistake is null)
                 return NotFound();
 
             existingMistake.Name = mistake.Name ?? existingMistake.Name;
@@ -284,7 +282,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 {
                     var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelId);
 
-                    if (label is null || label.UserId != _userProvider.GetId())
+                    if (label is null)
                         return BadRequest(ErrorMessageType.LabelDoesNotExist);
 
                     var mistakeLabel = new MistakeLabel(label, existingMistake);

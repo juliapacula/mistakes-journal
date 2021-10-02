@@ -62,10 +62,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         [HttpPost("search")]
         public async Task<ActionResult<LabelWebModel>> GetLabels(LabelSearchWebModel searchModel)
         {
-            var userId = _userProvider.GetId();
-
             var labels = await _dataContext.Set<Label>()
-                .Where(l => l.UserId == userId)
                 .WhereIf(searchModel.Name.IsPresent(),
                     l => l.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), l => searchModel.Colors.Contains(l.Color))
@@ -88,7 +85,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(l => l.MistakeLabels)
                 .SingleOrDefaultAsync(l => l.Id == labelId);
 
-            if (label is null || label.UserId != _userProvider.GetId())
+            if (label is null)
                 return NotFound();
 
             return Ok(label.ToWebModel());
@@ -104,7 +101,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var label = await _dataContext.Set<Label>()
                 .FirstOrDefaultAsync(l => l.Id == labelId);
 
-            if (label is null || label.UserId != _userProvider.GetId())
+            if (label is null)
                 return NotFound();
 
             _dataContext.Set<Label>().Remove(label);
@@ -126,7 +123,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var existingLabel = await _dataContext.Set<Label>()
                 .FirstOrDefaultAsync(l => l.Id == labelId);
 
-            if (existingLabel is null || existingLabel.UserId != _userProvider.GetId())
+            if (existingLabel is null)
                 return NotFound();
 
             existingLabel.Name = label.Name ?? existingLabel.Name;

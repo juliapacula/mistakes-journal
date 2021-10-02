@@ -13,6 +13,10 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
         public string Color { get; set; }
         public ICollection<MistakeLabel> MistakeLabels { get; set; }
 
+        private Label()
+        {
+        }
+
         public Label(Guid createdBy, string name, string color)
         {
             UserId = createdBy;
