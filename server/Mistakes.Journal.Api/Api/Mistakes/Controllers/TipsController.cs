@@ -37,9 +37,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var tip = newTip.ToEntity(_userProvider.GetId());
 
-            if (tip.UserId == Guid.Empty)
-                return BadRequest(ErrorMessageType.NotLogged);
-
             await _dataContext.Set<Tip>().AddAsync(tip);
             await _dataContext.SaveChangesAsync();
 

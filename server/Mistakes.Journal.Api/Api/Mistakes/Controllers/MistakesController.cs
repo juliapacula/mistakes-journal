@@ -47,9 +47,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var mistake = newMistake.ToEntity(_userProvider.GetId());
 
-            if (mistake.UserId == Guid.Empty)
-                return BadRequest(ErrorMessageType.NotLogged);
-
             if (newMistake.Tips != null)
                 mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(mistake.UserId, t)));
 

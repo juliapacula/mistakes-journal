@@ -50,9 +50,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var label = newLabel.ToEntity(_userProvider.GetId());
 
-            if (label.UserId == Guid.Empty)
-                return BadRequest(ErrorMessageType.NotLogged);
-
             await _dataContext.Set<Label>().AddAsync(label);
             await _dataContext.SaveChangesAsync();
 

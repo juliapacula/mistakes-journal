@@ -16,6 +16,5 @@ namespace Mistakes.Journal.Api.Api.Shared
         WrongLatitude = 11,
         IncompleteCoordinates = 12,
         SunriseSunsetError = 13,
-        NotLogged = 14
     }
 }
