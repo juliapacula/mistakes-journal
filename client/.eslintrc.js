@@ -22,6 +22,6 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'linebreak-style': 'off',
     'global-require': 'off',
-    '@typescript-eslint/ban-types': 'off'
+    '@typescript-eslint/ban-types': 'off',
   },
 };

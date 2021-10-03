@@ -5,4 +5,11 @@ export interface NewMistake {
   goal: string;
   tips: string[];
   priority: MistakePriority;
+  mistakeAdditionalQuestions: {
+    consequences: string | null;
+    whatCanIDoBetter: string | null;
+    whatDidILearn: string | null;
+    canIFixIt: string | null;
+    onlyResponsible: string | null;
+  } | null;
 }

@@ -27,6 +27,11 @@ export const actions: ActionTree<MistakesState, State> = {
   async [MistakesActions.AddMistake]({ commit }: Context, mistake: NewMistake): Promise<void> {
     const payload: NewMistakeApiModel = {
       name: mistake.name,
+      consequences: mistake.mistakeAdditionalQuestions?.consequences ? mistake.mistakeAdditionalQuestions?.consequences : null,
+      whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions?.whatCanIDoBetter : null,
+      whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ? mistake.mistakeAdditionalQuestions?.whatDidILearn : null,
+      canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ? mistake.mistakeAdditionalQuestions?.canIFixIt : null,
+      onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
       goal: !mistake.goal ? null : mistake.goal,
       tips: mistake.tips.filter((t: string) => !!t),
       priority: mistake.priority,
@@ -60,6 +65,11 @@ export const actions: ActionTree<MistakesState, State> = {
   ): Promise<void> {
     const payload: NewMistakeApiModel = {
       name: mistake.name,
+      consequences: mistake.mistakeAdditionalQuestions?.consequences ? mistake.mistakeAdditionalQuestions?.consequences : null,
+      whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions?.whatCanIDoBetter : null,
+      whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ? mistake.mistakeAdditionalQuestions?.whatDidILearn : null,
+      canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ? mistake.mistakeAdditionalQuestions?.canIFixIt : null,
+      onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
       goal: !mistake.goal ? null : mistake.goal,
       tips: mistake.tips.filter((t: string) => !!t),
       priority: mistake.priority,

@@ -56,7 +56,13 @@
     "Tips": "Porady",
     "CancelButton": "Anuluj",
     "AddButton": "Dodaj",
-    "UpdateButton": "Zapisz"
+    "UpdateButton": "Zapisz",
+    "Consequences": "Konsekwencje",
+    "WhatCanIDoBetter": "Co mogę zrobić lepiej następnym razem?",
+    "WhatDidILearn": "Czego się nauczyłam/em?",
+    "CanIFixIt": "Czy mogę to naprawić?",
+    "OnlyResponsible": "Czy tylko ja ponoszę odpowiedzialność?",
+    "DeepAnalyzer": "Zaawansowana analiza"
   },
   "Priority": {
     "Low": "Niski",

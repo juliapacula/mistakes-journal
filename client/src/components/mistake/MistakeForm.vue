@@ -4,13 +4,23 @@
       v-if="isMistakeLoaded"
       class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
+        <div class="form-check form-switch mj-deep-analyzer-switch">
+          <input
+            id="isDeepAnalyzer"
+            v-model="isDeepAnalyzer"
+            class="form-check-input"
+            type="checkbox">
+          <label
+            class="form-check-label"
+            for="isDeepAnalyzer">{{ $t('MistakeForm.DeepAnalyzer') }}</label>
+        </div>
         <div class="col-12">
           <label
             class="form-label"
             for="mistakeName">{{ $t('MistakeForm.Name') }}</label>
           <input
             id="mistakeName"
-            v-model="$v.mistake.name.$model"
+            v-model.trim="$v.mistake.name.$model"
             :class="{ 'is-invalid': $v.mistake.name.$dirty && $v.mistake.name.$invalid }"
             :placeholder="$t('MistakeForm.NamePlaceholder')"
             class="form-control"
@@ -22,13 +32,100 @@
             {{ $t('FormErrors.MaxLength', { max: $v.mistake.name.$params.maxLength.max }) }}
           </mj-error>
         </div>
+        <div v-if="isDeepAnalyzer">
+          <div
+            class="col-12">
+            <label
+              class="form-label"
+              for="mistakeConsequences">{{ $t('MistakeForm.Consequences') }}</label>
+            <input
+              id="mistakeConsequences"
+              v-model.trim="$v.mistake.mistakeAdditionalQuestions.consequences.$model"
+              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.consequences.$dirty && $v.mistake.mistakeAdditionalQuestions.consequences.$invalid }"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.consequences.maxLength">
+              {{
+                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.consequences.$params.maxLength.max })
+              }}
+            </mj-error>
+          </div>
+          <div
+            class="col-12">
+            <label
+              class="form-label"
+              for="mistakeWhatCanIDoBetter">{{ $t('MistakeForm.WhatCanIDoBetter') }}</label>
+            <input
+              id="mistakeWhatCanIDoBetter"
+              v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$model"
+              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$dirty && $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$invalid }"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.maxLength">
+              {{
+                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$params.maxLength.max })
+              }}
+            </mj-error>
+          </div>
+          <div
+            class="col-12">
+            <label
+              class="form-label"
+              for="mistakeWhatDidILearn">{{ $t('MistakeForm.WhatDidILearn') }}</label>
+            <input
+              id="mistakeWhatDidILearn"
+              v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatDidILearn.$model"
+              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$dirty && $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$invalid }"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatDidILearn.maxLength">
+              {{
+                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$params.maxLength.max })
+              }}
+            </mj-error>
+          </div>
+          <div
+            class="col-12">
+            <label
+              class="form-label"
+              for="mistakeCanIFixIt">{{ $t('MistakeForm.CanIFixIt') }}</label>
+            <input
+              id="mistakeCanIFixIt"
+              v-model.trim="$v.mistake.mistakeAdditionalQuestions.canIFixIt.$model"
+              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.canIFixIt.$dirty && $v.mistake.mistakeAdditionalQuestions.canIFixIt.$invalid }"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.canIFixIt.maxLength">
+              {{
+                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.canIFixIt.$params.maxLength.max })
+              }}
+            </mj-error>
+          </div>
+          <div
+            class="col-12">
+            <label
+              class="form-label"
+              for="mistakeOnlyResponsible">{{ $t('MistakeForm.OnlyResponsible') }}</label>
+            <input
+              id="mistakeOnlyResponsible"
+              v-model.trim="$v.mistake.mistakeAdditionalQuestions.onlyResponsible.$model"
+              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$dirty && $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$invalid }"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.onlyResponsible.maxLength">
+              {{
+                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$params.maxLength.max })
+              }}
+            </mj-error>
+          </div>
+        </div>
         <div class="col-12">
           <label
             class="form-label"
             for="mistakeGoal">{{ $t('MistakeForm.Goal') }}</label>
           <input
             id="mistakeGoal"
-            v-model="$v.mistake.goal.$model"
+            v-model.trim="$v.mistake.goal.$model"
             :class="{ 'is-invalid': $v.mistake.goal.$dirty && $v.mistake.goal.$invalid }"
             :placeholder="$t('MistakeForm.GoalPlaceholder')"
             class="form-control"
@@ -67,7 +164,7 @@
             for="mistakePriority">{{ $t('MistakeForm.Priority') }}</label>
           <select
             id="mistakePriority"
-            v-model="$v.mistake.priority.$model"
+            v-model.trim="$v.mistake.priority.$model"
             :class="{ 'is-invalid': $v.mistake.priority.$dirty && $v.mistake.priority.$invalid }"
             class="form-select">
             <option
@@ -129,10 +226,12 @@ import { required } from 'vuelidate/lib/validators';
 
 export default Vue.extend({
   name: 'MistakeForm',
-  data(): { mistake: NewMistake, availablePriorities: string[] } {
+  data(): { isDeepAnalyzer: boolean, mistake: NewMistake, availablePriorities: string[] } {
     return {
+      isDeepAnalyzer: false,
       mistake: {
         name: '',
+        mistakeAdditionalQuestions: null,
         goal: '',
         tips: [''],
         priority: MistakePriority.Medium,
@@ -157,13 +256,42 @@ export default Vue.extend({
         await this.fetchMistake();
       }
     },
+    isDeepAnalyzer(isDeepAnalyzer: boolean) {
+      if (!isDeepAnalyzer) {
+        this.mistake.mistakeAdditionalQuestions = null;
+      } else {
+        this.mistake.mistakeAdditionalQuestions = {
+          consequences: '',
+          whatCanIDoBetter: '',
+          whatDidILearn: '',
+          canIFixIt: '',
+          onlyResponsible: '',
+        };
+      }
+    },
     mistakeToEdit(mistake: Mistake) {
       if (!this.isEditingMistake) {
         return;
       }
 
+      if (mistake.mistakeAdditionalQuestions
+        && mistake.mistakeAdditionalQuestions.consequences !== null
+        && mistake.mistakeAdditionalQuestions.onlyResponsible !== null
+        && mistake.mistakeAdditionalQuestions.canIFixIt !== null
+        && mistake.mistakeAdditionalQuestions.whatDidILearn !== null
+        && mistake.mistakeAdditionalQuestions.whatCanIDoBetter !== null) {
+        this.isDeepAnalyzer = true;
+      }
+
       this.mistake = {
         name: mistake.name,
+        mistakeAdditionalQuestions: {
+          consequences: mistake.mistakeAdditionalQuestions?.consequences ?? '',
+          whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ?? '',
+          whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ?? '',
+          canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ?? '',
+          onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ?? '',
+        },
         goal: mistake.goal ?? '',
         tips: mistake.tips?.length > 0 ? mistake.tips : [''],
         priority: mistake.priority,
@@ -191,6 +319,23 @@ export default Vue.extend({
       },
       goal: {
         maxLength: maxShortTextLength,
+      },
+      mistakeAdditionalQuestions: {
+        consequences: {
+          maxLength: maxShortTextLength,
+        },
+        whatCanIDoBetter: {
+          maxLength: maxShortTextLength,
+        },
+        whatDidILearn: {
+          maxLength: maxShortTextLength,
+        },
+        canIFixIt: {
+          maxLength: maxShortTextLength,
+        },
+        onlyResponsible: {
+          maxLength: maxShortTextLength,
+        },
       },
       tips: {
         $each: {
@@ -259,5 +404,9 @@ export default Vue.extend({
       margin-right: 1rem;
     }
   }
+}
+
+.mj-deep-analyzer-switch {
+  margin-left: 1rem;
 }
 </style>

@@ -56,7 +56,13 @@
     "Tips": "Tips",
     "CancelButton": "Cancel",
     "AddButton": "Add",
-    "UpdateButton": "Save"
+    "UpdateButton": "Save",
+    "Consequences": "Consequences",
+    "WhatCanIDoBetter": "What can I do better next time?",
+    "WhatDidILearn": "What did I learn?",
+    "CanIFixIt": "Can I fix it?",
+    "OnlyResponsible": "Am I the only one responsible?",
+    "DeepAnalyzer": "Deep Analyzer"
   },
   "Priority": {
     "Low": "Low",
