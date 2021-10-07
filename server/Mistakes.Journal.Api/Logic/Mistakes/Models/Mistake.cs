@@ -41,7 +41,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Models
             Repetitions = new List<Repetition>();
             Tips = new List<Tip>();
             MistakeLabels = new List<MistakeLabel>();
-            CreatedAt = DateTime.Now;
+            CreatedAt = DateTime.UtcNow;
 
             AdditonalQuestions = new MistakeAdditionalQuestions
             {

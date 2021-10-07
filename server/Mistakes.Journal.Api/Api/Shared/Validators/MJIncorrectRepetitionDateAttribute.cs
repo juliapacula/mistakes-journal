@@ -17,10 +17,10 @@ namespace Mistakes.Journal.Api.Api.Shared.Validators
             if (!(value is DateTime dateTime))
                 return ValidationResult.Success;
 
-            if (dateTime < DateTime.Now - TimeSpan.FromDays(days))
+            if (dateTime < DateTime.UtcNow - TimeSpan.FromDays(days))
                 return new ValidationResult(ErrorMessageType.TooOldRepetition.ToString());
             
-            if (dateTime > DateTime.Now + TimeSpan.FromMinutes(5))
+            if (dateTime > DateTime.UtcNow + TimeSpan.FromMinutes(5))
                 return new ValidationResult(ErrorMessageType.DateInFuture.ToString());
 
             return ValidationResult.Success;

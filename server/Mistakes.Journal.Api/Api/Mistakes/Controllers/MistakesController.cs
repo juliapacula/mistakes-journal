@@ -104,7 +104,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (mistake.IsSolved)
                 return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
 
-            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.Now));
+            mistake.Repetitions.Add(new Repetition(occuredAt ?? DateTime.UtcNow));
 
             await _dataContext.SaveChangesAsync();
 

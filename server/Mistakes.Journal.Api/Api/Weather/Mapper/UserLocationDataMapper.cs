@@ -21,8 +21,8 @@ namespace Mistakes.Journal.Api.Api.Weather.Mapper
 
             // average from clouds (0-10) and mm of rain from last hour
             var weatherResult = (clouds / 10f + rainValue) / 2f;
-            var sunriseDateTime = DateTimeOffset.FromUnixTimeSeconds(sunrise).LocalDateTime;
-            var sunsetDateTime = DateTimeOffset.FromUnixTimeSeconds(sunset).LocalDateTime;
+            var sunriseDateTime = DateTimeOffset.FromUnixTimeSeconds(sunrise).UtcDateTime;
+            var sunsetDateTime = DateTimeOffset.FromUnixTimeSeconds(sunset).UtcDateTime;
 
             return new UserLocationDataWebModel
             {
@@ -34,7 +34,7 @@ namespace Mistakes.Journal.Api.Api.Weather.Mapper
 
         private static UserLocationDataWebModel.TimeOfDayType GetTimeOfDay(DateTime sunrise, DateTime sunset)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             if (now < sunrise || now > sunset)
             {
