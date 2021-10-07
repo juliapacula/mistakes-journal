@@ -8,67 +8,61 @@ namespace Mistakes.Journal.Api.Api.Weather.Mapper
     public static class UserLocationDataMapper
     {
         // https://openweathermap.org/weather-conditions
-        private static readonly long[] GoodWeatherCodes = { 600, 800, 801 };
 
-        public static WeatherWebModel ToWeatherWebModel(this string openWeatherJson)
+        public static UserLocationDataWebModel ToUserLocationDataWebModel(this string openWeatherJson)
         {
             dynamic owResponse = JObject.Parse(openWeatherJson);
-            float temperature = (float)owResponse.main.temp;
-            long weatherCode = owResponse.weather[0].id;
+            int clouds = (int)owResponse.clouds.all;
+            var rain = (((owResponse.rain as JObject)?.First as JProperty)?.Value as JValue)?.Value;
+            var rainValue = rain is null ? 0d : Convert.ToDouble(rain);
+            int sunrise = owResponse.sys.sunrise;
+            int sunset = owResponse.sys.sunset;
             string place = owResponse.name;
 
-            return new WeatherWebModel
+            // average from clouds (0-10) and mm of rain from last hour
+            var weatherResult = (clouds / 10f + rainValue) / 2f;
+            var sunriseDateTime = DateTimeOffset.FromUnixTimeSeconds(sunrise).LocalDateTime;
+            var sunsetDateTime = DateTimeOffset.FromUnixTimeSeconds(sunset).LocalDateTime;
+
+            return new UserLocationDataWebModel
             {
-                Weather = GetWeatherType(weatherCode),
-                Temperature = GetTemperature(temperature),
+                WeatherHopelessnessScale = weatherResult > 9 ? 9 : (int)weatherResult,
+                TimeOfDay = GetTimeOfDay(sunriseDateTime, sunsetDateTime),
                 City = place,
             };
         }
 
-        public static TimeOfDayWebModel ToTimeOfDayWebModel(this string sunsetJson)
-        {
-            dynamic ssResponse = JObject.Parse(sunsetJson);
-            DateTime sunrise = ssResponse.results.sunrise;
-            DateTime sunset = ssResponse.results.sunset;
-            DateTime noon = ssResponse.results.solar_noon;
-
-            return new TimeOfDayWebModel
-            {
-                TimeOfDay = GetTimeOfDay(sunrise, sunset, noon)
-            };
-        }
-
-        private static TimeOfDayWebModel.TimeOfDayType GetTimeOfDay(DateTime sunrise, DateTime sunset, DateTime noon)
+        private static UserLocationDataWebModel.TimeOfDayType GetTimeOfDay(DateTime sunrise, DateTime sunset)
         {
             var now = DateTime.Now;
 
             if (now < sunrise || now > sunset)
-                return TimeOfDayWebModel.TimeOfDayType.Night;
-
-            return now < noon ? TimeOfDayWebModel.TimeOfDayType.Morning : TimeOfDayWebModel.TimeOfDayType.Day;
-        }
-
-        private static WeatherWebModel.TemperatureRange GetTemperature(float temperature)
-        {
-            return temperature switch
             {
-                float n when n < 0 => WeatherWebModel.TemperatureRange.Cold,
-                float n when n < 10 => WeatherWebModel.TemperatureRange.Chilly,
-                float n when n < 22 => WeatherWebModel.TemperatureRange.Medium,
-                float n when n < 34 => WeatherWebModel.TemperatureRange.Hot,
-                _ => WeatherWebModel.TemperatureRange.Tropical,
-            };
-        }
+                if (now < sunrise)
+                    sunset -= TimeSpan.FromDays(1);
+                else
+                    sunrise += TimeSpan.FromDays(1);
 
-        private static WeatherWebModel.WeatherType GetWeatherType(long weatherCode)
-        {
-            if (GoodWeatherCodes.Contains(weatherCode))
-                return WeatherWebModel.WeatherType.Clear;
+                var nightTimePart = (sunrise - sunset) / 3;
 
-            if (weatherCode >= 500 && weatherCode < 600)
-                return WeatherWebModel.WeatherType.Rain;
+                if (now > sunrise - nightTimePart)
+                    return UserLocationDataWebModel.TimeOfDayType.NightMorning;
 
-            return WeatherWebModel.WeatherType.Other;
+                if (now > sunrise - 2 * nightTimePart)
+                    return UserLocationDataWebModel.TimeOfDayType.NightMidnight;
+
+                return UserLocationDataWebModel.TimeOfDayType.NightEvening;
+            }
+
+            var dayTimePart = (sunset - sunrise) / 3;
+
+            if (now > sunset - dayTimePart)
+                return UserLocationDataWebModel.TimeOfDayType.DayEvening;
+
+            if (now > sunset - 2 * dayTimePart)
+                return UserLocationDataWebModel.TimeOfDayType.DayNoon;
+
+            return UserLocationDataWebModel.TimeOfDayType.DayMorning;
         }
     }
 }

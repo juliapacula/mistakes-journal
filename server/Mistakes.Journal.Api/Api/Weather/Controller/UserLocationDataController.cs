@@ -21,31 +21,7 @@ namespace Mistakes.Journal.Api.Api.Weather.Controller
         private readonly string _owKey = Environment.GetEnvironmentVariable("OPEN_WEATHER_API_KEY");
 
         [HttpGet]
-        public async Task<ActionResult<WeatherWebModel>> GetUserLocationData(string lat, string lon)
-        {
-            string weatherJson, sunsetJson;
-
-            try
-            {
-                weatherJson = await GetWeather(lat, lon);
-                sunsetJson = await GetTimeOfDay(lat, lon);
-            }
-            catch (WeatherException e)
-            {
-                return Problem(type: e.ErrorMessageType.ToString(), detail: e.Message);
-            }
-
-            var weatherWebModel = weatherJson.ToWeatherWebModel();
-            var timeOfDayWebModel = sunsetJson.ToTimeOfDayWebModel();
-
-            return Ok(new UserLocationDataWebModel
-            {
-                TimeOfDayWebModel = timeOfDayWebModel,
-                WeatherWebModel = weatherWebModel
-            });
-        }
-
-        private async Task<string> GetWeather(string lat, string lon)
+        public async Task<ActionResult<UserLocationDataWebModel>> GetUserLocationData(string lat, string lon)
         {
             using var client = new HttpClient { BaseAddress = _owmApiUri };
             client.DefaultRequestHeaders.Accept.Clear();
@@ -55,24 +31,10 @@ namespace Mistakes.Journal.Api.Api.Weather.Controller
             var response = await client.GetAsync(request);
 
             if (!response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.BadRequest)
-                throw new WeatherException(GetErrorType(await response.Content.ReadAsStringAsync()));
+                return Problem(type: GetErrorType(await response.Content.ReadAsStringAsync()).ToString());
 
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        private async Task<string> GetTimeOfDay(string lat, string lon)
-        {
-            using var client = new HttpClient { BaseAddress = _ssApiUri };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var request = $"json?lat={lat}&lng={lon}&formatted=0";
-            var response = await client.GetAsync(request);
-
-            if (!response.IsSuccessStatusCode)
-                throw new WeatherException(ErrorMessageType.SunriseSunsetError, await response.Content.ReadAsStringAsync());
-
-            return await response.Content.ReadAsStringAsync();
+            var output = await response.Content.ReadAsStringAsync();
+            return Ok(output.ToUserLocationDataWebModel());
         }
 
         private ErrorMessageType GetErrorType(string errorJson)
