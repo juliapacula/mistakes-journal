@@ -8,7 +8,7 @@ namespace Mistakes.Journal.Api.Logic.Mistakes.Extensions
     {
         public static bool CanBeSolved(this Mistake mistake)
         {
-            return (DateTime.Now - mistake.CreatedAt).TotalDays >= Constants.DaysToSolveMistake;
+            return (DateTime.UtcNow - mistake.CreatedAt).TotalDays >= Constants.DaysToSolveMistake;
         }
     }
 }
