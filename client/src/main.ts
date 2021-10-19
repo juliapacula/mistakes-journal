@@ -10,7 +10,7 @@ import {
 import VTooltip from 'v-tooltip';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { DropdownPlugin, NavbarPlugin } from 'bootstrap-vue';
+import { DropdownPlugin, NavbarPlugin, BProgress } from 'bootstrap-vue';
 import App from './App.vue';
 import i18n from './i18n';
 import router from './router';
@@ -23,6 +23,7 @@ Vue.component('fa-icon', FontAwesomeIcon);
 Vue.component('fa-layers', FontAwesomeLayers);
 Vue.component('mj-icon', MJIcon);
 Vue.component('mj-error', MJError);
+Vue.component('b-progress', BProgress);
 
 Vue.use(VTooltip, {
   defaultHtml: false,

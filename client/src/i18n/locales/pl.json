@@ -36,7 +36,8 @@
   },
   "Mistakes": {
     "Title": "Błędy",
-    "AddButton": "Dodaj błąd"
+    "AddButton": "Dodaj błąd",
+    "RepetitionButton": "Powtórz"
   },
   "Solutions": {
     "Title": "Rozwiązanie",

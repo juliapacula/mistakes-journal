@@ -96,7 +96,7 @@ namespace Mistakes.Journal.Api
             modelBuilder.Entity<Repetition>(r =>
             {
                 r.HasKey(t => t.Id);
-                r.Property(t => t.OccuredAt).IsRequired();
+                r.Property(t => t.OccurredAt).IsRequired();
                 r.HasOne(t => t.Mistake)
                     .WithMany(m => m.Repetitions)
                     .HasForeignKey(t => t.MistakeId)

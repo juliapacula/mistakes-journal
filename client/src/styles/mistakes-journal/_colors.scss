@@ -52,6 +52,10 @@ $mistake-journal-colors-map: (
     'default': '900',
     '900': #484848,
   ),
+  'repetition': (
+    'default': '900',
+    '900': #c92c2c,
+  ),
 );
 
 @function color($name, $shade: 'default') {

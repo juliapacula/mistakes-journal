@@ -165,8 +165,8 @@ export default Vue.extend({
       this.mistake = {
         name: mistake.name,
         goal: mistake.goal ?? '',
-        priority: mistake.priority,
         tips: mistake.tips?.length > 0 ? mistake.tips : [''],
+        priority: mistake.priority,
       };
     },
   },
@@ -225,7 +225,10 @@ export default Vue.extend({
       await this.goToMistakesList();
     },
     async update(): Promise<void> {
-      await this.$store.dispatch(MistakesActions.UpdateMistake, { mistakeId: this.$route.params.id, mistake: this.mistake });
+      await this.$store.dispatch(
+        MistakesActions.UpdateMistake,
+        { mistakeId: this.$route.params.id, mistake: this.mistake },
+      );
       await this.goToMistakesList(this.$route.params.id);
     },
     async goToMistakesList(id?: string): Promise<void> {
