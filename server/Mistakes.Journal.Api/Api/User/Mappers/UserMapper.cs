@@ -1,5 +1,4 @@
 using Mistakes.Journal.Api.Api.User.WebModels;
-using Mistakes.Journal.Api.Logic.Identity;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 
 namespace Mistakes.Journal.Api.Api.User.Mappers

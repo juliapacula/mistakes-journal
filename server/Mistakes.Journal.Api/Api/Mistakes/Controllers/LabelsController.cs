@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Api.Mistakes.Mappers;
 using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Api.Shared;
-using Mistakes.Journal.Api.Api.Shared.RequestsParameters;
+using Mistakes.Journal.Api.Logic.Identity.Services;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
@@ -21,10 +21,14 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         #region Fields & Constructors
 
         private readonly MistakesJournalContext _dataContext;
+        private readonly IUserProvider _userProvider;
 
-        public LabelsController(MistakesJournalContext dataContext)
+        public LabelsController(
+            MistakesJournalContext dataContext,
+            IUserProvider userProvider)
         {
             _dataContext = dataContext;
+            _userProvider = userProvider;
         }
 
         #endregion
@@ -39,17 +43,17 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var nameLowerCase = newLabel.Name.ToLower();
             var existingLabel = await _dataContext.Set<Label>()
-                .FirstOrDefaultAsync(m => m.Name.ToLower() == nameLowerCase);
+                .FirstOrDefaultAsync(l => l.Name.ToLower() == nameLowerCase);
 
             if (existingLabel != null)
                 return BadRequest(ErrorMessageType.NotUnique);
 
-            var label = newLabel.ToEntity();
+            var label = newLabel.ToEntity(_userProvider.GetId());
 
             await _dataContext.Set<Label>().AddAsync(label);
             await _dataContext.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetLabel), new {labelId = label.Id}, label.ToWebModel());
+            return CreatedAtAction(nameof(GetLabel), new { labelId = label.Id }, label.ToWebModel());
         }
 
         [HttpPost("search")]
@@ -57,14 +61,14 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         {
             var labels = await _dataContext.Set<Label>()
                 .WhereIf(searchModel.Name.IsPresent(),
-                    m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .WhereIf(!searchModel.Colors.IsNullOrEmpty(), m => searchModel.Colors.Contains(m.Color))
+                    l => l.Name.ToLower().Contains(searchModel.Name.ToLower()))
+                .WhereIf(!searchModel.Colors.IsNullOrEmpty(), l => searchModel.Colors.Contains(l.Color))
                 .Skip(searchModel.StartAt)
                 .Take(searchModel.MaxResults)
-                .Include(m => m.MistakeLabels)
+                .Include(l => l.MistakeLabels)
                 .ToListAsync();
 
-            return Ok(labels.Select(m => m.ToWebModel()));
+            return Ok(labels.Select(l => l.ToWebModel()));
         }
 
         #endregion
@@ -75,8 +79,8 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<ICollection<LabelWebModel>>> GetLabel(Guid labelId)
         {
             var label = await _dataContext.Set<Label>()
-                .Include(m => m.MistakeLabels)
-                .SingleOrDefaultAsync(m => m.Id == labelId);
+                .Include(l => l.MistakeLabels)
+                .SingleOrDefaultAsync(l => l.Id == labelId);
 
             if (label is null)
                 return NotFound();
@@ -92,7 +96,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult> RemoveLabel(Guid labelId)
         {
             var label = await _dataContext.Set<Label>()
-                .FirstOrDefaultAsync(m => m.Id == labelId);
+                .FirstOrDefaultAsync(l => l.Id == labelId);
 
             if (label is null)
                 return NotFound();
@@ -114,7 +118,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 return BadRequest(ModelState);
 
             var existingLabel = await _dataContext.Set<Label>()
-                .FirstOrDefaultAsync(m => m.Id == labelId);
+                .FirstOrDefaultAsync(l => l.Id == labelId);
 
             if (existingLabel is null)
                 return NotFound();

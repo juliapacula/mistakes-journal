@@ -1,4 +1,5 @@
-﻿using Mistakes.Journal.Api.Api.Mistakes.WebModels;
+﻿using System;
+using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
@@ -16,9 +17,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             };
         }
 
-        public static Label ToEntity(this NewLabelWebModel newLabel)
+        public static Label ToEntity(this NewLabelWebModel newLabel, Guid labelId)
         {
             return new Label(
+                labelId,
                 newLabel.Name,
                 newLabel.Color);
         }

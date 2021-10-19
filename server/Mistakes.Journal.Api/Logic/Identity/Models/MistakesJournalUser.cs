@@ -10,5 +10,7 @@ namespace Mistakes.Journal.Api.Logic.Identity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public ICollection<Mistake> Mistakes { get; set; }
+        public ICollection<Label> Labels { get; set; }
+        public ICollection<Tip> Tips { get; set; }
     }
 }

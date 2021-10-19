@@ -48,7 +48,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             var mistake = newMistake.ToEntity(_userProvider.GetId());
 
             if (newMistake.Tips != null)
-                mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(t)));
+                mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(mistake.UserId, t)));
 
             foreach (var labelId in newMistake.Labels.EmptyIfNull())
             {
@@ -118,7 +118,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] MistakesSortingParameters sortingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.UserId == _userProvider.GetId())
                 .Include(m => m.Tips)
                 .Include(m => m.Repetitions)
                 .Include(m => m.MistakeLabels)
@@ -169,7 +168,6 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             [FromQuery] PagingParameters pagingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.UserId == _userProvider.GetId())
                 .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
                 .OrderByField(sortingParameters)
                 .Skip(pagingParameters.StartAt)
@@ -218,6 +216,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             {
                 _dataContext.Set<Tip>().Remove(tip);
             }
+
             _dataContext.Set<Mistake>().Remove(mistake);
             await _dataContext.SaveChangesAsync();
 
@@ -264,9 +263,28 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 var newTips = mistake.Tips
                     .Where(t => !existingMistake.Tips.Select(et => et.Content).Contains(t))
                     .Where(t => t.IsPresent())
-                    .Select(t => new Tip(t));
+                    .Select(t => new Tip(existingMistake.UserId, t));
 
                 existingMistake.Tips.AddRange(newTips);
+            }
+
+            if (mistake.Labels != null)
+            {
+                var deletedLabels = existingMistake.MistakeLabels.Where(ml => !mistake.Labels.Contains(ml.LabelId));
+                _dataContext.Set<MistakeLabel>().RemoveRange(deletedLabels);
+
+                var newLabels = mistake.Labels.Except(existingMistake.MistakeLabels.Select(ml => ml.LabelId));
+
+                foreach (var labelId in newLabels)
+                {
+                    var label = await _dataContext.Set<Label>().SingleOrDefaultAsync(l => l.Id == labelId);
+
+                    if (label is null)
+                        return BadRequest(ErrorMessageType.LabelDoesNotExist);
+
+                    var mistakeLabel = new MistakeLabel(label, existingMistake);
+                    _dataContext.Set<MistakeLabel>().Add(mistakeLabel);
+                }
             }
 
             await _dataContext.SaveChangesAsync();

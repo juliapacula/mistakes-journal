@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Weather.Mapper;
@@ -12,6 +13,7 @@ using Newtonsoft.Json.Linq;
 namespace Mistakes.Journal.Api.Api.Weather.Controller
 {
     [ApiController]
+    [Authorize]
     [Route("/api/user-location-data")]
     public class UserLocationDataController : ControllerBase
     {

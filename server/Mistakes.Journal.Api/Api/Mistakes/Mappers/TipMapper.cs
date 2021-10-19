@@ -1,4 +1,5 @@
-﻿using Mistakes.Journal.Api.Api.Mistakes.WebModels;
+﻿using System;
+using Mistakes.Journal.Api.Api.Mistakes.WebModels;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
 
 namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
@@ -14,9 +15,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Mappers
             };
         }
 
-        public static Tip ToEntity(this NewTipWebModel newTip)
+        public static Tip ToEntity(this NewTipWebModel newTip, Guid userId)
         {
-            return new Tip(newTip.Content);
+            return new Tip(userId, newTip.Content);
         }
     }
 }
