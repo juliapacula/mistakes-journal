@@ -13,6 +13,83 @@
         {{ mistake.name }}
       </span>
     </div>
+    <div v-if="mistake.mistakeAdditionalQuestions">
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.consequences"
+        class="mj-solution-section-title">
+        {{ $t('MistakeForm.Consequences') }}
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.consequences"
+        class="mj-solution-section-items-content">
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['fas', 'compress-arrows-alt']" />
+        </span>
+        <span class="mj-solution-section-items-text">
+          {{ mistake.mistakeAdditionalQuestions.consequences }}
+        </span>
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.whatCanIDoBetter"
+        class="mj-solution-section-title">
+        {{ $t('MistakeForm.WhatCanIDoBetter') }}
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.whatCanIDoBetter"
+        class="mj-solution-section-items-content">
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['far', 'dot-circle']" />
+        </span>
+        <span class="mj-solution-section-items-text">
+          {{ mistake.mistakeAdditionalQuestions.whatCanIDoBetter }}
+        </span>
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.whatDidILearn"
+        class="mj-solution-section-title">
+        {{ $t('MistakeForm.WhatDidILearn') }}
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.whatDidILearn"
+        class="mj-solution-section-items-content">
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['fas', 'graduation-cap']" />
+        </span>
+        <span class="mj-solution-section-items-text">
+          {{ mistake.mistakeAdditionalQuestions.whatDidILearn }}
+        </span>
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.canIFixIt"
+        class="mj-solution-section-title">
+        {{ $t('MistakeForm.CanIFixIt') }}
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.canIFixIt"
+        class="mj-solution-section-items-content">
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['fas', 'tools']" />
+        </span>
+        <span class="mj-solution-section-items-text">
+          {{ mistake.mistakeAdditionalQuestions.canIFixIt }}
+        </span>
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.onlyResponsible"
+        class="mj-solution-section-title">
+        {{ $t('MistakeForm.OnlyResponsible') }}
+      </div>
+      <div
+        v-if="mistake.mistakeAdditionalQuestions.onlyResponsible"
+        class="mj-solution-section-items-content">
+        <span class="mj-solution-section-items-icon">
+          <fa-icon :icon="['far', 'dot-circle']" />
+        </span>
+        <span class="mj-solution-section-items-text">
+          {{ mistake.mistakeAdditionalQuestions.onlyResponsible }}
+        </span>
+      </div>
+    </div>
     <div class="mj-solution-section-title">
       {{ $t('Solutions.Goal') }}
     </div>

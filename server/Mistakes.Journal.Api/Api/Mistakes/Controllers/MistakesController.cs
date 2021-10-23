@@ -249,11 +249,11 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             existingMistake.Priority = mistake.Priority ?? existingMistake.Priority;
 
             existingMistake.AdditonalQuestions ??= new Mistake.MistakeAdditionalQuestions();
-            existingMistake.AdditonalQuestions.Consequences = mistake.Consequences ?? existingMistake.AdditonalQuestions.Consequences;
-            existingMistake.AdditonalQuestions.WhatCanIDoBetter = mistake.WhatCanIDoBetter ?? existingMistake.AdditonalQuestions.WhatCanIDoBetter;
-            existingMistake.AdditonalQuestions.WhatDidILearn = mistake.WhatDidILearn ?? existingMistake.AdditonalQuestions.WhatDidILearn;
-            existingMistake.AdditonalQuestions.CanIFixIt = mistake.CanIFixIt ?? existingMistake.AdditonalQuestions.CanIFixIt;
-            existingMistake.AdditonalQuestions.OnlyResponsible = mistake.OnlyResponsible ?? existingMistake.AdditonalQuestions.OnlyResponsible;
+            existingMistake.AdditonalQuestions.Consequences = mistake.Consequences;
+            existingMistake.AdditonalQuestions.WhatCanIDoBetter = mistake.WhatCanIDoBetter;
+            existingMistake.AdditonalQuestions.WhatDidILearn = mistake.WhatDidILearn;
+            existingMistake.AdditonalQuestions.CanIFixIt = mistake.CanIFixIt;
+            existingMistake.AdditonalQuestions.OnlyResponsible = mistake.OnlyResponsible;
 
             if (mistake.Tips != null)
             {

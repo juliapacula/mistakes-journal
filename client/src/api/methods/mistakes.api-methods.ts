@@ -23,6 +23,7 @@ export class MistakesApiMethods {
     return results.map((m: MistakeApiModel) => ({
       id: m.id,
       createdAt: convertFromTimestamp(m.createdAt),
+      mistakeAdditionalQuestions: m.mistakeAdditionalQuestions,
       goal: m.goal,
       name: m.name,
       priority: m.priority,
@@ -50,7 +51,10 @@ export class MistakesApiMethods {
     await remove(`/api/mistakes/${mistakeId}`);
   }
 
-  public static async updateMistake(mistakeId: string, mistake: NewMistakeApiModel): Promise<Mistake> {
+  public static async updateMistake(
+    mistakeId: string,
+    mistake: NewMistakeApiModel,
+  ): Promise<Mistake> {
     const result: MistakeApiModel = await put(`/api/mistakes/${mistakeId}`, mistake);
 
     return this.mapMistake(result);
@@ -60,6 +64,13 @@ export class MistakesApiMethods {
     return {
       id: mistake.id,
       createdAt: convertFromTimestamp(mistake.createdAt),
+      mistakeAdditionalQuestions: mistake.mistakeAdditionalQuestions ? {
+        consequences: mistake.mistakeAdditionalQuestions.consequences,
+        whatCanIDoBetter: mistake.mistakeAdditionalQuestions.whatCanIDoBetter,
+        whatDidILearn: mistake.mistakeAdditionalQuestions.whatDidILearn,
+        canIFixIt: mistake.mistakeAdditionalQuestions.canIFixIt,
+        onlyResponsible: mistake.mistakeAdditionalQuestions.onlyResponsible,
+      } : null,
       goal: mistake.goal,
       name: mistake.name,
       priority: mistake.priority,
