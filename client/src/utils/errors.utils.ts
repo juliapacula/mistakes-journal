@@ -12,11 +12,15 @@ export const handleDefaultResponseErrors = async (
   } else if (response.status === 403) {
     commit(UiStateMutations.AddErrorMessageKey, 'ServerErrors.AccessDenied');
   } else if (response.status === 400) {
-    const { errors }: { errors: { [key: string]: string[] } } = await response.json();
+    const responseBody: { errors: { [key: string]: string[] } } = await response.json();
 
-    Object.keys(errors)
-      .flatMap((key: string) => errors[key].map((error: string) => `ServerErrors.${error}`))
-      .forEach((errorKey: string) => commit(UiStateMutations.AddErrorMessageKey, errorKey));
+    if (responseBody.errors) {
+      Object.keys(responseBody.errors)
+        .flatMap((key: string) => responseBody.errors[key].map((error: string) => `ServerErrors.${error}`))
+        .forEach((errorKey: string) => commit(UiStateMutations.AddErrorMessageKey, errorKey));
+    } else {
+      commit(UiStateMutations.AddErrorMessageKey, `ServerErrors.${responseBody as unknown as string}`);
+    }
   } else if (response.status === 500) {
     commit(UiStateMutations.AddErrorMessageKey, 'ServerErrors.UnknownError');
   }

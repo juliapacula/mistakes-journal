@@ -1,0 +1,94 @@
+<template>
+  <div class="col-12">
+    <label class="form-label">{{ $t('MistakeForm.Labels') }}</label>
+    <div class="mj-mistake-labels">
+      <div
+        v-for="label in availableLabels"
+        :key="label.id"
+        class="mj-mistake-label">
+        <input
+          :id="label.id"
+          v-model="labelIds"
+          :value="label.id"
+          autocomplete="off"
+          class="btn-check"
+          type="checkbox">
+        <label
+          :for="label.id"
+          class="btn btn-label">
+          <remix-icon
+            :style="{ color: label.color }"
+            class="mj-sidebar-item-icon"
+            icon="price-tag-3" />
+          <span>{{ label.name }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Label } from '@/model/label';
+import { LabelsActions } from '@/store/labels-module/actions';
+import Vue from 'vue';
+
+export default Vue.extend({
+  name: 'MistakeLabels',
+  props: {
+    value: {
+      type: Array,
+    },
+  },
+  data(): { labelIds: string[] } {
+    return {
+      labelIds: [],
+    };
+  },
+  computed: {
+    availableLabels(): Label[] {
+      return this.$store.state.labels.labels;
+    },
+  },
+  watch: {
+    labelIds(selectedLabels: string[]): void {
+      this.$emit('input', selectedLabels);
+    },
+    value(labelIds: string[]): void {
+      this.labelIds = labelIds;
+    },
+  },
+  async beforeCreate(): Promise<void> {
+    await this.$store.dispatch(LabelsActions.GetAll);
+  },
+});
+</script>
+
+<style
+  lang="scss"
+  scoped>
+@use '../../styles/mistakes-journal';
+
+.btn-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.3rem;
+  border: 2px solid mistakes-journal.color('primary', '50');
+  border-radius: 0.2rem;
+  font-size: 0.8em;
+}
+
+.btn-check:checked + .btn-label {
+  border: 2px solid mistakes-journal.color('primary', '500');
+  background-color: mistakes-journal.color('primary', '300');
+}
+
+.mj-mistake-labels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mj-mistake-label {
+  margin: 0.1rem 0.2rem;
+}
+</style>

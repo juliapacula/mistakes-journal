@@ -18,6 +18,7 @@
           </router-link>
           <mistake-options-menu :mistake-id="mistake.id" />
         </div>
+        <mistake-labels-list :labels="mistake.labels" />
         <progress-bar :past-days="countMistakeDays(mistake)" />
         <div class="mj-priority-repetition">
           <mistake-priority :priority="mistake.priority" />
@@ -39,6 +40,7 @@
 </template>
 
 <script lang="ts">
+import MistakeLabelsList from '@/components/mistakes/MistakeLabelsList.vue';
 import MistakeOptionsMenu from '@/components/mistakes/MistakeOptionsMenu.vue';
 import MistakePriority from '@/components/mistakes/MistakePriority.vue';
 import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
@@ -53,6 +55,7 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MistakesList',
   components: {
+    MistakeLabelsList,
     MistakesPagination,
     ProgressBar,
     RepetitionButton,
