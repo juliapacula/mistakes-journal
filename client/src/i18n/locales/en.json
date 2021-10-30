@@ -43,13 +43,15 @@
   "Mistakes": {
     "Title": "Mistakes",
     "AddButton": "Add mistake",
+    "EmptyList": "There is no mistakes for given filters. Add a new mistake in order to display the list correctly.",
+    "ShowMore": "Show more",
     "RepetitionButton": "Repetition"
   },
   "Solutions": {
     "Title": "Solution",
     "Name": "Mistake",
     "Goal": "My goal",
-    "Tips": "Tips for future",
+    "Tips": "Tips for the future",
     "NoGoal": "Goal is not set.",
     "NoTips": "You've got no tips."
   },

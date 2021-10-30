@@ -114,7 +114,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         [HttpPost("search")]
         public async Task<ActionResult<MistakeWebModel>> SearchMistakes(
             MistakeSearchWebModel searchModel,
-            [FromQuery] SolvedParameters solvedParameters,
+            [FromQuery] MistakesListFilters mistakesListFilters,
             [FromQuery] MistakesSortingParameters sortingParameters)
         {
             var mistakes = await _dataContext.Set<Mistake>()
@@ -123,7 +123,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)
                 .WhereIf(searchModel.Name.IsPresent(), m => m.Name.ToLower().Contains(searchModel.Name.ToLower()))
-                .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
+                .Where(m => m.IsSolved && mistakesListFilters.IncludeSolved || !m.IsSolved && mistakesListFilters.IncludeUnsolved)
                 .WhereIf(searchModel.Goal.IsPresent(), m => m.Goal != null && m.Goal.ToLower().Contains(searchModel.Goal.ToLower()))
                 .WhereIf(!searchModel.Priorities.IsNullOrEmpty(), m => searchModel.Priorities.Contains(m.Priority))
                 .WhereIf(!searchModel.Labels.IsNullOrEmpty(), m => m.MistakeLabels.Any(ml => searchModel.Labels.Contains(ml.LabelId)))
@@ -163,22 +163,28 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
         [HttpGet]
         public async Task<ActionResult<MistakeWebModel>> GetMistakes(
-            [FromQuery] SolvedParameters solvedParameters,
+            [FromQuery] MistakesListFilters mistakesListFilters,
             [FromQuery] MistakesSortingParameters sortingParameters,
             [FromQuery] PagingParameters pagingParameters)
         {
-            var mistakes = await _dataContext.Set<Mistake>()
-                .Where(m => m.IsSolved && solvedParameters.IncludeSolved || !m.IsSolved && solvedParameters.IncludeUnsolved)
-                .OrderByField(sortingParameters)
-                .Skip(pagingParameters.StartAt)
-                .Take(pagingParameters.MaxResults)
+            var mistakes = _dataContext.Set<Mistake>()
                 .Include(m => m.Tips)
                 .Include(m => m.MistakeLabels)
                     .ThenInclude(m => m.Label)
                 .Include(m => m.Repetitions)
+                .WhereIf(mistakesListFilters.LabelId.HasValue, m => m.MistakeLabels.Any(i => i.Label.Id == mistakesListFilters.LabelId.Value))
+                .Where(m => m.IsSolved && mistakesListFilters.IncludeSolved || !m.IsSolved && mistakesListFilters.IncludeUnsolved)
+                .Where(m => m.IsSolved && mistakesListFilters.IncludeSolved || !m.IsSolved && mistakesListFilters.IncludeUnsolved)
+                .OrderByField(sortingParameters);
+
+            var count = await mistakes.CountAsync();
+
+            var paginatedMistakes = await mistakes
+                .Skip(pagingParameters.StartAt)
+                .Take(pagingParameters.MaxResults)
                 .ToListAsync();
 
-            return Ok(mistakes.Select(m => m.ToWebModel()));
+            return Ok(paginatedMistakes.Select(m => m.ToWebModel()).ToPaginatedResult(count));
         }
 
         [HttpGet("{mistakeId:guid}")]

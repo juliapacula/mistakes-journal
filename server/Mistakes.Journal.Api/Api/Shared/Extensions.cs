@@ -31,6 +31,15 @@ namespace Mistakes.Journal.Api.Api.Shared
             return condition ? source.Where(predicate) : source;
         }
 
+        public static object ToPaginatedResult<T>(this IEnumerable<T> source, int count)
+        {
+            return new
+            {
+                Items = source,
+                TotalCount = count,
+            };
+        }
+
         public static bool IsPresent(this string str)
         {
             return !(string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str));
