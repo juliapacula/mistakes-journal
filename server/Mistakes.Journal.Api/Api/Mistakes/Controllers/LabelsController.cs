@@ -60,10 +60,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
         public async Task<ActionResult<LabelWebModel>> GetLabels(LabelSearchWebModel searchModel)
         {
             var labels = await _dataContext.Set<Label>()
+                .Include(l => l.MistakeLabels)
                 .WhereIf(searchModel.Name.IsPresent(),
                     l => l.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), l => searchModel.Colors.Contains(l.Color))
-                .Include(l => l.MistakeLabels)
                 .ToListAsync();
 
             return Ok(labels.Select(l => l.ToWebModel()));
