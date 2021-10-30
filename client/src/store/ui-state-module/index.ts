@@ -9,5 +9,6 @@ export default {
   mutations,
   state: {
     isSidebarVisible: true,
+    errorMessageKeys: [],
   } as UiState,
 } as Module<UiState, State>;

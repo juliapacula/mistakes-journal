@@ -16,6 +16,7 @@ import {
 } from 'bootstrap-vue';
 import VTooltip from 'v-tooltip';
 import Vue from 'vue';
+import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate';
 import App from './App.vue';
 import i18n from './i18n';
@@ -42,6 +43,11 @@ Vue.use(Vuelidate);
 Vue.use(DropdownPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(ModalPlugin);
+Vue.use(Toasted, {
+  position: 'bottom-right',
+  keepOnHover: true,
+  iconPack: 'fontawesome',
+});
 
 Vue.config.productionTip = false;
 

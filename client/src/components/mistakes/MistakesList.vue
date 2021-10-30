@@ -11,13 +11,11 @@
         :key="mistake.id"
         class="mj-mistake-item">
         <div class="mj-mistake-first-line">
-          <div class="mj-mistake-item-title">
-            <router-link
-              :to="'/journal/mistakes/' + mistake.id"
-              class="mj-mistake-item-link">
-              {{ mistake.name }}
-            </router-link>
-          </div>
+          <router-link
+            :to="'/journal/mistakes/' + mistake.id"
+            class="mj-mistake-item-title">
+            {{ mistake.name }}
+          </router-link>
           <mistake-options-menu :mistake-id="mistake.id" />
         </div>
         <progress-bar :past-days="countMistakeDays(mistake)" />
@@ -92,17 +90,16 @@ export default Vue.extend({
 .mj-mistake-item {
   margin-bottom: 1rem;
 
-  &-link {
-    @include mistakes-journal.font-medium;
-    display: block;
-    width: 100%;
-    color: mistakes-journal.color('text');
-  }
-
   &-title {
+    @include mistakes-journal.font-medium;
     flex: 1;
+    width: 100%;
     padding: 0.25rem 1rem;
+    overflow: hidden;
     border-radius: 0.125rem;
+    color: mistakes-journal.color('text');
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &:hover {
       background-color: mistakes-journal.color('secondary', '50');
@@ -131,5 +128,4 @@ a {
   align-items: center;
   justify-content: space-between;
 }
-
 </style>

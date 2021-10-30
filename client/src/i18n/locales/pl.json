@@ -126,5 +126,23 @@
   },
   "Modal": {
     "Close": "Zamknij"
+  },
+  "ServerErrors": {
+    "NotFound": "Nie znaleziono zasobu.",
+    "Unauthorized": "Użytkownik niezalogowany. Przejdź na stronę logowania, aby móc korzystać z aplikacji.",
+    "AccessDenied": "Brak dostępu do zasobu.",
+    "UnknownError": "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z administratorem systemu.",
+    "Required": "Nie wszystkie wymagane pola zostały podane.",
+    "TooOldRepetition": "Powtórzenie błędu nie powinno być wcześniej niż dzień wcześniej.",
+    "DateInFuture": "Podana data jest z przyszłości.",
+    "NotUnique": "Wartość nie jest unikalna.",
+    "DoesNotMatchPattern": "Wartość nie spełnia wymogów.",
+    "LabelDoesNotExist": "Etykieta nie istnieje.",
+    "CannotBeSolved": "Błąd nie może być zakończony.",
+    "MistakeIsAlreadySolved": "Błąd jest już zakończony.",
+    "WrongLongitude": "Niepoprawne położenie geograficzne.",
+    "WrongLatitude": "Niepoprawne położenie geograficzne.",
+    "IncompleteCoordinates": "Niepoprawne położenie geograficzne.",
+    "TooLong": "Niektóre z pól posiadają za dużo znaków."
   }
 }

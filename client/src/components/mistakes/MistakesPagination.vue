@@ -17,7 +17,7 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MistakesPagination',
   computed: {
-    maxResults(): boolean {
+    maxResults(): number {
       return this.$store.state.mistakes.mistakesFilters.pagination.maxResults;
     },
     canShowMore(): boolean {
@@ -25,7 +25,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    async showMoreMistakes(): void {
+    async showMoreMistakes(): Promise<void> {
       await this.$store.dispatch(
         MistakesActions.UpdateMistakesFilters,
         { pagination: { startAt: 0, maxResults: this.maxResults + PAGINATION_MAX_RESULTS_STEP } },

@@ -126,5 +126,23 @@
   },
   "Modal": {
     "Close": "Close"
+  },
+  "ServerErrors": {
+    "NotFound": "Item not found.",
+    "Unauthorized": "User not logged in. Access login page to use the application.",
+    "AccessDenied": "No access to required item.",
+    "UnknownError": "Unknown error occurred. Try again later or contact system administrator.",
+    "Required": "Not all required fields were given.",
+    "TooOldRepetition": "Mistake repetition cannot be day before.",
+    "DateInFuture": "Date is given in the future.",
+    "NotUnique": "Value is not unique.",
+    "DoesNotMatchPattern": "Value does not match required pattern.",
+    "LabelDoesNotExist": "Label does not exist.",
+    "CannotBeSolved": "Mistake cannot be solved.",
+    "MistakeIsAlreadySolved": "Mistake is already solved.",
+    "WrongLongitude": "Incorrect geographic location.",
+    "WrongLatitude": "Incorrect geographic location.",
+    "IncompleteCoordinates": "Incorrect geographic location.",
+    "TooLong": "One or more fields have too many characters."
   }
 }
