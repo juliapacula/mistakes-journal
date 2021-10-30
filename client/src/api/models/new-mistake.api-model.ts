@@ -10,4 +10,5 @@ export interface NewMistakeApiModel {
   canIFixIt: string | null;
   onlyResponsible: string | null;
   tips: string[];
+  labels: string[];
 }

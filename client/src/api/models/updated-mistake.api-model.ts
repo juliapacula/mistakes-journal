@@ -5,6 +5,7 @@ export interface UpdatedMistakeApiModel {
   goal: string | null;
   priority: MistakePriority;
   tips: string[];
+  labels: string[];
   consequences: string | null;
   whatCanIDoBetter: string | null;
   whatDidILearn: string | null;

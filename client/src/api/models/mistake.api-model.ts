@@ -1,3 +1,4 @@
+import { LabelApiModel } from '@/api/models/label.api-model';
 import { MistakePriority } from '@/model/mistake-priority.enum';
 
 export interface MistakeApiModel {
@@ -15,4 +16,5 @@ export interface MistakeApiModel {
   priority: MistakePriority;
   repetitionDates: { id: string, occurredAt: string }[];
   tips: string[];
+  labels: LabelApiModel[];
 }

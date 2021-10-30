@@ -38,6 +38,7 @@ export const actions: ActionTree<MistakesState, State> = {
       onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
       goal: !mistake.goal ? null : mistake.goal,
       tips: mistake.tips.filter((t: string) => !!t),
+      labels: mistake.labelIds,
       priority: mistake.priority,
     };
 
@@ -102,6 +103,7 @@ export const actions: ActionTree<MistakesState, State> = {
       onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
       goal: !mistake.goal ? null : mistake.goal,
       tips: mistake.tips.filter((t: string) => !!t),
+      labels: mistake.labelIds,
       priority: mistake.priority,
     };
     try {
