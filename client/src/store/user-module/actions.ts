@@ -2,6 +2,7 @@ import { UserApiMethods } from '@/api/methods/user.api-methods';
 import { State } from '@/store/state';
 import { UserMutations } from '@/store/user-module/mutations';
 import { post } from '@/utils/api.utils';
+import { handleDefaultResponseErrors } from '@/utils/errors.utils';
 import {
   ActionContext,
   ActionTree,
@@ -26,9 +27,14 @@ export const actions: ActionTree<UserState, State> = {
     }
   },
   async [UserActions.GetConfiguration]({ commit }: Context): Promise<void> {
-    const config = await UserApiMethods.getConfiguration();
+    try {
+      const config = await UserApiMethods.getConfiguration();
 
-    commit(UserMutations.SetConfiguration, config);
+      commit(UserMutations.SetConfiguration, config);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [UserActions.Logout]({ state, commit }: Context): Promise<void> {
     await post(state.configuration?.logoutPath ?? '', null);

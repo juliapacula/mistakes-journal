@@ -8,6 +8,7 @@ import { MistakesMutations } from '@/store/mistakes-module/mutations';
 import { MistakesState } from '@/store/mistakes-module/state';
 import { State } from '@/store/state';
 import { convertToTimestamp } from '@/utils/date.utils';
+import { handleDefaultResponseErrors } from '@/utils/errors.utils';
 import { Moment } from 'moment';
 import {
   ActionContext,
@@ -40,32 +41,52 @@ export const actions: ActionTree<MistakesState, State> = {
       priority: mistake.priority,
     };
 
-    const addedMistake = await MistakesApiMethods.addNew(payload);
+    try {
+      const addedMistake = await MistakesApiMethods.addNew(payload);
 
-    commit(MistakesMutations.AddMistake, addedMistake);
+      commit(MistakesMutations.AddMistake, addedMistake);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [MistakesActions.GetAll]({ commit, state }: Context): Promise<void> {
-    const { items, totalCount } = await MistakesApiMethods.getAll({
-      includeSolved: state.mistakesFilters.includeSolved,
-      includeUnsolved: state.mistakesFilters.includeUnsolved,
-      labelId: state.mistakesFilters.labelId,
-      startAt: state.mistakesFilters.pagination.startAt,
-      maxResults: state.mistakesFilters.pagination.maxResults,
-    });
+    try {
+      const { items, totalCount } = await MistakesApiMethods.getAll({
+        includeSolved: state.mistakesFilters.includeSolved,
+        includeUnsolved: state.mistakesFilters.includeUnsolved,
+        labelId: state.mistakesFilters.labelId,
+        startAt: state.mistakesFilters.pagination.startAt,
+        maxResults: state.mistakesFilters.pagination.maxResults,
+      });
 
-    commit(MistakesMutations.SetMistakes, { items, totalCount });
+      commit(MistakesMutations.SetMistakes, { items, totalCount });
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 
   async [MistakesActions.Get]({ commit }: Context, mistakeId: string): Promise<void> {
-    const mistake = await MistakesApiMethods.get(mistakeId);
+    try {
+      const mistake = await MistakesApiMethods.get(mistakeId);
 
-    commit(MistakesMutations.SetMistake, mistake);
+      commit(MistakesMutations.SetMistake, mistake);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 
   async [MistakesActions.Delete]({ commit }: Context, mistakeId: string): Promise<void> {
-    await MistakesApiMethods.delete(mistakeId);
+    try {
+      await MistakesApiMethods.delete(mistakeId);
 
-    commit(MistakesMutations.DeleteMistake, mistakeId);
+      commit(MistakesMutations.DeleteMistake, mistakeId);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 
   async [MistakesActions.UpdateMistake](
@@ -83,9 +104,14 @@ export const actions: ActionTree<MistakesState, State> = {
       tips: mistake.tips.filter((t: string) => !!t),
       priority: mistake.priority,
     };
-    const updatedMistake = await MistakesApiMethods.updateMistake(mistakeId, payload);
+    try {
+      const updatedMistake = await MistakesApiMethods.updateMistake(mistakeId, payload);
 
-    commit(MistakesMutations.SetMistake, updatedMistake);
+      commit(MistakesMutations.SetMistake, updatedMistake);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 
   async [MistakesActions.MistakeRepetition](
@@ -97,10 +123,15 @@ export const actions: ActionTree<MistakesState, State> = {
       occurredAt: occurredAt ? convertToTimestamp(occurredAt) : null,
     };
 
-    const updatedMistake = await MistakesApiMethods.mistakeRepetition(payload);
+    try {
+      const updatedMistake = await MistakesApiMethods.mistakeRepetition(payload);
 
-    commit(MistakesMutations.SetMistake, updatedMistake);
-    await dispatch(MistakesActions.GetAll);
+      commit(MistakesMutations.SetMistake, updatedMistake);
+      await dispatch(MistakesActions.GetAll);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 
   async [MistakesActions.UpdateMistakesFilters](

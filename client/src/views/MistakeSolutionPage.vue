@@ -6,12 +6,12 @@
       {{ $t('Solutions.Name') }}
     </div>
     <div class="mj-solution-section-items-content">
-      <span class="mj-solution-section-items-icon">
+      <div class="mj-solution-section-items-icon">
         <fa-icon :icon="['far', 'star']" />
-      </span>
-      <span class="mj-solution-section-items-text">
+      </div>
+      <div class="mj-solution-section-items-text">
         {{ mistake.name }}
-      </span>
+      </div>
     </div>
     <div v-if="mistake.mistakeAdditionalQuestions">
       <div
@@ -22,12 +22,12 @@
       <div
         v-if="mistake.mistakeAdditionalQuestions.consequences"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['fas', 'compress-arrows-alt']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.consequences }}
-        </span>
+        </div>
       </div>
       <div
         v-if="mistake.mistakeAdditionalQuestions.whatCanIDoBetter"
@@ -37,12 +37,12 @@
       <div
         v-if="mistake.mistakeAdditionalQuestions.whatCanIDoBetter"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['far', 'dot-circle']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.whatCanIDoBetter }}
-        </span>
+        </div>
       </div>
       <div
         v-if="mistake.mistakeAdditionalQuestions.whatDidILearn"
@@ -52,12 +52,12 @@
       <div
         v-if="mistake.mistakeAdditionalQuestions.whatDidILearn"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['fas', 'graduation-cap']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.whatDidILearn }}
-        </span>
+        </div>
       </div>
       <div
         v-if="mistake.mistakeAdditionalQuestions.canIFixIt"
@@ -67,12 +67,12 @@
       <div
         v-if="mistake.mistakeAdditionalQuestions.canIFixIt"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['fas', 'tools']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.canIFixIt }}
-        </span>
+        </div>
       </div>
       <div
         v-if="mistake.mistakeAdditionalQuestions.onlyResponsible"
@@ -82,12 +82,12 @@
       <div
         v-if="mistake.mistakeAdditionalQuestions.onlyResponsible"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['far', 'dot-circle']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.onlyResponsible }}
-        </span>
+        </div>
       </div>
     </div>
     <div class="mj-solution-section-title">
@@ -96,19 +96,19 @@
     <div
       v-if="mistake.goal"
       class="mj-solution-section-items-content">
-      <span class="mj-solution-section-items-icon">
+      <div class="mj-solution-section-items-icon">
         <fa-icon :icon="['far', 'dot-circle']" />
-      </span>
-      <span class="mj-solution-section-items-text">
+      </div>
+      <div class="mj-solution-section-items-text">
         {{ mistake.goal }}
-      </span>
+      </div>
     </div>
     <div
       v-else
       class="mj-solution-section-items-content">
-      <span class="mj-solution-section-items-text">
+      <div class="mj-solution-section-items-text">
         {{ $t('Solutions.NoGoal') }}
-      </span>
+      </div>
     </div>
     <div class="mj-solution-section-title">
       {{ $t('Solutions.Tips') }}
@@ -118,20 +118,20 @@
         v-for="tip in mistake.tips"
         :key="tip"
         class="mj-solution-section-items-content">
-        <span class="mj-solution-section-items-icon">
+        <div class="mj-solution-section-items-icon">
           <fa-icon :icon="['far', 'lightbulb']" />
-        </span>
-        <span class="mj-solution-section-items-text">
+        </div>
+        <div class="mj-solution-section-items-text">
           {{ tip }}
-        </span>
+        </div>
       </div>
     </div>
     <div
       v-else
       class="mj-solution-section-items-content">
-      <span class="mj-solution-section-items-text">
+      <div class="mj-solution-section-items-text">
         {{ $t('Solutions.NoTips') }}
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -196,6 +196,7 @@ export default Vue.extend({
 
   &-items-text {
     padding-left: 1rem;
+    word-wrap: anywhere;
   }
 }
 </style>

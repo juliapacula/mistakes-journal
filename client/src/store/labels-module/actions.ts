@@ -5,6 +5,7 @@ import { Label } from '@/model/label';
 import { LabelsMutations } from '@/store/labels-module/mutations';
 import { LabelsState } from '@/store/labels-module/state';
 import { State } from '@/store/state';
+import { handleDefaultResponseErrors } from '@/utils/errors.utils';
 import {
   ActionContext,
   ActionTree,
@@ -27,24 +28,44 @@ export const actions: ActionTree<LabelsState, State> = {
       color: label.color,
     };
 
-    const addedLabel = await LabelsApiMethods.addNew(payload);
+    try {
+      const addedLabel = await LabelsApiMethods.addNew(payload);
 
-    commit(LabelsMutations.AddLabel, addedLabel);
+      commit(LabelsMutations.AddLabel, addedLabel);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [LabelsActions.GetAll]({ commit }: Context): Promise<void> {
-    const labels = await LabelsApiMethods.getAll();
+    try {
+      const labels = await LabelsApiMethods.getAll();
 
-    commit(LabelsMutations.SetLabels, labels);
+      commit(LabelsMutations.SetLabels, labels);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [LabelsActions.Get]({ commit }: Context, labelId: string): Promise<void> {
-    const label = await LabelsApiMethods.get(labelId);
+    try {
+      const label = await LabelsApiMethods.get(labelId);
 
-    commit(LabelsMutations.SetLabel, label);
+      commit(LabelsMutations.SetLabel, label);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [LabelsActions.Delete]({ commit }: Context, labelId: string): Promise<void> {
-    await LabelsApiMethods.delete(labelId);
+    try {
+      await LabelsApiMethods.delete(labelId);
 
-    commit(LabelsMutations.DeleteLabel, labelId);
+      commit(LabelsMutations.DeleteLabel, labelId);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
   async [LabelsActions.Update]({ commit }: Context, label: Label): Promise<void> {
     const payload: LabelApiModel = {
@@ -54,8 +75,13 @@ export const actions: ActionTree<LabelsState, State> = {
       mistakesCounter: label.mistakesCounter,
     };
 
-    const updatedLabel = await LabelsApiMethods.update(payload);
+    try {
+      const updatedLabel = await LabelsApiMethods.update(payload);
 
-    commit(LabelsMutations.UpdateLabel, updatedLabel);
+      commit(LabelsMutations.UpdateLabel, updatedLabel);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 };
