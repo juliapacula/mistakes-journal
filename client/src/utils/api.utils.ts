@@ -73,3 +73,7 @@ export const remove = async (url: string): Promise<any> => {
     return null;
   }
 };
+
+export const createParams = (params: any): string[][] => Object.keys(params)
+  .filter((key: string) => params[key] !== null && params[key] !== undefined)
+  .map((key: string) => ([key, `${params[key]}`]));

@@ -20,9 +20,10 @@
         class="mj-sidebar-item-icon"
         icon="price-tag-3" />
       <button
+        :class="{ 'active-filter': label.id === mistakesListFilterLabelId }"
         class="mj-label-name btn btn-link"
         type="button"
-        @click="editLabel(label.id)">
+        @click="filterViaLabel(label.id)">
         <span>{{ label.name }}</span>
         <span>({{ label.mistakesCounter }})</span>
       </button>
@@ -51,6 +52,7 @@
 <script lang="ts">
 import { Label } from '@/model/label';
 import { LabelsActions } from '@/store/labels-module/actions';
+import { MistakesActions } from '@/store/mistakes-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -64,11 +66,21 @@ export default Vue.extend({
     labels(): Label[] {
       return this.$store.state.labels.labels;
     },
+    mistakesListFilterLabelId(): string | null {
+      return this.$store.state.mistakes.mistakesFilters.labelId;
+    },
   },
   async created() {
     await this.$store.dispatch(LabelsActions.GetAll);
   },
   methods: {
+    async filterViaLabel(id: string): Promise<void> {
+      if (this.mistakesListFilterLabelId === id) {
+        await this.$store.dispatch(MistakesActions.UpdateMistakesFilters, { labelId: null });
+      } else {
+        await this.$store.dispatch(MistakesActions.UpdateMistakesFilters, { labelId: id });
+      }
+    },
     async editLabel(id: string): Promise<void> {
       await this.$store.dispatch(LabelsActions.Get, id);
       this.$bvModal.show('label-modal');
@@ -92,6 +104,8 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
+@use '../../styles/mistakes-journal';
+
 .mj-sidebar-item {
   .btn-link {
     padding: 0;
@@ -110,6 +124,10 @@ export default Vue.extend({
   display: flex;
   flex: 1;
   align-items: center;
+
+  &.active-filter {
+    @include mistakes-journal.font-semi-bold;
+  }
 
   span:first-of-type {
     display: inline-block;

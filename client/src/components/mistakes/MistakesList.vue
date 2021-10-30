@@ -3,10 +3,13 @@
     <div class="col-12">
       <add-new-mistake-button />
     </div>
-    <div class="col-12 mt-4 mj-mistake-items">
+    <div
+      v-if="mistakes.length > 0"
+      class="col-12 mt-4 mj-mistake-items">
       <div
-        v-for="mistake in $store.state.mistakes.mistakes"
-        :key="mistake.id">
+        v-for="mistake in mistakes"
+        :key="mistake.id"
+        class="mj-mistake-item">
         <div class="mj-mistake-first-line">
           <div class="mj-mistake-item-title">
             <router-link
@@ -26,12 +29,21 @@
         </div>
       </div>
     </div>
+    <div
+      v-else
+      class="col-12 text-center my-4">
+      {{ $t('Mistakes.EmptyList') }}
+    </div>
+    <div class="col-12">
+      <mistakes-pagination />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import MistakeOptionsMenu from '@/components/mistakes/MistakeOptionsMenu.vue';
 import MistakePriority from '@/components/mistakes/MistakePriority.vue';
+import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
@@ -43,18 +55,25 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MistakesList',
   components: {
+    MistakesPagination,
     ProgressBar,
     RepetitionButton,
     AddNewMistakeButton,
     MistakePriority,
     MistakeOptionsMenu,
   },
+  computed: {
+    mistakes(): Mistake[] {
+      return this.$store.state.mistakes.mistakes;
+    },
+  },
   async beforeCreate(): Promise<void> {
     await this.$store.dispatch(MistakesActions.GetAll);
   },
   methods: {
     countMistakeDays(mistake: Mistake): Number {
-      return moment().diff(moment.max(mistake.repetitionDates), 'days');
+      return moment()
+        .diff(moment.max(mistake.repetitionDates), 'days');
     },
   },
 });
@@ -71,6 +90,8 @@ export default Vue.extend({
 }
 
 .mj-mistake-item {
+  margin-bottom: 1rem;
+
   &-link {
     @include mistakes-journal.font-medium;
     display: block;
@@ -87,7 +108,6 @@ export default Vue.extend({
       background-color: mistakes-journal.color('secondary', '50');
     }
   }
-
 }
 
 .mj-mistake-first-line {

@@ -23,5 +23,6 @@ module.exports = {
     'linebreak-style': 'off',
     'global-require': 'off',
     '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
   },
 };

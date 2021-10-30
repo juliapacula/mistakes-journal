@@ -62,7 +62,6 @@ export default Vue.extend({
       return this.pastDays >= (this.max1 + this.max2 + this.max3);
     },
     firstProgressValue(): number {
-      console.log('this.pastDays: ', this.pastDays);
       if (this.pastDays <= 7) {
         return this.pastDays;
       }
