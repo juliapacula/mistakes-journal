@@ -4,7 +4,7 @@
       v-if="isMistakeLoaded"
       class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
-        <div class="form-check form-switch mj-deep-analyzer-switch">
+        <div class="col-12 form-check form-switch mj-deep-analyzer-switch">
           <input
             id="isDeepAnalyzer"
             v-model="isDeepAnalyzer"
@@ -134,30 +134,8 @@
             {{ $t('FormErrors.MaxLength', { max: $v.mistake.goal.$params.maxLength.max }) }}
           </mj-error>
         </div>
-        <div class="col-12">
-          <label class="form-label">{{ $t('MistakeForm.Tips') }}</label>
-          <div class="mj-mistake-tips">
-            <div
-              v-for="(v, index) in $v.mistake.tips.$each.$iter"
-              :key="index"
-              class="input-group">
-              <span class="input-group-text">
-                <mj-icon
-                  class="mj-mistake-tips-icon"
-                  name="tips" /></span>
-              <input
-                :class="{ 'is-invalid': v.$dirty && v.$invalid }"
-                :value="mistake.tips[index]"
-                class="form-control"
-                type="text"
-                @change="checkIfShouldAddATip(index, $event)"
-                @input="$set(mistake.tips, index, $event.target.value); v.$touch()">
-              <mj-error :is-visible="!v.maxLength">
-                {{ $t('FormErrors.MaxLength', { max: v.$params.maxLength.max }) }}
-              </mj-error>
-            </div>
-          </div>
-        </div>
+        <mistake-tips v-model="$v.mistake.tips.$model" />
+        <mistake-labels v-model="mistake.labelIds" />
         <div class="col-12">
           <label
             class="form-label"
@@ -213,6 +191,9 @@
 </template>
 
 <script lang="ts">
+import MistakeLabels from '@/components/mistake/MistakeLabels.vue';
+import MistakeTips from '@/components/mistake/MistakeTips.vue';
+import { Label } from '@/model/label';
 import { Mistake } from '@/model/mistake';
 import { MistakePriority } from '@/model/mistake-priority.enum';
 import { NewMistake } from '@/model/new-mistake';
@@ -226,6 +207,7 @@ import { required } from 'vuelidate/lib/validators';
 
 export default Vue.extend({
   name: 'MistakeForm',
+  components: { MistakeLabels, MistakeTips },
   data(): { isDeepAnalyzer: boolean, mistake: NewMistake, availablePriorities: string[] } {
     return {
       isDeepAnalyzer: false,
@@ -234,6 +216,7 @@ export default Vue.extend({
         mistakeAdditionalQuestions: null,
         goal: '',
         tips: [''],
+        labelIds: [],
         priority: MistakePriority.Medium,
       },
       availablePriorities: getEnumValues(MistakePriority),
@@ -292,6 +275,7 @@ export default Vue.extend({
           canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ?? '',
           onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ?? '',
         },
+        labelIds: mistake.labels?.map((l: Label) => l.id) ?? [],
         goal: mistake.goal ?? '',
         tips: mistake.tips?.length > 0 ? mistake.tips : [''],
         priority: mistake.priority,
@@ -347,20 +331,6 @@ export default Vue.extend({
   methods: {
     async fetchMistake(): Promise<void> {
       await this.$store.dispatch(MistakesActions.Get, this.$route.params.id);
-    },
-    checkIfShouldAddATip(id: string, { target }: InputEvent): void {
-      const inputValue = (target as HTMLInputElement).value;
-      const index = parseInt(id, 10);
-
-      if (!inputValue && this.mistake.tips.length === 1) {
-        return;
-      }
-
-      if (!inputValue) {
-        this.mistake.tips.splice(index, 1);
-      } else if (index === (this.mistake.tips.length - 1)) {
-        this.mistake.tips.push('');
-      }
     },
     async cancel(): Promise<void> {
       await this.goToMistakesList();

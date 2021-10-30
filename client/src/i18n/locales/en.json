@@ -62,6 +62,7 @@
     "GoalPlaceholder": "e.g. Limit Netflix to 1 episode.",
     "Priority": "Priority",
     "Tips": "Tips",
+    "Labels": "Labels",
     "CancelButton": "Cancel",
     "AddButton": "Add",
     "UpdateButton": "Save",

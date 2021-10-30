@@ -1,3 +1,4 @@
+import { Label } from '@/model/label';
 import { MistakePriority } from '@/model/mistake-priority.enum';
 import { Moment } from 'moment';
 
@@ -14,6 +15,7 @@ export interface Mistake {
   } | null;
   goal: string | null;
   tips: string[];
+  labels: Label[];
   repetitionDates: Moment[];
   priority: MistakePriority;
 }
