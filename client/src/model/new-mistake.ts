@@ -4,6 +4,7 @@ export interface NewMistake {
   name: string;
   goal: string;
   tips: string[];
+  labelIds: string[];
   priority: MistakePriority;
   mistakeAdditionalQuestions: {
     consequences: string | null;

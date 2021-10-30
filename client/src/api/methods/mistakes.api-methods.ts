@@ -1,3 +1,4 @@
+import { LabelApiModel } from '@/api/models/label.api-model';
 import { MistakeApiModel } from '@/api/models/mistake.api-model';
 import { MistakesListFiltersApiModel } from '@/api/models/mistakes-list-filters.api-model';
 import { MistakesListApiModel } from '@/api/models/mistakes-list.api-model';
@@ -39,6 +40,12 @@ export class MistakesApiMethods {
         name: m.name,
         priority: m.priority,
         tips: m.tips,
+        labels: m.labels.map((l: LabelApiModel) => ({
+          id: l.id,
+          name: l.name,
+          color: l.color,
+          mistakesCounter: l.mistakesCounter,
+        })),
         repetitionDates: m.repetitionDates.map((r) => convertFromTimestamp(r.occurredAt)),
       })),
     };
@@ -87,6 +94,12 @@ export class MistakesApiMethods {
       name: mistake.name,
       priority: mistake.priority,
       tips: mistake.tips,
+      labels: mistake.labels.map((l: LabelApiModel) => ({
+        id: l.id,
+        name: l.name,
+        color: l.color,
+        mistakesCounter: l.mistakesCounter,
+      })),
       repetitionDates: mistake.repetitionDates.map((r) => convertFromTimestamp(r.occurredAt)),
     };
   }

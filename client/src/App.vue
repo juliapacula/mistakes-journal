@@ -16,9 +16,7 @@ export default Vue.extend({
   created() {
     this.$store.watch(
       (s: State) => s.uiState.errorMessageKeys,
-      (messageKeys: string[]) => {
-        this.$toasted.error(this.$t(messageKeys[0]));
-      },
+      (messageKeys: string[]) => this.$toasted.error(this.$t(messageKeys[0]) as string),
     );
   },
 });

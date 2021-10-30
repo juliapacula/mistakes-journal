@@ -4,6 +4,7 @@ import { NewLabelApiModel } from '@/api/models/new-label.api-model';
 import { Label } from '@/model/label';
 import { LabelsMutations } from '@/store/labels-module/mutations';
 import { LabelsState } from '@/store/labels-module/state';
+import { MistakesActions } from '@/store/mistakes-module/actions';
 import { State } from '@/store/state';
 import { handleDefaultResponseErrors } from '@/utils/errors.utils';
 import {
@@ -67,7 +68,7 @@ export const actions: ActionTree<LabelsState, State> = {
       throw e;
     }
   },
-  async [LabelsActions.Update]({ commit }: Context, label: Label): Promise<void> {
+  async [LabelsActions.Update]({ commit, dispatch }: Context, label: Label): Promise<void> {
     const payload: LabelApiModel = {
       id: label.id,
       name: label.name,
@@ -79,6 +80,7 @@ export const actions: ActionTree<LabelsState, State> = {
       const updatedLabel = await LabelsApiMethods.update(payload);
 
       commit(LabelsMutations.UpdateLabel, updatedLabel);
+      await dispatch(MistakesActions.GetAll);
     } catch (e) {
       await handleDefaultResponseErrors(commit, e as Response);
       throw e;
