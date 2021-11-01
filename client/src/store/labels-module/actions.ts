@@ -58,11 +58,12 @@ export const actions: ActionTree<LabelsState, State> = {
       throw e;
     }
   },
-  async [LabelsActions.Delete]({ commit }: Context, labelId: string): Promise<void> {
+  async [LabelsActions.Delete]({ commit, dispatch }: Context, labelId: string): Promise<void> {
     try {
       await LabelsApiMethods.delete(labelId);
 
       commit(LabelsMutations.DeleteLabel, labelId);
+      await dispatch(MistakesActions.GetAll);
     } catch (e) {
       await handleDefaultResponseErrors(commit, e as Response);
       throw e;

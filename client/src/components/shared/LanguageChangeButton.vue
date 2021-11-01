@@ -7,7 +7,7 @@
       :disabled="locale.value === $i18n.locale"
       class="btn"
       @click="changeLocale(locale.value)">
-      <mj-icon :name="locale.value" />
+      <mj-icon :name="locale.value.toLowerCase()" />
     </button>
   </div>
 </template>
@@ -17,6 +17,7 @@ import {
   Locale,
   LOCALES,
 } from '@/i18n/locales';
+import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -33,8 +34,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    changeLocale(value: Locale): void {
-      this.$i18n.locale = value;
+    async changeLocale(value: Locale): Promise<void> {
+      await this.$store.dispatch(UserActions.ChangeLanguage, value);
     },
   },
 });

@@ -14,24 +14,21 @@
     <li
       v-for="label in labels"
       :key="label.id"
-      class="mj-sidebar-item mj-label">
-      <remix-icon
-        :style="{ color: label.color }"
-        class="mj-sidebar-item-icon"
-        icon="price-tag-3" />
-      <button
-        :class="{ 'active-filter': label.id === mistakesListFilterLabelId }"
-        class="mj-label-name btn btn-link"
-        type="button"
-        @click="filterViaLabel(label.id)">
+      :class="{ 'selected': label.id === mistakesListFilterLabelId }"
+      class="mj-sidebar-item mj-label"
+      @click="filterViaLabel(label.id)">
+      <label-icon
+        :color="label.color"
+        class="mj-sidebar-item-icon" />
+      <div class="mj-label-name">
         <span>{{ label.name }}</span>
-        <span>({{ label.mistakesCounter }})</span>
-      </button>
+        <span class="ms-auto">{{ label.mistakesCounter }}</span>
+      </div>
       <button
         v-tooltip.right="$t('LabelOptions.Edit')"
         class="btn mj-label-action"
         type="button"
-        @click="editLabel(label.id)">
+        @click.stop="editLabel(label.id)">
         <span class="btn-icon">
           <fa-icon :icon="['fas', 'pen']" />
         </span>
@@ -40,7 +37,7 @@
         v-tooltip.right="$t('LabelOptions.Delete')"
         class="btn mj-label-action"
         type="button"
-        @click="deleteLabel(label.id, label.name)">
+        @click.stop="deleteLabel(label.id, label.name)">
         <span class="btn-icon">
           <fa-icon :icon="['far', 'trash-alt']" />
         </span>
@@ -118,20 +115,23 @@ export default Vue.extend({
 
 .mj-label {
   display: flex;
+  cursor: pointer;
+}
+
+.selected {
+  .mj-label-name {
+    @include mistakes-journal.font-semi-bold;
+  }
 }
 
 .mj-label-name {
   display: flex;
   flex: 1;
   align-items: center;
-
-  &.active-filter {
-    @include mistakes-journal.font-semi-bold;
-  }
+  overflow: hidden;
 
   span:first-of-type {
     display: inline-block;
-    max-width: 6em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

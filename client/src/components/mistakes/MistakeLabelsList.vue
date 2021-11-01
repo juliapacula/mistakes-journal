@@ -4,10 +4,9 @@
       v-for="label in labels"
       :key="label.id"
       class="mj-label">
-      <remix-icon
-        :style="{ color: label.color }"
-        class="mj-label-icon"
-        icon="price-tag-3" />
+      <label-icon
+        :color="label.color"
+        class="mj-label-icon" />
       <span>{{ label.name }}</span>
     </div>
   </div>

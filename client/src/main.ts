@@ -1,3 +1,4 @@
+import LabelIcon from '@/components/labels/LabelIcon.vue';
 import MJError from '@/components/shared/MJError.vue';
 import MJIcon from '@/components/shared/MJIcon.vue';
 import RemixIcon from '@/components/shared/RemixIcon.vue';
@@ -32,6 +33,7 @@ Vue.component('mj-icon', MJIcon);
 Vue.component('mj-error', MJError);
 Vue.component('b-progress', BProgress);
 Vue.component('remix-icon', RemixIcon);
+Vue.component('label-icon', LabelIcon);
 
 Vue.use(VTooltip, {
   defaultHtml: false,

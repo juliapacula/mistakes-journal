@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 using Mistakes.Journal.Api.Logic.Identity.Services;
 using Mistakes.Journal.Api.Logic.Mistakes.Models;
+using Mistakes.Journal.Api.Logic.Shared.Models;
 
 namespace Mistakes.Journal.Api
 {
@@ -32,7 +33,7 @@ namespace Mistakes.Journal.Api
                 mistake.Property(m => m.Priority).HasConversion<string>();
                 mistake.Property(m => m.CreatedAt).IsRequired();
                 mistake.Property(m => m.IsSolved).HasDefaultValue(false);
-                mistake.OwnsOne(m => m.AdditonalQuestions, 
+                mistake.OwnsOne(m => m.AdditonalQuestions,
                     m =>
                     {
                         m.Property(a => a.Consequences);
@@ -113,6 +114,14 @@ namespace Mistakes.Journal.Api
                 user.ToTable("user");
                 user.Property(u => u.FirstName).IsRequired();
                 user.Property(u => u.LastName).IsRequired();
+                user.Property(u => u.Group)
+                    .IsRequired()
+                    .HasDefaultValue(ResearchGroup.Default)
+                    .HasConversion<string>();
+                user.Property(u => u.Language)
+                    .IsRequired()
+                    .HasDefaultValue(ApplicationLanguage.EN)
+                    .HasConversion<string>();
             });
 
             modelBuilder.Entity<IdentityRole<Guid>>().ToTable("role");

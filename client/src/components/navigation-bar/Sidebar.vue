@@ -1,12 +1,6 @@
 <template>
   <div class="mj-sidebar-container">
     <ul class="mj-sidebar-items">
-      <li class="mj-sidebar-item disabled">
-        <remix-icon
-          class="mj-sidebar-item-icon"
-          icon="calendar-2" />
-        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Calendar') }}</span>
-      </li>
       <router-link
         class="mj-sidebar-item"
         tag="li"
@@ -22,26 +16,20 @@
           icon="lightbulb" />
         <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Tips') }}</span>
       </li>
-      <li class="mj-sidebar-item disabled">
-        <remix-icon
-          class="mj-sidebar-item-icon"
-          icon="folder" />
-        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Groups') }}</span>
-      </li>
-      <li class="mj-sidebar-item">
+      <li
+        class="mj-sidebar-item clickable"
+        role="option"
+        @click="toggleLabels()">
         <remix-icon
           class="mj-sidebar-item-icon"
           icon="price-tag-3" />
-        <button
-          class="btn mj-sidebar-item-link"
-          type="button"
-          @click="toggleLabels()">
+        <span class="mj-sidebar-item-link">
           {{ $t('Sidebar.Links.Labels') }}
-        </button>
+        </span>
         <button
           class="btn btn-icon mj-sidebar-item-toggle"
           type="button"
-          @click="toggleLabels()">
+          @click.stop="toggleLabels()">
           <fa-icon :icon="['fa', areLabelsExpanded ? 'chevron-up' : 'chevron-down']" />
         </button>
       </li>
@@ -119,6 +107,10 @@ export default Vue.extend({
   word-break: keep-all;
   white-space: nowrap;
 
+  &.clickable {
+    cursor: pointer;
+  }
+
   &-icon {
     margin: 0 0.25em;
     font-size: 1.5em;
@@ -126,6 +118,7 @@ export default Vue.extend({
 
   &-link {
     @include mistakes-journal.font-medium;
+    flex: 1;
     color: mistakes-journal.color('text');
 
     &.btn {
@@ -153,7 +146,8 @@ export default Vue.extend({
     }
   }
 
-  &.router-link-active {
+  &.router-link-active,
+  &.selected {
     background-color: mistakes-journal.color('secondary', '500');
 
     a {

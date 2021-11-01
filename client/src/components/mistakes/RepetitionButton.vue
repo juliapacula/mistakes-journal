@@ -44,10 +44,10 @@ export default Vue.extend({
 @use '../../styles/mistakes-journal';
 
 .mj-repetition {
-  margin-right: 1rem;
+  margin-right: 1em;
   border-color: mistakes-journal.color('repetition');
   color: mistakes-journal.color('repetition');
-  font-size: 0.75rem;
+  font-size: 0.75em;
   white-space: nowrap;
 
   &:hover {

@@ -12,6 +12,8 @@ namespace Mistakes.Journal.Api.Api.User.Mappers
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Group = user.Group,
+                Language = user.Language,
             };
         }
     }

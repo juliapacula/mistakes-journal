@@ -21,7 +21,7 @@
       "Solved": "Rozwiązane"
     },
     "Labels": {
-      "Create": "Nowa etykieta",
+      "Create": "Dodaj etykietę",
       "Options": "Opcje",
       "Edit": "Edytuj",
       "Delete": "Usuń"
@@ -111,22 +111,21 @@
     "Cancel": "Anuluj"
   },
   "LabelColors": {
-    "PastelGreen": "Pastelowy zielony",
-    "BabyBlue": "Pastelowy niebieski",
-    "Turquoise": "Turkusowy",
-    "BlueGreen": "Niebieska zieleń",
-    "Mint": "Miętowy",
-    "LightGreen": "Jasna zieleń",
-    "Purple": "Purpurowy",
-    "Lilac": "Liliowy",
-    "Yellow": "Żółty",
-    "Orange": "Pomarańczowy",
-    "Pink": "Różowy",
-    "PastelPink": "Pudrowy róż",
-    "PastelPurple": "Pastelowy purpurowy"
+    "Lemon": "Cytryna",
+    "Amber": "Bursztyn",
+    "Watermelon": "Arbuz",
+    "BubbleGum": "Guma do żucia",
+    "Grapes": "Winogrono",
+    "Berry": "Jagoda",
+    "Sea": "Morski",
+    "Grass": "Trawa",
+    "Meteorite": "Meteoryt"
   },
   "Modal": {
     "Close": "Zamknij"
+  },
+  "LocationAccess": {
+    "Denied": "Nie udzielono zgody dostępu do lokalizacji. W celu przeprowadzenia poprawnego badania zezwól aplikacji na dostęp do lokalizacji."
   },
   "ServerErrors": {
     "NotFound": "Nie znaleziono zasobu.",
@@ -134,7 +133,7 @@
     "AccessDenied": "Brak dostępu do zasobu.",
     "UnknownError": "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z administratorem systemu.",
     "Required": "Nie wszystkie wymagane pola zostały podane.",
-    "TooOldRepetition": "Powtórzenie błędu nie powinno być wcześniej niż dzień wcześniej.",
+    "TooOldRepetition": "Powtórzenie błędu nie powinno być starsze niż jeden dzień.",
     "DateInFuture": "Podana data jest z przyszłości.",
     "NotUnique": "Wartość nie jest unikalna.",
     "DoesNotMatchPattern": "Wartość nie spełnia wymogów.",

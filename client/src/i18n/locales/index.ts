@@ -2,8 +2,8 @@ import en from './en.json';
 import pl from './pl.json';
 
 export enum Locale {
-  PL = 'pl',
-  EN = 'en',
+  PL = 'PL',
+  EN = 'EN',
 }
 
 export const LOCALES = [

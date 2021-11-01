@@ -64,6 +64,7 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
                 .WhereIf(searchModel.Name.IsPresent(),
                     l => l.Name.ToLower().Contains(searchModel.Name.ToLower()))
                 .WhereIf(!searchModel.Colors.IsNullOrEmpty(), l => searchModel.Colors.Contains(l.Color))
+                .OrderBy(l => l.Name)
                 .ToListAsync();
 
             return Ok(labels.Select(l => l.ToWebModel()));

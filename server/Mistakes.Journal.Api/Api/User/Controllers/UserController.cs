@@ -40,5 +40,17 @@ namespace Mistakes.Journal.Api.Api.User.Controllers
 
             return Ok();
         }
+
+        [HttpPut("language")]
+        public async Task<ActionResult> ChangeLanguage(UserLanguageWebModel language)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            user.Language = language.Language;
+
+            await _userManager.UpdateAsync(user);
+
+            return Ok();
+        }
     }
 }

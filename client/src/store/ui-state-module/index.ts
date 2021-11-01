@@ -1,3 +1,7 @@
+import {
+  DEFAULT_SATURATION,
+  MIN_FONT_SIZE,
+} from '@/config/weather.config';
 import { Module } from 'vuex';
 import { State } from '../state';
 import { actions } from './actions';
@@ -10,5 +14,7 @@ export default {
   state: {
     isSidebarVisible: true,
     errorMessageKeys: [],
+    saturation: DEFAULT_SATURATION,
+    fontSize: MIN_FONT_SIZE,
   } as UiState,
 } as Module<UiState, State>;
