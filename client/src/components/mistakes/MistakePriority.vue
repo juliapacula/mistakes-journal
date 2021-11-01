@@ -95,7 +95,7 @@ export default Vue.extend({
   }
 
   &-text {
-    @include mistakes-journal.font-semi-bold(0.8rem);
+    @include mistakes-journal.font-semi-bold(0.8em);
     padding-left: 1rem;
   }
 }

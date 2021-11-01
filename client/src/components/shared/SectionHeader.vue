@@ -32,7 +32,7 @@ export default Vue.extend({
 @use '../../styles/mistakes-journal';
 
 .mj-section-header {
-  --header-size: 1.5rem;
+  --header-size: 1.5em;
   display: flex;
   position: relative;
   align-items: center;
@@ -41,7 +41,7 @@ export default Vue.extend({
   padding: 0.5rem 0;
 
   @include mistakes-journal.media-breakpoint-up(sm) {
-    --header-size: 1.75rem;
+    --header-size: 1.75em;
   }
 
   &::before {

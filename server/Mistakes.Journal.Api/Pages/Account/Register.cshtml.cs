@@ -1,11 +1,15 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Logic.Identity;
 using Mistakes.Journal.Api.Logic.Identity.Models;
+using Mistakes.Journal.Api.Logic.Shared.Models;
 
 namespace Mistakes.Journal.Api.Pages.Account
 {
@@ -23,8 +27,7 @@ namespace Mistakes.Journal.Api.Pages.Account
             _signInManager = signInManager;
         }
 
-        [BindProperty]
-        public NewUserModel NewUser { get; set; }
+        [BindProperty] public NewUserModel NewUser { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -70,12 +73,32 @@ namespace Mistakes.Journal.Api.Pages.Account
                 return Page();
             }
 
+            var availableGroups = Enum.GetValues(typeof(ResearchGroup)).OfType<ResearchGroup>().ToList();
+            var allUsers = await _userManager.Users.ToListAsync();
+
+            var groupForNewUser = ResearchGroup.Default;
+            // Will be uncommented when experiment starts.
+            // var groupForNewUser = availableGroups.GroupJoin(
+            //         allUsers,
+            //         group => group,
+            //         u => u.Group,
+            //         (group, groupUsers) => new
+            //         {
+            //             Group = group,
+            //             NumberOfUsers = groupUsers.Count()
+            //         })
+            //     .OrderBy(g => g.NumberOfUsers)
+            //     .Select(g => g.Group)
+            //     .First();
+
             var user = new MistakesJournalUser
             {
                 FirstName = NewUser.FirstName,
                 LastName = NewUser.LastName,
                 UserName = NewUser.Email,
-                Email = NewUser.Email
+                Email = NewUser.Email,
+                Language = ApplicationLanguage.EN,
+                Group = groupForNewUser
             };
             var result = await _userManager.CreateAsync(user, NewUser.Password);
             if (result.Succeeded)

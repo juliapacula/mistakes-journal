@@ -102,7 +102,7 @@ export default Vue.extend({
   padding: 0.25rem 1rem;
 
   &-icon {
-    padding: 0.5rem;
+    padding: 0.5em;
   }
 }
 

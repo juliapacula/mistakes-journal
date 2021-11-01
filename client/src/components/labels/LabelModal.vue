@@ -73,11 +73,11 @@
 </template>
 
 <script lang="ts">
+import { LABEL_COLORS } from '@/config/label-colors.config';
 import { Label } from '@/model/label';
 import { LabelColor } from '@/model/label-color';
 import { LabelsActions } from '@/store/labels-module/actions';
 import { LabelsMutations } from '@/store/labels-module/mutations';
-import { LABEL_COLORS } from '@/utils/label-colors.utils';
 import { maxVeryShortTextLength } from '@/utils/validators.utils';
 import Vue from 'vue';
 import { required } from 'vuelidate/lib/validators';
@@ -89,7 +89,7 @@ export default Vue.extend({
       label: {
         id: '',
         name: '',
-        color: '',
+        color: LABEL_COLORS[0].color,
         mistakesCounter: 0,
       },
       labelColors: LABEL_COLORS,
@@ -111,7 +111,7 @@ export default Vue.extend({
         this.label = {
           id: '',
           name: '',
-          color: '',
+          color: LABEL_COLORS[0].color,
           mistakesCounter: 0,
         };
         this.$v.$reset();
@@ -135,7 +135,7 @@ export default Vue.extend({
       this.label = {
         id: '',
         name: '',
-        color: '',
+        color: LABEL_COLORS[0].color,
         mistakesCounter: 0,
       };
       this.$v.$reset();
@@ -155,10 +155,13 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
+@use '../../styles/mistakes-journal';
+
 .mj-label-color {
   display: block;
   width: 1rem;
   height: 1rem;
+  border: 2px solid mistakes-journal.color('gray', '900');
   border-radius: 50%;
   background-color: currentColor;
 }

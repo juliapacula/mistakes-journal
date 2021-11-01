@@ -16,10 +16,9 @@
         <label
           :for="label.id"
           class="btn btn-label">
-          <remix-icon
-            :style="{ color: label.color }"
-            class="mj-sidebar-item-icon"
-            icon="price-tag-3" />
+          <label-icon
+            :color="label.color"
+            class="icon" />
           <span>{{ label.name }}</span>
         </label>
       </div>
@@ -75,6 +74,10 @@ export default Vue.extend({
   border: 2px solid mistakes-journal.color('primary', '50');
   border-radius: 0.2rem;
   font-size: 0.8em;
+
+  .icon {
+    margin-right: 0.2rem;
+  }
 }
 
 .btn-check:checked + .btn-label {

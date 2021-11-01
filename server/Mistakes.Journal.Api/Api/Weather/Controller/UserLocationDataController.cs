@@ -33,7 +33,7 @@ namespace Mistakes.Journal.Api.Api.Weather.Controller
             var response = await client.GetAsync(request);
 
             if (!response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.BadRequest)
-                return Problem(type: GetErrorType(await response.Content.ReadAsStringAsync()).ToString());
+                return BadRequest(GetErrorType(await response.Content.ReadAsStringAsync()).ToString());
 
             var output = await response.Content.ReadAsStringAsync();
             return Ok(output.ToUserLocationDataWebModel());

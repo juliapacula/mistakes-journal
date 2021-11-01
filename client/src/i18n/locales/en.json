@@ -21,7 +21,7 @@
       "Solved": "Solved"
     },
     "Labels": {
-      "Create": "New label",
+      "Create": "Add label",
       "Options": "Options",
       "Edit": "Edit",
       "Delete": "Delete"
@@ -111,22 +111,21 @@
     "Cancel": "Cancel"
   },
   "LabelColors": {
-    "PastelGreen": "Pastel green",
-    "BabyBlue": "Baby blue",
-    "Turquoise": "Turquoise",
-    "BlueGreen": "Blue green",
-    "Mint": "Mint",
-    "LightGreen": "Light green",
-    "Purple": "Purple",
-    "Lilac": "Lilac",
-    "Yellow": "Yellow",
-    "Orange": "Orange",
-    "Pink": "Punk",
-    "PastelPink": "Pastel pink",
-    "PastelPurple": "Patel purple"
+    "Lemon": "Lemon",
+    "Amber": "Amber",
+    "Watermelon": "Watermelon",
+    "BubbleGum": "BubbleGum",
+    "Grapes": "Grapes",
+    "Berry": "Berry",
+    "Sea": "Sea",
+    "Grass": "Grass",
+    "Meteorite": "Meteorite"
   },
   "Modal": {
     "Close": "Close"
+  },
+  "LocationAccess": {
+    "Denied": "Access to geolocation was not granted. In order to take part in the research grant Mistake Journal access to geolocation."
   },
   "ServerErrors": {
     "NotFound": "Item not found.",
