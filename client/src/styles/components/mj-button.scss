@@ -25,6 +25,27 @@ $button-variants: (
   ),
 );
 
+$button-outline-variants: (
+  'primary': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+  ),
+  'secondary': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+  ),
+  'error': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+  ),
+);
+
 .btn {
   @each $variant, $states in $button-variants {
     &.btn-#{$variant} {
@@ -49,6 +70,29 @@ $button-variants: (
       .show > &.dropdown-toggle {
         background-color: mistakes-journal.color($variant, map.get($states, 'active'));
         color: map.get($states, 'contrast');
+      }
+    }
+  }
+
+  @each $variant, $states in $button-outline-variants {
+    &.btn-outline-#{$variant} {
+      color: mistakes-journal.color($variant, map.get($states, 'regular'));
+
+      &:hover {
+        background-color: mistakes-journal.color($variant, map.get($states, 'hover'));
+        color: mistakes-journal.color('gray', '0');
+      }
+
+      &:focus {
+        background-color: mistakes-journal.color($variant, map.get($states, 'focus'));
+        color: mistakes-journal.color('gray', '0');
+
+      }
+
+      &.active,
+      &:active {
+        background-color: mistakes-journal.color($variant, map.get($states, 'active'));
+        color: mistakes-journal.color('gray', '0');
       }
     }
   }

@@ -29,15 +29,34 @@
   },
   "LandingPage": {
     "Nav": {
-      "GetStarted": "Hello {name}!",
-      "Login": "Log in"
+      "Hello": "Hello {name}!",
+      "Login": "Log in",
+      "GetStarted": "Get started",
+      "EndingPageButton": "Get started - save my first mistake"
     },
     "AboutMistakesJournal": {
       "HeaderFirstPart": "Get the most out of your mistakes",
       "HeaderSecondPart": "by keeping a",
-      "Step1": "Identify",
-      "Step2": "Reflect",
-      "Step3": "Control"
+      "Step1": {
+        "StepName": "Identify",
+        "Header": "Mistakes are precious",
+        "Text": "We help you to save and organize your mistakes, so you can get the most out of them."
+      },
+      "Step2": {
+        "StepName": "Reflect",
+        "Header": "Find the solutions",
+        "Text": "Some mistakes are not easy, but we do our best to help you reflect on them, so you can have the lessons and tips for future."
+      },
+      "Step3": {
+        "StepName": "Control",
+        "Header": "Become better",
+        "Text": "We will motivate you to avoid the same mistakes in the future.",
+        "Text2": "Track your mistakes and verify if your tips are helpful or need an adjustment."
+      },
+      "HeaderEndPage1": "Mistake is your free lesson",
+      "HeaderEndPage2": "Don't waste it and get started ",
+      "HeaderEndPageBold": "for free",
+      "ButtonEndPage":  "Get started - save my first mistake"
     }
   },
   "Mistakes": {
