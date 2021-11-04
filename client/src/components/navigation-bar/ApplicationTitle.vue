@@ -45,11 +45,11 @@ export default Vue.extend({
 
   &-first {
     margin-right: 0.25rem;
-    color: mistakes-journal.color('primary');
+    color: mistakes-journal.color('primary', '900');
   }
 
   &-second {
-    color: mistakes-journal.color('secondary');
+    color: mistakes-journal.color('secondary', '900');
   }
 }
 </style>
