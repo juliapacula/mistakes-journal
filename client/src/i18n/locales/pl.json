@@ -29,15 +29,34 @@
   },
   "LandingPage": {
     "Nav": {
-      "GetStarted": "Witaj {name}!",
-      "Login": "Zaloguj się"
+      "Hello": "Witaj {name}!",
+      "Login": "Zaloguj się",
+      "GetStarted": "Rozpocznij",
+      "EndingPageButton": "Rozpocznij - zapisz mój pierwszy bląd"
     },
     "AboutMistakesJournal": {
-      "HeaderFirstPart": "Czerp najwięcej nauki z własnych błędów",
-      "HeaderSecondPart": "utrzymując",
-      "Step1": "Rozpoznaj",
-      "Step2": "Analizuj",
-      "Step3": "Kontroluj"
+      "HeaderFirstPart": "Wykorzystaj w pełni swoje błędy",
+      "HeaderSecondPart": "prowadząc",
+      "Step1": {
+        "StepName": "Rozpoznaj",
+        "Header": "Błędy są cenne",
+        "Text": "Pomożemy Ci zapisywać oraz organizować Twoje błędy, tak abyś mógł z nich czerpać jak najwięcej."
+      },
+      "Step2": {
+        "StepName": "Analizuj",
+        "Header": "Znajdź rozwiązania",
+        "Text": "Niektóre błędy nie są proste, ale zrobimy co w naszej mocy, aby pomóc Ci zreflektować się nad nimi, tak abyś miał porady na przyszłość."
+      },
+      "Step3": {
+        "StepName": "Kontroluj",
+        "Header": "Stawaj się lepszy",
+        "Text": "Będziemy Cię motywować byś unikał popełniania tych samych błedów w przyszłości.",
+        "Text2": "Śledź swoje błędy i sprawdzaj, czy Twoje wskazówki są pomocne, czy też wymagają korekty."
+      },
+      "HeaderEndPage1": "Błędy to twoje darmowe lekcje",
+      "HeaderEndPage2": "Nie zmarnuj ich i rozpocznij ",
+      "HeaderEndPageBold": "za darmo",
+      "ButtonEndPage":  "Zaczynajmy - zapisz mój pierwszy błąd"
     }
   },
   "Mistakes": {

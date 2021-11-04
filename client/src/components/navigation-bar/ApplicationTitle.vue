@@ -5,8 +5,8 @@
       alt="Application Logo"
       class="mj-application-title-logo"
       src="@/assets/icons/ice_cream_broken.svg">
-    <span class="mj-application-title-first">{{ $t('Application.Title.First') }}</span>
-    <span class="mj-application-title-second">{{ $t('Application.Title.Second') }}</span>
+    <span class="mj-application-title-first" :class="{'d-none d-sm-flex' : inNavBar}">{{ $t('Application.Title.First') }}</span>
+    <span class="mj-application-title-second" :class="{'d-none d-sm-flex' : inNavBar}">{{ $t('Application.Title.Second') }}</span>
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default Vue.extend({
   name: 'ApplicationTitle',
   props: {
     withIcon: {
+      type: Boolean,
+      default: false,
+    },
+    inNavBar: {
       type: Boolean,
       default: false,
     },
@@ -45,11 +49,11 @@ export default Vue.extend({
 
   &-first {
     margin-right: 0.25rem;
-    color: mistakes-journal.color('primary');
+    color: mistakes-journal.color('primary', '900');
   }
 
   &-second {
-    color: mistakes-journal.color('secondary');
+    color: mistakes-journal.color('secondary', '900');
   }
 }
 </style>

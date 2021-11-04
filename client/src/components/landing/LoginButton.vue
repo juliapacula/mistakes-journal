@@ -3,14 +3,14 @@
     <router-link
       v-if="isLoggedIn"
       :to="{ name: 'MistakesPage' }"
-      class="btn btn-primary"
+      class="btn btn-outline-primary mj-login-button"
       role="button"
       tag="a">
-      {{ $t('LandingPage.Nav.GetStarted', { name: userName }) }}
+      {{ $t('LandingPage.Nav.Hello', { name: userName }) }}
     </router-link>
     <button
       v-else
-      class="btn btn-primary"
+      class="btn btn-outline-primary mj-login-button"
       @click="login()">
       {{ $t('LandingPage.Nav.Login') }}
     </button>
@@ -54,5 +54,4 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-
 </style>
