@@ -10,6 +10,7 @@ export enum UserMutations {
   SetLocation = 'user/SetLocation',
   SetLocationAccess = 'user/SetLocationAccess',
   SetLocationData = 'user/SetLocationData',
+  SetIfWatchedTutorial ='user/SetIfWatchedTutorial',
 }
 
 export const mutations: MutationTree<UserState> = {
@@ -27,5 +28,8 @@ export const mutations: MutationTree<UserState> = {
   },
   [UserMutations.SetLocationData](state: UserState, data: UserLocationData | null): void {
     state.locationData = data ? { ...data } : null;
+  },
+  [UserMutations.SetIfWatchedTutorial](state: UserState, watchedTutorial: boolean | null): void {
+    state.watchedTutorial = watchedTutorial;
   },
 };

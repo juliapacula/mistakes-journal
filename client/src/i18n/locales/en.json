@@ -9,7 +9,8 @@
     "Toggle": "Menu",
     "Expand": "Expand",
     "Collapse": "Collapse",
-    "ChangeLanguage": "Language"
+    "ChangeLanguage": "Language",
+    "Help" : "Help"
   },
   "Sidebar": {
     "Links": {

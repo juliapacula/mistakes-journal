@@ -52,7 +52,6 @@
     <div class="col-12">
       <mistakes-pagination />
     </div>
-    <user-onboard />
   </div>
 </template>
 

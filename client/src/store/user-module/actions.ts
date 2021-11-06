@@ -21,6 +21,7 @@ export enum UserActions {
   WatchLocation = 'user/WatchLocation',
   UpdateWeatherInfo = 'user/UpdateWeatherInfo',
   Logout = 'user/Logout',
+  ChangeWhetherWatchedTutorial = 'user/ChangeWhetherWatchedTutorial',
 }
 
 export const actions: ActionTree<UserState, State> = {
@@ -110,5 +111,15 @@ export const actions: ActionTree<UserState, State> = {
       }
       // eslint-disable-next-line no-empty
     } catch (e) {}
+  },
+
+  async [UserActions.ChangeWhetherWatchedTutorial]({ commit, dispatch }: Context, watchedTutorial: boolean): Promise<void> {
+    try {
+      await UserApiMethods.userWatchedTutorial(watchedTutorial);
+      await dispatch(UserActions.Get);
+    } catch (e) {
+      await handleDefaultResponseErrors(commit, e as Response);
+      throw e;
+    }
   },
 };
