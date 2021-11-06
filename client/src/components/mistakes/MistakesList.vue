@@ -37,12 +37,22 @@
     </div>
     <div
       v-else
-      class="col-12 text-center my-4">
-      {{ $t('Mistakes.EmptyList') }}
+      class="col-12 my-4 mj-empty-list">
+      <img
+        alt="Ice cream Logo"
+        class="mj-empty-list-icon"
+        src="@/assets/icons/logo_mistakes_list.svg">
+      <div class="mj-empty-list-text">
+        {{ $t('Mistakes.EmptyList') }}
+      </div>
+      <div class="mj-empty-list-text">
+        {{ $t('Mistakes.EmptyList2') }}
+      </div>
     </div>
     <div class="col-12">
       <mistakes-pagination />
     </div>
+    <user-onboard />
   </div>
 </template>
 
@@ -54,6 +64,7 @@ import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import UserOnboard from '@/components/shared/UserOnboard.vue';
 import { MISTAKES_COUNTING_DAYS } from '@/config/mistakes.config';
 import { Mistake } from '@/model/mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
@@ -63,6 +74,7 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MistakesList',
   components: {
+    UserOnboard,
     MistakeLabelsList,
     MistakesPagination,
     ProgressBar,
@@ -167,6 +179,29 @@ a {
   position: relative;
   align-items: center;
   justify-content: space-between;
+}
+
+.mj-empty-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: mistakes-journal.color('gray', '200');
+
+  &-icon {
+    padding-bottom: 2rem;
+    @include mistakes-journal.media-breakpoint-up(lg) {
+      width: 15.625rem;
+      height: 18rem;
+    }
+  }
+
+  &-text {
+    @include mistakes-journal.font-regular(1.2rem);
+    display: block;
+  }
 }
 
 .success-past-days {

@@ -154,7 +154,7 @@ export default Vue.extend({
   name: 'MistakeSolutionPage',
   computed: {
     mistake(): Mistake {
-      return this.$store.state.mistakes.mistake;
+      return this.$store.state.mistakes.mistake ? this.$store.state.mistakes.mistake : null;
     },
   },
   watch: {

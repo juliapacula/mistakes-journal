@@ -2,6 +2,7 @@
   <div class="mj-sidebar-container">
     <ul class="mj-sidebar-items">
       <router-link
+        id="step-1"
         class="mj-sidebar-item"
         tag="li"
         to="/journal/mistakes">
@@ -10,13 +11,16 @@
           icon="booklet" />
         <a class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Mistakes') }}</a>
       </router-link>
-      <li class="mj-sidebar-item disabled">
+      <li
+        id="step-4"
+        class="mj-sidebar-item disabled">
         <remix-icon
           class="mj-sidebar-item-icon"
           icon="lightbulb" />
         <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Tips') }}</span>
       </li>
       <li
+        id="step-2"
         class="mj-sidebar-item clickable"
         role="option"
         @click="toggleLabels()">
@@ -38,7 +42,9 @@
         class="mj-sidebar-sub-items">
         <sidebar-labels-list />
       </li>
-      <li class="mj-sidebar-item disabled">
+      <li
+        id="step-3"
+        class="mj-sidebar-item disabled">
         <remix-icon
           class="mj-sidebar-item-icon"
           icon="vip-diamond" />

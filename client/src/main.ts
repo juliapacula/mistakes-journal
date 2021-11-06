@@ -20,10 +20,13 @@ import VTooltip from 'v-tooltip';
 import Vue from 'vue';
 import Toasted from 'vue-toasted';
 import Vuelidate from 'vuelidate';
+import VueTour from 'vue-tour';
 import App from './App.vue';
 import i18n from './i18n';
 import router from './router';
 import store from './store';
+
+require('vue-tour/dist/vue-tour.css');
 
 library.add(fas);
 library.add(far);
@@ -42,6 +45,7 @@ Vue.use(VTooltip, {
 });
 
 Vue.use(Vuelidate);
+Vue.use(VueTour);
 
 Vue.use(DropdownPlugin);
 Vue.use(NavbarPlugin);
