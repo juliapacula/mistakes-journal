@@ -8,4 +8,5 @@ export interface UserState {
   location: { latitude: number, longitude: number } | null;
   canAccessLocation: boolean | null;
   locationData: UserLocationData | null;
+  watchedTutorial: boolean | null;
 }

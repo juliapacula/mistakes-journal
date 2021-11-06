@@ -48,7 +48,7 @@
                 slot="actions">
                 <button
                   class="btn btn-primary with-icon mj-onboard-end-button"
-                  @click="tour.stop">
+                  @click="stopTour()">
                   <span class="btn-icon">
                     <fa-icon
                       :icon="['far', 'laugh-beam']" />
@@ -66,6 +66,7 @@
 </template>
 
 <script lang="ts">
+import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -76,26 +77,39 @@ export default Vue.extend({
         {
           target: '.step-6',
           header: {
-            title: 'Onboard.Step6.Header',
+            title: this.$t('Onboard.Step6.Header'),
           },
-          content: 'Onboard.Step6.Text',
+          content: this.$t('Onboard.Step6.Text'),
         },
       ],
       isMobile: window.innerWidth < 768,
     };
   },
+  computed: {
+    userWatchedTutorial(): boolean {
+      const { user } = this.$store.state.user;
+      if (user === null) {
+        return false;
+      }
+      return user.watchedTutorial;
+    },
+  },
   created() {
     window.addEventListener('resize', this.updateIsMobile);
-  },
-  mounted() {
-    if (!this.$tours.myTour3.isRunning) {
-      this.$tours.myTour3.start();
-    }
   },
   destroyed() {
     window.removeEventListener('resize', this.updateIsMobile);
   },
+  mounted() {
+    if (!this.userWatchedTutorial) {
+      this.$tours.myTour3.start();
+    }
+  },
   methods: {
+    async stopTour(): Promise<void> {
+      await this.$tours.myTour3.finish();
+      await this.$store.dispatch(UserActions.ChangeWhetherWatchedTutorial, true);
+    },
     updateIsMobile(): void {
       this.isMobile = window.innerWidth < 768;
     },

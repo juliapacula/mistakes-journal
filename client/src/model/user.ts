@@ -7,4 +7,5 @@ export interface User {
   email: string;
   group: ResearchGroup;
   language: Locale;
+  watchedTutorial: boolean;
 }

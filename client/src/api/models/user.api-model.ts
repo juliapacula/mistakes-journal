@@ -8,4 +8,5 @@ export interface UserApiModel {
   email: string;
   group: ResearchGroup;
   language: Locale;
+  watchedTutorial: boolean;
 }

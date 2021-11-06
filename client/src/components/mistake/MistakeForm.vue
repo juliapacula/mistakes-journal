@@ -4,7 +4,8 @@
       v-if="isMistakeLoaded"
       class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
-        <div class="col-12 form-check form-switch mj-deep-analyzer-switch">
+        <div id="step-5"
+             class="col-12 form-check form-switch mj-deep-analyzer-switch">
           <input
             id="isDeepAnalyzer"
             v-model="isDeepAnalyzer"

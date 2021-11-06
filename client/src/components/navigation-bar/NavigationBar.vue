@@ -1,5 +1,7 @@
 <template>
-  <div class="mj-nav-container">
+  <div
+    id="step-mobile"
+    class="mj-nav-container">
     <div class="mj-nav-toggle">
       <button
         v-tooltip="isSidebarVisible ? $t('NavigationBar.Collapse') : $t('NavigationBar.Expand')"
@@ -21,6 +23,7 @@
       </button>
     </div>
     <div class="mj-nav-actions">
+      <help-button class="d-none d-sm-flex"/>
       <add-new-mistake-button class="mj-new" />
       <language-change-button />
       <logout-button />
@@ -31,6 +34,7 @@
 <script lang="ts">
 import LogoutButton from '@/components/navigation-bar/LogoutButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import HelpButton from '@/components/shared/HelpButton.vue';
 import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
@@ -38,7 +42,9 @@ import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'NavigationBar',
-  components: { LogoutButton, AddNewMistakeButton, LanguageChangeButton },
+  components: {
+    HelpButton, LogoutButton, AddNewMistakeButton, LanguageChangeButton,
+  },
   computed: {
     isSidebarVisible(): boolean {
       return this.$store.state.uiState.isSidebarVisible;

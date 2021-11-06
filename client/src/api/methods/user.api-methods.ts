@@ -20,6 +20,7 @@ export class UserApiMethods {
       email: user.email,
       language: user.language,
       group: user.group,
+      watchedTutorial: user.watchedTutorial,
     };
   }
 
@@ -36,6 +37,10 @@ export class UserApiMethods {
 
   public static async changeLanguage(language: Locale): Promise<void> {
     return put('/api/self/language', { language });
+  }
+
+  public static async userWatchedTutorial(watchedTutorial: boolean): Promise<void> {
+    return put('/api/self/tutorial', { watchedTutorial });
   }
 
   public static async getLocationData(

@@ -15,5 +15,6 @@ export default {
     location: null,
     canAccessLocation: null,
     locationData: null,
+    watchedTutorial: null,
   } as UserState,
 } as Module<UserState, State>;
