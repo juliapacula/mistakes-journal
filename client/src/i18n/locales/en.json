@@ -62,7 +62,8 @@
   "Mistakes": {
     "Title": "Mistakes",
     "AddButton": "Add mistake",
-    "EmptyList": "There is no mistakes for given filters. Add a new mistake in order to display the list correctly.",
+    "EmptyList": "Here you will see your mistakes list.",
+    "EmptyList2": "Don't hesitate and add your first one!",
     "ShowMore": "Show more",
     "RepetitionButton": "Oops! I did it again"
   },
@@ -166,5 +167,40 @@
     "WrongLatitude": "Incorrect geographic location.",
     "IncompleteCoordinates": "Incorrect geographic location.",
     "TooLong": "One or more fields have too many characters."
+  },
+  "Onboard": {
+    "ButtonStart": "Sure, let's get started!",
+    "Skip": "Skip",
+    "Next": "Got it! Next",
+    "GotIt": "Got it!",
+    "Step0": {
+      "Header": "Hi, I'm Minty!",
+      "Text": "Mistakes are my speciality! I will help you to eliminate them. Follow me to quickly show you around!"
+    },
+    "Step1": {
+      "Header": "Mistakes list",
+      "Text": "Add your mistakes and see progress towards eliminating them!"
+    },
+    "Step2": {
+      "Header": "Mistakes labels",
+      "Text": "Create labels and tag your mistakes to better organize them!"
+    },
+    "Step3": {
+      "Header": "Solved mistakes",
+      "Text": "Find all your mistakes that you managed to eliminate!"
+    },
+    "Step4": {
+      "Header": "Future features",
+      "Text": "Tips management and other features will be coming soon! I'll notify you when they are available!"
+    },
+    "Step5": {
+      "Header": "Analyze your mistake",
+      "Text": "No worries, it's easy! Just fill out a quick form (or select deep analyzer for more tips), add priority and tag it!"
+    },
+    "Step6": {
+      "Header": "Nice!",
+      "Text": "Now you can control your progress towards eliminating the mistake! 66 days left, unless you repeat it and reset the progress bar!",
+      "Text2": "Good luck!"
+    }
   }
 }

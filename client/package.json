@@ -22,6 +22,7 @@
     "vue-i18n": "^8.25.0",
     "vue-router": "^3.2.0",
     "vue-toasted": "^1.1.28",
+    "vue-tour": "^2.0.0",
     "vuelidate": "^0.7.6",
     "vuex": "^3.4.0"
   },
