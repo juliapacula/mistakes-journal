@@ -44,6 +44,12 @@ $button-outline-variants: (
     'hover': '900',
     'active': '500',
   ),
+  'repetition': (
+    'regular': '700',
+    'focus': '900',
+    'hover': '900',
+    'active': '500',
+  ),
 );
 
 .btn {
@@ -76,14 +82,18 @@ $button-outline-variants: (
 
   @each $variant, $states in $button-outline-variants {
     &.btn-outline-#{$variant} {
+      border-width: 0.125rem;
+      border-color: mistakes-journal.color($variant, map.get($states, 'regular'));
       color: mistakes-journal.color($variant, map.get($states, 'regular'));
 
       &:hover {
+        border-color: mistakes-journal.color($variant, map.get($states, 'hover'));
         background-color: mistakes-journal.color($variant, map.get($states, 'hover'));
         color: mistakes-journal.color('gray', '0');
       }
 
       &:focus {
+        border-color: mistakes-journal.color($variant, map.get($states, 'focus'));
         background-color: mistakes-journal.color($variant, map.get($states, 'focus'));
         color: mistakes-journal.color('gray', '0');
 
@@ -91,6 +101,7 @@ $button-outline-variants: (
 
       &.active,
       &:active {
+        border-color: mistakes-journal.color($variant, map.get($states, 'active'));
         background-color: mistakes-journal.color($variant, map.get($states, 'active'));
         color: mistakes-journal.color('gray', '0');
       }

@@ -2,33 +2,34 @@
   <div class="mj-progress">
     <b-progress
       :max="max1"
-      :value="firstProgressValue"
+      :value="firstProgressValue > 0 ? firstProgressValue : 0.5"
       class="w-25"
-      height="2px" />
+      height="3px"
+      precision="1" />
     <span class="mj-progress-icon">
-      <fa-icon
+      <remix-icon
         :class="{'mj-color-icon-active': isProgress1}"
-        :icon="['far', 'smile']" />
+        icon="emotion-happy" />
     </span>
     <b-progress
       :max="max2"
       :value="secondProgressValue"
       class="w-50"
-      height="2px" />
+      height="3px" />
     <span class="mj-progress-icon">
-      <fa-icon
+      <remix-icon
         :class="{'mj-color-icon-active': isProgress2}"
-        :icon="['far', 'grin']" />
+        icon="emotion" />
     </span>
     <b-progress
       :max="max3"
       :value="thirdProgressValue"
       class="w-100"
-      height="2px" />
+      height="3px" />
     <span class="mj-progress-icon">
-      <fa-icon
+      <remix-icon
         :class="{'mj-color-icon-active': isProgress3}"
-        :icon="['far', 'laugh']" />
+        icon="emotion-laugh" />
     </span>
   </div>
 </template>
@@ -99,10 +100,12 @@ export default Vue.extend({
   position: relative;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 1rem 0;
+  color: mistakes-journal.color('gray', '300');
 
   &-icon {
     padding: 0.5em;
+    font-size: 1rem;
   }
 }
 

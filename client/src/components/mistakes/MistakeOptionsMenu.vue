@@ -5,8 +5,9 @@
     no-caret
     variant="link">
     <template #button-content>
-      <fa-icon
-        :icon="['fas', 'ellipsis-v']" />
+      <remix-icon
+        class="mj-options-icon"
+        icon="more-2" />
     </template>
     <b-dropdown-item :to="'/journal/mistakes/edit/' + mistakeId">
       <span class="mj-options">
@@ -65,6 +66,10 @@ export default Vue.extend({
 
   &-text {
     padding-left: 1rem;
+  }
+
+  &-icon {
+    font-size: 1.5em;
   }
 }
 </style>

@@ -1,0 +1,1 @@
+export const MISTAKES_COUNTING_DAYS = 66;
