@@ -29,9 +29,9 @@
 </template>
 
 <script lang="ts">
+import LogoutButton from '@/components/navigation-bar/LogoutButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
 import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
-import LogoutButton from '@/components/navigation-bar/LogoutButton.vue';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 import { mapActions } from 'vuex';

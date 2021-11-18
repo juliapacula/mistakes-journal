@@ -19,7 +19,14 @@
           <mistake-options-menu :mistake-id="mistake.id" />
         </div>
         <mistake-labels-list :labels="mistake.labels" />
+        <div class="mj-mistake-item-date">
+          {{ mistake.createdAt | formattedDate }}
+        </div>
         <progress-bar :past-days="countMistakeDays(mistake)" />
+        <div class="mj-mistake-item-days">
+          <span class="success-past-days">{{ countMistakeDays(mistake) }}</span>
+          <span>/{{ MISTAKES_COUNTING_DAYS }} {{ $t('Progress.Days') }}</span>
+        </div>
         <div class="mj-priority-repetition">
           <mistake-priority :priority="mistake.priority" />
           <repetition-button
@@ -47,6 +54,7 @@ import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import { MISTAKES_COUNTING_DAYS } from '@/config/mistakes.config';
 import { Mistake } from '@/model/mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
 import moment from 'moment';
@@ -63,6 +71,11 @@ export default Vue.extend({
     MistakePriority,
     MistakeOptionsMenu,
   },
+  data() {
+    return {
+      MISTAKES_COUNTING_DAYS,
+    };
+  },
   computed: {
     mistakes(): Mistake[] {
       return this.$store.state.mistakes.mistakes;
@@ -73,6 +86,10 @@ export default Vue.extend({
   },
   methods: {
     countMistakeDays(mistake: Mistake): Number {
+      if (mistake.repetitionDates.length === 0) {
+        return moment()
+          .diff(mistake.createdAt, 'days');
+      }
       return moment()
         .diff(moment.max(mistake.repetitionDates), 'days');
     },
@@ -105,8 +122,28 @@ export default Vue.extend({
     white-space: nowrap;
 
     &:hover {
+      background-color: mistakes-journal.color('secondary', '300');
+    }
+
+    &:focus,
+    &:active {
       background-color: mistakes-journal.color('secondary', '50');
     }
+  }
+
+  &-date {
+    @include mistakes-journal.font-regular(0.69rem);
+    padding-left: 1rem;
+    color: mistakes-journal.color('gray', '400');
+  }
+
+  &-days {
+    @include mistakes-journal.font-semi-bold(0.83rem);
+    display: flex;
+    justify-content: right;
+    margin-right: 2rem;
+    margin-bottom: 0.5rem;
+    color: mistakes-journal.color('gray', '300');
   }
 }
 
@@ -130,5 +167,9 @@ a {
   position: relative;
   align-items: center;
   justify-content: space-between;
+}
+
+.success-past-days {
+  color: mistakes-journal.color('primary', '700');
 }
 </style>

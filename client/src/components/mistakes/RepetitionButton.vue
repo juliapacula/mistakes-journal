@@ -1,11 +1,11 @@
 <template>
   <button
-    class="btn mj-repetition with-icon"
+    class="btn btn-outline-repetition mj-repetition with-icon"
     type="button"
     @click="addRepetition()">
     <span class="btn-icon">
-      <fa-icon
-        :icon="['fas', 'redo']" />
+      <remix-icon
+        icon="restart" />
     </span>
     <span class="btn-text">{{ $t('Mistakes.RepetitionButton') }}: {{ repetitionCounter }} </span>
   </button>
@@ -44,16 +44,8 @@ export default Vue.extend({
 @use '../../styles/mistakes-journal';
 
 .mj-repetition {
+  @include mistakes-journal.font-semi-bold(0.75em);
   margin-right: 1em;
-  border-color: mistakes-journal.color('repetition');
-  color: mistakes-journal.color('repetition');
-  font-size: 0.75em;
   white-space: nowrap;
-
-  &:hover {
-    border-color: mistakes-journal.color('primary');
-    background-color: mistakes-journal.color('gray', '0');
-    color: mistakes-journal.color('primary');
-  }
 }
 </style>

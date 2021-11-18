@@ -64,7 +64,10 @@
     "AddButton": "Dodaj błąd",
     "EmptyList": "Brak błędów o wybranych kryteriach wyszukiwania. Dodaj nowy błąd w celu wyświetlenia listy.",
     "ShowMore": "Pokaż więcej",
-    "RepetitionButton": "Powtórz"
+    "RepetitionButton": "Ups! Powtórzono"
+  },
+  "Progress": {
+    "Days": "dni"
   },
   "Solutions": {
     "Title": "Rozwiązanie",
