@@ -63,11 +63,13 @@ export default Vue.extend({
   position: absolute;
   right: 0;
   height: 100%;
+  overflow-y: auto;
   border-left: 3px solid mistakes-journal.color('secondary', '900');
   background-color: mistakes-journal.color('secondary', '300');
 
   @include mistakes-journal.media-breakpoint-up(lg) {
     position: static;
+    overflow-y: hidden;
     border-left: 0;
     background-color: transparent;
   }
@@ -80,6 +82,20 @@ export default Vue.extend({
 }
 
 .mj-solution-close {
-  color: mistakes-journal.color('secondary', '900');
+  color: mistakes-journal.color('secondary', '700');
+
+  &:hover {
+    color: mistakes-journal.color('secondary', '900');
+  }
+
+  &:focus {
+    color: mistakes-journal.color('secondary', '900');
+
+  }
+
+  &.active,
+  &:active {
+    color: mistakes-journal.color('secondary', '500');
+  }
 }
 </style>
