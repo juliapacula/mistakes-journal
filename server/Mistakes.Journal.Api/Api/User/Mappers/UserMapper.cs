@@ -14,6 +14,7 @@ namespace Mistakes.Journal.Api.Api.User.Mappers
                 LastName = user.LastName,
                 Group = user.Group,
                 Language = user.Language,
+                WatchedTutorial = user.WatchedTutorial,
             };
         }
     }

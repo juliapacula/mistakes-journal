@@ -15,5 +15,6 @@ namespace Mistakes.Journal.Api.Logic.Identity.Models
         public ICollection<Tip> Tips { get; set; }
         public ApplicationLanguage Language { get; set; }
         public ResearchGroup Group { get; set; }
+        public bool WatchedTutorial { get; set; }
     }
 }
