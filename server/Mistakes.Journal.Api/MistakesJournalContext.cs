@@ -122,6 +122,9 @@ namespace Mistakes.Journal.Api
                     .IsRequired()
                     .HasDefaultValue(ApplicationLanguage.EN)
                     .HasConversion<string>();
+                user.Property(u => u.WatchedTutorial)
+                    .IsRequired()
+                    .HasDefaultValue(false);
             });
 
             modelBuilder.Entity<IdentityRole<Guid>>().ToTable("role");

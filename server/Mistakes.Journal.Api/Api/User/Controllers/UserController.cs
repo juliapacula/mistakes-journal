@@ -52,5 +52,17 @@ namespace Mistakes.Journal.Api.Api.User.Controllers
 
             return Ok();
         }
+
+        [HttpPut("tutorial")]
+        public async Task<ActionResult> ChangeWhetherWatchedTutorial(UserWatchedTutorialWebModel watchedTutorialWebModel)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            user.WatchedTutorial = watchedTutorialWebModel.WatchedTutorial;
+
+            await _userManager.UpdateAsync(user);
+
+            return Ok();
+        }
     }
 }
