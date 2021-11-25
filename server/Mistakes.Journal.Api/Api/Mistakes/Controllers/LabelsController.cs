@@ -41,6 +41,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var count = await _dataContext.Set<Label>().CountAsync();
+            if (count >= Constants.LabelsLimit)
+                return BadRequest(ErrorMessageType.TooMuchItemsExist);
+
             var nameLowerCase = newLabel.Name.ToLower();
             var existingLabel = await _dataContext.Set<Label>()
                 .FirstOrDefaultAsync(l => l.Name.ToLower() == nameLowerCase);

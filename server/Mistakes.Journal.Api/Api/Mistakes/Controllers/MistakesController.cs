@@ -45,7 +45,13 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var count = await _dataContext.Set<Mistake>().CountAsync();
+            if (count >= Constants.MistakesLimit)
+                return BadRequest(ErrorMessageType.TooMuchItemsExist);
+
             var mistake = newMistake.ToEntity(_userProvider.GetId());
+            if (mistake.Tips.Count >= Constants.TipsLimit)
+                return BadRequest(ErrorMessageType.TooMuchTipsExist);
 
             if (newMistake.Tips != null)
                 mistake.Tips.AddRange(newMistake.Tips.Where(t => t.IsPresent()).Select(t => new Tip(mistake.UserId, t)));
@@ -103,6 +109,9 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             if (mistake.IsSolved)
                 return BadRequest(ErrorMessageType.MistakeIsAlreadySolved);
+
+            if (mistake.Repetitions.Count >= Constants.RepetitionsLimit)
+                return BadRequest(ErrorMessageType.TooMuchItemsExist);
 
             mistake.Repetitions.Add(new Repetition(occurredAt ?? DateTime.UtcNow));
 
@@ -263,14 +272,18 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             if (mistake.Tips != null)
             {
-                var deletedTips = existingMistake.Tips.Where(t => !mistake.Tips.Contains(t.Content));
-                _dataContext.Set<Tip>().RemoveRange(deletedTips);
+                if (mistake.Tips.Count >= Constants.TipsLimit)
+                    return BadRequest(ErrorMessageType.TooMuchTipsExist);
+
+                var deletedTips = existingMistake.Tips.Where(t => !mistake.Tips.Contains(t.Content)).ToList();
 
                 var newTips = mistake.Tips
                     .Where(t => !existingMistake.Tips.Select(et => et.Content).Contains(t))
                     .Where(t => t.IsPresent())
-                    .Select(t => new Tip(existingMistake.UserId, t));
+                    .Select(t => new Tip(existingMistake.UserId, t))
+                    .ToList();
 
+                _dataContext.Set<Tip>().RemoveRange(deletedTips);
                 existingMistake.Tips.AddRange(newTips);
             }
 

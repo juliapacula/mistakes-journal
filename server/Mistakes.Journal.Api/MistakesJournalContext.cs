@@ -112,8 +112,8 @@ namespace Mistakes.Journal.Api
             modelBuilder.Entity<MistakesJournalUser>(user =>
             {
                 user.ToTable("user");
-                user.Property(u => u.FirstName).IsRequired();
-                user.Property(u => u.LastName).IsRequired();
+                user.Property(u => u.Country).IsRequired();
+                user.Property(u => u.Age).IsRequired();
                 user.Property(u => u.Group)
                     .IsRequired()
                     .HasDefaultValue(ResearchGroup.Default)

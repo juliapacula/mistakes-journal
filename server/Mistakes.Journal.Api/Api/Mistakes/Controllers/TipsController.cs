@@ -37,6 +37,10 @@ namespace Mistakes.Journal.Api.Api.Mistakes.Controllers
 
             var tip = newTip.ToEntity(_userProvider.GetId());
 
+            var count = await _dataContext.Set<Tip>().CountAsync();
+            if (count >= Constants.AllTipsLimit)
+                return BadRequest(ErrorMessageType.TooMuchItemsExist);
+
             await _dataContext.Set<Tip>().AddAsync(tip);
             await _dataContext.SaveChangesAsync();
 

@@ -162,6 +162,8 @@
     "WrongLongitude": "Incorrect geographic location.",
     "WrongLatitude": "Incorrect geographic location.",
     "IncompleteCoordinates": "Incorrect geographic location.",
+    "TooMuchItemsExist": "You have already added too many items of given type.",
+    "TooMuchTipsExist": "You have already added too many tips.",
     "TooLong": "One or more fields have too many characters."
   }
 }

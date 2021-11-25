@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Mistakes.Journal.Api.Api.Weather.WebModels;
 using Newtonsoft.Json.Linq;
 
