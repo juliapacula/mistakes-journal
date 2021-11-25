@@ -11,6 +11,10 @@
     color: #ffffff;
 }
 
+select.form-select {
+    border-radius: 5rem;
+}
+
 body {
     background-color: #F8FAFC !important;
     font-family: 'Montserrat', sans-serif;
@@ -91,6 +95,5 @@ body {
 
 .mj-validation-summary ul {
     margin: 0;
-    padding: 0;
-    list-style-type:none;
+    padding: 0 0 0 1rem;
 }

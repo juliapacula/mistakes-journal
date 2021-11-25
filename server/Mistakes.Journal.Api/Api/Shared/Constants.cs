@@ -12,5 +12,12 @@
 
         /* Mistakes */
         public const int DaysToSolveMistake = 66;
+
+        /* Limits */
+        public const int LabelsLimit = 10;
+        public const int TipsLimit = 10; // per mistake
+        public const int AllTipsLimit = 100;
+        public const int MistakesLimit = 30;
+        public const int RepetitionsLimit = 30; // per mistake
     }
 }

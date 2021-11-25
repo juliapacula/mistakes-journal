@@ -15,6 +15,7 @@ namespace Mistakes.Journal.Api.Api.Shared
         WrongLongitude = 10,
         WrongLatitude = 11,
         IncompleteCoordinates = 12,
-        SunriseSunsetError = 13,
+        TooMuchItemsExist = 13,
+        TooMuchTipsExist = 14,
     }
 }

@@ -166,6 +166,8 @@
     "WrongLongitude": "Niepoprawne położenie geograficzne.",
     "WrongLatitude": "Niepoprawne położenie geograficzne.",
     "IncompleteCoordinates": "Niepoprawne położenie geograficzne.",
+    "TooMuchItemsExist": "Zostało dodane już za dużo obiektów danego typu.",
+    "TooMuchTipsExist": "Dla danego błędu istnieje już za dużo porad.",
     "TooLong": "Niektóre z pól posiadają za dużo znaków."
   },
   "Onboard": {

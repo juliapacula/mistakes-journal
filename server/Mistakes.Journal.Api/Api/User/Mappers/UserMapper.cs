@@ -10,11 +10,23 @@ namespace Mistakes.Journal.Api.Api.User.Mappers
             return new UserWebModel
             {
                 Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Country = user.Country,
+                Age = user.Age,
                 Group = user.Group,
                 Language = user.Language,
                 WatchedTutorial = user.WatchedTutorial,
+            };
+        }
+
+        public static UserWebModel.AgeRange AgeToAgeRange(int age)
+        {
+            return age switch
+            {
+                var n when n <= 18 => UserWebModel.AgeRange.RangeTo18,
+                var n when n <= 25 => UserWebModel.AgeRange.Range19To25,
+                var n when n <= 35 => UserWebModel.AgeRange.Range26To35,
+                var n when n <= 55 => UserWebModel.AgeRange.Range36To55,
+                _ => UserWebModel.AgeRange.Range56AndMore,
             };
         }
     }

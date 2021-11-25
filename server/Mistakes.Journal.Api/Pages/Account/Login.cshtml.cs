@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Mistakes.Journal.Api.Logic.Identity;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 
 namespace Mistakes.Journal.Api.Pages.Account
