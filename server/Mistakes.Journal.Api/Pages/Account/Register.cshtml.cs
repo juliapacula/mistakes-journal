@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mistakes.Journal.Api.Api.User.Mappers;
 using Mistakes.Journal.Api.Api.User.WebModels;
-using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 using Mistakes.Journal.Api.Logic.Shared.Models;
 
@@ -119,6 +118,30 @@ namespace Mistakes.Journal.Api.Pages.Account
             }
 
             return Page();
+        }
+
+        private static ResearchGroup SelectGroup(List<MistakesJournalUser> allUsers, IEnumerable<ResearchGroup> availableGroups, string country, UserWebModel.AgeRange age)
+        {
+            // 1. Country and Age
+            var finalGroups1 = CalculateGroups(availableGroups, allUsers, u => u.Country == country && u.Age == age);
+            if (finalGroups1.Count == 1)
+                return finalGroups1[0].Key;
+
+            // 2. Country or Age
+            var finalGroups2 = CalculateGroups(finalGroups1.Select(grouping => grouping.Key), allUsers, u => u.Country == country || u.Age == age);
+            if (finalGroups2.Count == 1)
+                return finalGroups2[0].Key;
+
+            // 3. Groups size
+            var finalGroups3 = CalculateGroups(finalGroups2.Select(grouping => grouping.Key), allUsers, u => true);
+            return finalGroups3[0].Key;
+        }
+
+        private static List<(ResearchGroup Key, int Value)> CalculateGroups(IEnumerable<ResearchGroup> availableGroups, IEnumerable<MistakesJournalUser> allUsers, Func<MistakesJournalUser, bool> predicate)
+        {
+            var groups = allUsers.Where(predicate).GroupBy(u => u.Group).Where(grouping => availableGroups.Contains(grouping.Key)).OrderBy(grouping => grouping.Count()).ToList();
+            var dictionary = availableGroups.Select(g => (Key: g, Value: groups.FirstOrDefault(gr => gr.Key == g)?.Count() ?? 0)).OrderBy(t => t.Value).ToList();
+            return dictionary.Where(t => t.Value == dictionary.First().Value).ToList();
         }
 
         private static ResearchGroup SelectGroup(List<MistakesJournalUser> allUsers, IEnumerable<ResearchGroup> availableGroups, string country, UserWebModel.AgeRange age)

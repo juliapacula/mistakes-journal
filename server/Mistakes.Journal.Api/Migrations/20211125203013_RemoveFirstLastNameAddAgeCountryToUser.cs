@@ -26,7 +26,7 @@ namespace Mistakes.Journal.Api.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.Sql(@"DELETE FROM ""user"";");
+            migrationBuilder.Sql($"DELETE FROM 'user';");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
