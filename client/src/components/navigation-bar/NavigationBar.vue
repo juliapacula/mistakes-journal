@@ -1,6 +1,5 @@
 <template>
   <div
-    id="step-mobile"
     class="mj-nav-container">
     <div class="mj-nav-toggle">
       <button

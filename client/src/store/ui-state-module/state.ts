@@ -3,4 +3,5 @@ export interface UiState {
   errorMessageKeys: string[];
   saturation: number;
   fontSize: number;
+  whichUserTour: number;
 }

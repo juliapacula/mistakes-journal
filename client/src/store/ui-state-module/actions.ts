@@ -22,6 +22,7 @@ export enum UiStateActions {
   ChangeSaturationToPlain = 'uiState/ChangeSaturationToPlain',
   ChangeSaturationBasedOnWeather = 'uiState/ChangeSaturationBasedOnWeather',
   ChangeSizeBasedOnDayTime = 'uiState/ChangeSizeBasedOnDayTime',
+  ChangeWhichUserTour = 'uiState/ChangeWhichUserTour'
 }
 
 export const actions: ActionTree<UiState, State> = {
@@ -67,5 +68,8 @@ export const actions: ActionTree<UiState, State> = {
     }
 
     commit(UiStateMutations.SetFontSize, fontSize);
+  },
+  [UiStateActions.ChangeWhichUserTour]({ commit }: Context, tourNumber: number): void {
+    commit(UiStateMutations.SetWhichUserTour, tourNumber);
   },
 };

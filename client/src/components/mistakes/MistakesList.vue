@@ -7,7 +7,7 @@
       v-if="mistakes.length > 0"
       class="col-12 mt-4 mj-mistake-items">
       <div
-        v-for="mistake in mistakes"
+        v-for="(mistake, index) in mistakes"
         :key="mistake.id"
         class="mj-mistake-item">
         <div class="mj-mistake-first-line">
@@ -30,9 +30,11 @@
         <div class="mj-priority-repetition">
           <mistake-priority :priority="mistake.priority" />
           <repetition-button
+            :class="{ 'step-6' : index === 0 }"
             :mistake-id="mistake.id"
             :repetition-counter="mistake.repetitionDates.length" />
         </div>
+        <!--- nie mozna jeszcze tu dac bo nie dziala <onboard-repetition/> --->
       </div>
     </div>
     <div
@@ -52,6 +54,7 @@
     <div class="col-12">
       <mistakes-pagination />
     </div>
+    <user-onboard />
   </div>
 </template>
 
@@ -63,6 +66,7 @@ import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
+import OnboardRepetition from '@/components/shared/OnboardRepetition.vue';
 import UserOnboard from '@/components/shared/UserOnboard.vue';
 import { MISTAKES_COUNTING_DAYS } from '@/config/mistakes.config';
 import { Mistake } from '@/model/mistake';

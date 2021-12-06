@@ -65,7 +65,10 @@
     "AddButton": "Dodaj błąd",
     "EmptyList": "Brak błędów o wybranych kryteriach wyszukiwania. Dodaj nowy błąd w celu wyświetlenia listy.",
     "ShowMore": "Pokaż więcej",
-    "RepetitionButton": "Powtórz"
+    "RepetitionButton": "Ups! Powtórzono"
+  },
+  "Progress": {
+    "Days": "dni"
   },
   "Solutions": {
     "Title": "Rozwiązanie",
@@ -166,5 +169,40 @@
     "TooMuchItemsExist": "Zostało dodane już za dużo obiektów danego typu.",
     "TooMuchTipsExist": "Dla danego błędu istnieje już za dużo porad.",
     "TooLong": "Niektóre z pól posiadają za dużo znaków."
+  },
+  "Onboard": {
+    "ButtonStart": "Pewnie, zaczynajmy!",
+    "Skip": "Pomiń",
+    "Next": "Mam to! Dalej",
+    "GotIt": "Mam to!",
+    "Step0": {
+      "Header": "Cześć, jestem Minty!",
+      "Text": "Błędy to moja specjalność! Pomogę Ci je wyeliminować. Podążaj za mną, szybko Cię oprowadzę!"
+    },
+    "Step1": {
+      "Header": "Lista błędów",
+      "Text": "Dodawaj swoje błędy i obserwuj postępy w eliminowaniu ich!"
+    },
+    "Step2": {
+      "Header": "Etykiety błędów",
+      "Text": "Twórz etykiety i taguj swoje błędy by lepiej je organizować!"
+    },
+    "Step3": {
+      "Header": "Rozwiązane błędy",
+      "Text": "Znajdź wszystkie błędy, które udało Ci się wyeliminować!"
+    },
+    "Step4": {
+      "Header": "Przyszłe funkcje",
+      "Text": "Zarządzanie poradami i inne funkcje będą wkrótce dostępne! Powiadomię Cię, kiedy będą dostępne!"
+    },
+    "Step5": {
+      "Header": "Przeanalizuj swój błąd",
+      "Text": "Bez obaw, to łatwe! Po prostu wypełnij krótki formularz (lub wybierz zaawansowaną analizę dla większej ilości wskazówek), dodaj priorytet i etykietę błędu."
+    },
+    "Step6": {
+      "Header": "Super!",
+      "Text": "Teraz możesz kontrolować swój postęp w eliminowaniu błędu! Zostało 66 dni, chyba że powtórzysz błąd i zresetujesz pasek postępu.",
+      "Text2": "Powodzenia!"
+    }
   }
 }
