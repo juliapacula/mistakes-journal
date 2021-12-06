@@ -29,7 +29,7 @@
   },
   "LandingPage": {
     "Nav": {
-      "Hello": "Witaj {name}!",
+      "Hello": "Witaj!",
       "Login": "Zaloguj się",
       "GetStarted": "Rozpocznij",
       "EndingPageButton": "Rozpocznij - zapisz mój pierwszy błąd"

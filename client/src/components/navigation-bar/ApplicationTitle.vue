@@ -5,8 +5,16 @@
       alt="Application Logo"
       class="mj-application-title-logo"
       src="@/assets/icons/ice_cream_broken.svg">
-    <span class="mj-application-title-first" :class="{'d-none d-sm-flex' : inNavBar}">{{ $t('Application.Title.First') }}</span>
-    <span class="mj-application-title-second" :class="{'d-none d-sm-flex' : inNavBar}">{{ $t('Application.Title.Second') }}</span>
+    <span
+      :class="{'d-none d-sm-inline': inNavBar}"
+      class="mj-application-title-first">
+      {{ $t('Application.Title.First') }}
+    </span>
+    <span
+      :class="{'d-none d-sm-inline': inNavBar}"
+      class="mj-application-title-second">
+      {{ $t('Application.Title.Second') }}
+    </span>
   </div>
 </template>
 

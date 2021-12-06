@@ -17,7 +17,7 @@
                     </div>
                     <div class="mj-card-title mb-4">
                         <h1>Join us today</h1>
-                        <h2>and get the most of your mistakes</h2>
+                        <h2>and get the most out of your mistakes</h2>
                     </div>
                     @if (!ModelState.IsValid)
                     {
@@ -306,6 +306,7 @@
                             asp-for="NewUser.Password"
                             class="form-control  @(ModelState.GetFieldValidationState("Password") == ModelValidationState.Invalid ? "invalid" : "")"/>
                         <span asp-validation-for="NewUser.Password" class="invalid-feedback"></span>
+                        <div class="form-text">Required at least: one uppercase character, one lowercase character, one digit and minimum length of 6.</div>
                     </div>
                     <div class="mj-form-group">
                         <label asp-for="NewUser.ConfirmPassword" class="form-label"></label>

@@ -6,7 +6,7 @@
       class="btn btn-outline-primary mj-login-button"
       role="button"
       tag="a">
-      {{ $t('LandingPage.Nav.Hello', { name: userName }) }}
+      {{ $t('LandingPage.Nav.Hello') }}
     </router-link>
     <button
       v-else
@@ -26,15 +26,6 @@ export default Vue.extend({
     isLoggedIn(): boolean {
       return !!this.$store.state.user.user;
     },
-    userName(): string {
-      const { user } = this.$store.state.user;
-
-      if (user === null) {
-        return '';
-      }
-
-      return `${user.firstName}`;
-    },
     loginPath(): string {
       return this.$store.state.user.configuration.loginPath.substr(1);
     },
@@ -42,9 +33,9 @@ export default Vue.extend({
   methods: {
     login(): void {
       if (process.env.NODE_ENV === 'development') {
-        window.location.href = `http://localhost:5001/${this.loginPath}?returnUrl=${window.location.pathname}`;
+        window.location.href = `http://localhost:5001/${this.loginPath}?returnUrl=${window.location.pathname}journal`;
       } else {
-        window.location.href = `${this.loginPath}?returnUrl=${window.location.pathname}`;
+        window.location.href = `${this.loginPath}?returnUrl=${window.location.pathname}journal`;
       }
     },
   },

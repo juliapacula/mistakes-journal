@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mistakes.Journal.Api.Api.User.Mappers;
 using Mistakes.Journal.Api.Api.User.WebModels;
+using Microsoft.EntityFrameworkCore;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 using Mistakes.Journal.Api.Logic.Shared.Models;
 
