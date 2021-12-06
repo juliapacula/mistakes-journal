@@ -70,7 +70,7 @@ namespace Mistakes.Journal.Api.Pages.Account
                 return LocalRedirect(returnUrl);
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError(string.Empty, "User with such email and password does not exist.");
 
             return Page();
         }

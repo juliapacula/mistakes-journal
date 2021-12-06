@@ -1,12 +1,14 @@
 <template>
   <div class="mj-landing-navbar">
     <application-title
-      :inNavBar="true"
+      :is-nav-bar="true"
       :with-icon="true" />
     <div class="mj-landing-navbar-buttons">
       <language-change-button :is-transparent="true" />
       <login-button />
-      <register-button class="d-none d-sm-flex">{{ $t('LandingPage.Nav.GetStarted') }}</register-button>
+      <register-button class="d-none d-sm-inline">
+        {{ $t('LandingPage.Nav.GetStarted') }}
+      </register-button>
     </div>
   </div>
 </template>

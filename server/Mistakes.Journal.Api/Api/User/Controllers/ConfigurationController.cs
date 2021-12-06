@@ -23,6 +23,7 @@ namespace Mistakes.Journal.Api.Api.User.Controllers
             return Ok(new ConfigurationWebModel
             {
                 DeniedPath = _cookieAuthenticationOptions.AccessDeniedPath,
+                RegisterPath = "/account/register",
                 LoginPath = _cookieAuthenticationOptions.LoginPath,
                 LogoutPath = _cookieAuthenticationOptions.LogoutPath,
             });

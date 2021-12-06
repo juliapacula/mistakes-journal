@@ -28,6 +28,7 @@ export class UserApiMethods {
 
     return {
       deniedPath: config.deniedPath,
+      registerPath: config.registerPath,
       loginPath: config.loginPath,
       logoutPath: config.logoutPath,
     };
