@@ -66,6 +66,7 @@
 </template>
 
 <script lang="ts">
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
@@ -87,11 +88,7 @@ export default Vue.extend({
   },
   computed: {
     userWatchedTutorial(): boolean {
-      const { user } = this.$store.state.user;
-      if (user === null) {
-        return false;
-      }
-      return user.watchedTutorial;
+      return this.$store.state.user?.user.watchedTutorial ?? false;
     },
   },
   created() {
@@ -101,7 +98,7 @@ export default Vue.extend({
     window.removeEventListener('resize', this.updateIsMobile);
   },
   mounted() {
-    if (!this.userWatchedTutorial) {
+    if (this.$store.state.uiState.whichUserTour === 3 && !this.$tours.myTour3.isRunning && !this.userWatchedTutorial && !this.isMobile) {
       this.$tours.myTour3.start();
     }
   },
@@ -109,6 +106,7 @@ export default Vue.extend({
     async stopTour(): Promise<void> {
       await this.$tours.myTour3.finish();
       await this.$store.dispatch(UserActions.ChangeWhetherWatchedTutorial, true);
+      await this.$store.dispatch(UiStateActions.ChangeWhichUserTour, 1);
     },
     updateIsMobile(): void {
       this.isMobile = window.innerWidth < 768;

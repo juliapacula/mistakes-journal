@@ -1,97 +1,98 @@
 <template>
-  <div>
-    <v-tour
-      :class="{'overlay' : isTourActive}"
-      name="myTour2"
-      :steps="isMobile ? stepsMobile : stepsDesktop">
-      <template slot-scope="tour">
-        <transition name="fade">
-          <v-step
-            v-if="tour.steps[tour.currentStep]"
-            :key="tour.currentStep"
-            :step="tour.steps[tour.currentStep]"
-            :previous-step="tour.previousStep"
-            :next-step="tour.nextStep"
-            :stop="tour.stop"
-            :skip="tour.skip"
-            :is-first="tour.isFirst"
-            :is-last="tour.isLast"
-            :labels="tour.labels"
-          >
-            <template>
-              <div slot="header">
-                <div class="v_step__header" />
-              </div>
-              <div slot="content">
-                <div class="mj-onboard-content">
-                  <div>
-                    <img
-                      v-if="tour.currentStep === 0"
-                      class="mj-onboard-content-icon"
-                      alt="Ice cream"
-                      src="@/assets/icons/onboard_step_5.svg">
-                    <img
-                      v-else-if="tour.currentStep === 1"
-                      class="mj-onboard-content-icon"
-                      alt="Ice cream"
-                      src="@/assets/icons/onboard_step_6.svg">
+  <v-tour
+    :class="{'overlay' : isTourActive}"
+    :steps="isMobile ? stepsMobile : stepsDesktop"
+    name="myTour2">
+    <template slot-scope="tour">
+      <transition name="fade">
+        <v-step
+          v-if="tour.steps[tour.currentStep]"
+          :key="tour.currentStep"
+          :is-first="tour.isFirst"
+          :is-last="tour.isLast"
+          :labels="tour.labels"
+          :next-step="tour.nextStep"
+          :previous-step="tour.previousStep"
+          :skip="tour.skip"
+          :step="tour.steps[tour.currentStep]"
+          :stop="tour.stop"
+          class="mj-step">
+          <template>
+            <div slot="header">
+              <div class="v_step__header" />
+            </div>
+            <div slot="content">
+              <div class="mj-onboard-content">
+                <div>
+                  <img
+                    v-if="tour.currentStep === 0"
+                    alt="Ice cream"
+                    class="mj-onboard-content-icon"
+                    src="@/assets/icons/onboard_step_5.svg">
+                  <img
+                    v-else-if="tour.currentStep === 1"
+                    alt="Ice cream"
+                    class="mj-onboard-content-icon"
+                    src="@/assets/icons/onboard_step_6.svg">
+                </div>
+                <div class="mj-onboard-content-texts">
+                  <div
+                    slot="header"
+                    class="mj-onboard-content-header">
+                    {{ $t(tour.steps[tour.currentStep].header.title) }}
                   </div>
-                  <div class="mj-onboard-content-texts">
-                    <div
-                      slot="header"
-                      class="mj-onboard-content-header">
-                      {{ tour.steps[tour.currentStep].header.title }}
-                    </div>
-                    <div class="mj-onboard-content-simple-text">
-                      {{ tour.steps[tour.currentStep].content }}
-                    </div>
-                    <div
-                      v-if="tour.currentStep === 1"
-                      class="mj-onboard-content-simple-text">
-                      {{ $t('Onboard.Step6.Text2') }}
-                    </div>
+                  <div class="mj-onboard-content-simple-text">
+                    {{ $t(tour.steps[tour.currentStep].content) }}
+                  </div>
+                  <div
+                    v-if="tour.currentStep === 1"
+                    class="mj-onboard-content-simple-text">
+                    {{ $t('Onboard.Step6.Text2') }}
                   </div>
                 </div>
               </div>
-              <div
-                v-if="!tour.isLast"
-                slot="actions">
-                <button
-                  class="btn btn-primary with-icon mj-onboard-end-button"
-                  :class="{ 'mj-button-proceed': isMobile }"
-                  @click="tour.nextStep">
-                  <span class="btn-icon">
-                    <fa-icon
-                      :icon="['far', 'laugh-beam']" />
-                  </span>
-                  <span class="btn-text ">
-                    {{ $t('Onboard.GotIt') }}</span>
-                </button>
-              </div>
-              <div
-                v-if="tour.isLast"
-                slot="actions">
-                <button
-                  class="btn btn-primary with-icon mj-onboard-end-button"
-                  :class="{ 'mj-button-proceed': isMobile }"
-                  @click="stopTour()">
-                  <span class="btn-icon">
-                    <fa-icon
-                      :icon="['far', 'laugh-beam']" />
-                  </span>
-                  <span class="btn-text">
-                    {{ $t('Onboard.GotIt') }}</span>
-                </button>
-              </div>
-            </template>
-          </v-step>
-        </transition>
-      </template>
-    </v-tour>
-  </div>
+            </div>
+            <div
+              v-if="!tour.isLast"
+              slot="actions">
+              <button
+                :class="{ 'mj-button-proceed': isMobile }"
+                class="btn btn-primary with-icon mj-onboard-end-button"
+                @click="tour.nextStep">
+                <span class="btn-icon">
+                  <fa-icon
+                    :icon="['far', 'laugh-beam']" />
+                </span>
+                <span class="btn-text ">
+                  {{ $t('Onboard.GotIt') }}
+                </span>
+              </button>
+            </div>
+            <div
+              v-if="tour.isLast"
+              slot="actions">
+              <button
+                :class="{ 'mj-button-proceed': isMobile }"
+                class="btn btn-primary with-icon mj-onboard-end-button"
+                @click="stopTour()">
+                <span class="btn-icon">
+                  <fa-icon
+                    :icon="['far', 'laugh-beam']" />
+                </span>
+                <span class="btn-text">
+                  {{ $t('Onboard.GotIt') }}
+                </span>
+              </button>
+            </div>
+          </template>
+        </v-step>
+      </transition>
+    </template>
+  </v-tour>
 </template>
 
 <script lang="ts">
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
@@ -103,9 +104,9 @@ export default Vue.extend({
         {
           target: '#step-5',
           header: {
-            title: this.$t('Onboard.Step5.Header'),
+            title: 'Onboard.Step5.Header',
           },
-          content: this.$t('Onboard.Step5.Text'),
+          content: 'Onboard.Step5.Text',
           params: {
             placement: 'right',
           },
@@ -115,9 +116,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step5.Header'),
+            title: 'Onboard.Step5.Header',
           },
-          content: this.$t('Onboard.Step5.Text'),
+          content: 'Onboard.Step5.Text',
           params: {
             placement: 'none',
           },
@@ -125,9 +126,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step6.Header'),
+            title: 'Onboard.Step6.Header',
           },
-          content: this.$t('Onboard.Step6.Text'),
+          content: 'Onboard.Step6.Text',
           params: {
             placement: 'none',
           },
@@ -139,18 +140,14 @@ export default Vue.extend({
   },
   computed: {
     userWatchedTutorial(): boolean {
-      const { user } = this.$store.state.user;
-      if (user === null) {
-        return false;
-      }
-      return user.watchedTutorial;
+      return this.$store.state.user?.user.watchedTutorial ?? false;
     },
   },
   created() {
     window.addEventListener('resize', this.updateIsMobile);
   },
   mounted() {
-    if (!this.userWatchedTutorial) {
+    if (this.$store.state.uiState.whichUserTour === 2 && !this.$tours.myTour2.isRunning && !this.userWatchedTutorial) {
       this.isTourActive = true;
       this.$tours.myTour2.start();
     }
@@ -160,11 +157,13 @@ export default Vue.extend({
   },
   methods: {
     async stopTour(): Promise<void> {
+      this.isTourActive = false;
+      await this.$tours.myTour2.finish();
+      await this.$store.dispatch(UiStateActions.ChangeWhichUserTour, 3);
+      // here we have to check if is Mobile, as on Mobiles this is the last tour
       if (this.isMobile) {
         await this.$store.dispatch(UserActions.ChangeWhetherWatchedTutorial, true);
       }
-      this.isTourActive = false;
-      await this.$tours.myTour2.finish();
     },
     updateIsMobile(): void {
       this.isMobile = window.innerWidth < 768;
@@ -174,8 +173,8 @@ export default Vue.extend({
 </script>
 
 <style
-  scoped
-  lang="scss">
+  lang="scss"
+  scoped>
 @use 'sass:color';
 @use '../../styles/mistakes-journal';
 
@@ -297,7 +296,7 @@ export default Vue.extend({
 
 ::v-deep .v-step__arrow--dark {
   &:before {
-    background: mistakes-journal.color('gray', '100');
+    background: mistakes-journal.color('gray', '100') !important;
   }
 }
 </style>

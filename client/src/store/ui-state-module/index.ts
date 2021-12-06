@@ -16,5 +16,6 @@ export default {
     errorMessageKeys: [],
     saturation: DEFAULT_SATURATION,
     fontSize: MIN_FONT_SIZE,
+    whichUserTour: 1,
   } as UiState,
 } as Module<UiState, State>;

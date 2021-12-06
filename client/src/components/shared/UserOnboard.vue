@@ -18,7 +18,8 @@
             :previous-step="tour.previousStep"
             :skip="tour.skip"
             :step="tour.steps[tour.currentStep]"
-            :stop="tour.stop">
+            :stop="tour.stop"
+            class="mj-step">
             <template>
               <div slot="header">
                 <div class="v_step__header" />
@@ -84,14 +85,14 @@
                     <div
                       slot="header"
                       class="mj-onboard-content-header">
-                      {{ tour.steps[tour.currentStep].header.title }}
+                      {{ $t(tour.steps[tour.currentStep].header.title) }}
                     </div>
                     <div class="mj-onboard-content-simple-text">
-                      {{ tour.steps[tour.currentStep].content }}
+                      {{ $t(tour.steps[tour.currentStep].content) }}
                     </div>
                   </div>
+                  </div>
                 </div>
-              </div>
               <div
                 v-if="tour.currentStep === 0"
                 slot="actions"
@@ -173,21 +174,28 @@
 
 <script lang="ts">
 import OnboardProgress from '@/components/shared/OnboardProgress.vue';
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'UserOnboard',
   components: { OnboardProgress },
+  props: {
+    isSkipped: {
+      required: true,
+      type: Boolean,
+    },
+  },
   data() {
     return {
       stepsDesktop: [
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step0.Header'),
+            title: 'Onboard.Step0.Header',
           },
-          content: this.$t('Onboard.Step0.Text'),
+          content: 'Onboard.Step0.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -196,9 +204,9 @@ export default Vue.extend({
         {
           target: '#step-1',
           header: {
-            title: this.$t('Onboard.Step1.Header'),
+            title: 'Onboard.Step1.Header',
           },
-          content: this.$t('Onboard.Step1.Text'),
+          content: 'Onboard.Step1.Text',
           params: {
             placement: 'right',
           },
@@ -206,9 +214,9 @@ export default Vue.extend({
         {
           target: '#step-2',
           header: {
-            title: this.$t('Onboard.Step2.Header'),
+            title: 'Onboard.Step2.Header',
           },
-          content: this.$t('Onboard.Step2.Text'),
+          content: 'Onboard.Step2.Text',
           params: {
             placement: 'right',
           },
@@ -216,9 +224,9 @@ export default Vue.extend({
         {
           target: '#step-3',
           header: {
-            title: this.$t('Onboard.Step3.Header'),
+            title: 'Onboard.Step3.Header',
           },
-          content: this.$t('Onboard.Step3.Text'),
+          content: 'Onboard.Step3.Text',
           params: {
             placement: 'right',
           },
@@ -226,9 +234,9 @@ export default Vue.extend({
         {
           target: '#step-4',
           header: {
-            title: this.$t('Onboard.Step4.Header'),
+            title: 'Onboard.Step4.Header',
           },
-          content: this.$t('Onboard.Step4.Text'),
+          content: 'Onboard.Step4.Text',
           params: {
             placement: 'right',
           },
@@ -238,9 +246,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step0.Header'),
+            title: 'Onboard.Step0.Header',
           },
-          content: this.$t('Onboard.Step0.Text'),
+          content: 'Onboard.Step0.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -249,9 +257,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step1.Header'),
+            title: 'Onboard.Step1.Header',
           },
-          content: this.$t('Onboard.Step1.Text'),
+          content: 'Onboard.Step1.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -260,9 +268,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step2.Header'),
+            title: 'Onboard.Step2.Header',
           },
-          content: this.$t('Onboard.Step2.Text'),
+          content: 'Onboard.Step2.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -271,9 +279,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step3.Header'),
+            title: 'Onboard.Step3.Header',
           },
-          content: this.$t('Onboard.Step3.Text'),
+          content: 'Onboard.Step3.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -282,9 +290,9 @@ export default Vue.extend({
         {
           target: false,
           header: {
-            title: this.$t('Onboard.Step4.Header'),
+            title: 'Onboard.Step4.Header',
           },
-          content: this.$t('Onboard.Step4.Text'),
+          content: 'Onboard.Step4.Text',
           params: {
             placement: 'none',
             highlight: false,
@@ -297,11 +305,7 @@ export default Vue.extend({
   },
   computed: {
     userWatchedTutorial(): boolean {
-      const { user } = this.$store.state.user;
-      if (user === null) {
-        return false;
-      }
-      return user.watchedTutorial;
+      return this.$store.state.user?.user.watchedTutorial ?? false;
     },
   },
   created() {
@@ -311,7 +315,7 @@ export default Vue.extend({
     window.removeEventListener('resize', this.updateIsMobile);
   },
   mounted() {
-    if (!this.userWatchedTutorial) {
+    if (!this.isSkipped && this.$store.state.uiState.whichUserTour === 1 && !this.$tours.myTour.isRunning && !this.userWatchedTutorial) {
       this.$tours.myTour.start();
       this.isTourActive = true;
     }
@@ -322,9 +326,10 @@ export default Vue.extend({
       await this.$tours.myTour.finish();
       await this.$store.dispatch(UserActions.ChangeWhetherWatchedTutorial, true);
     },
-    turnOffTour() : void {
+    async turnOffTour(): Promise<void> {
       this.isTourActive = false;
       this.$tours.myTour.finish();
+      await this.$store.dispatch(UiStateActions.ChangeWhichUserTour, 2);
     },
     updateIsMobile(): void {
       this.isMobile = window.innerWidth < 768;
@@ -441,8 +446,8 @@ export default Vue.extend({
     }
 
     &--sticky {
-      max-width: 100%;
       width: 100%;
+      max-width: 100%;
       height: 100%;
       background-color: mistakes-journal.color('gray', '100');
       color: mistakes-journal.color('text');
@@ -460,33 +465,6 @@ export default Vue.extend({
   }
 }
 
-.v-step--sticky[data-v-54f9a632] {
-  position: absolute;
-  flex-grow: 1;
-  width: 100vw;
-  max-width: 48rem;
-  height: 100%;
-  background-color: mistakes-journal.color('gray', '100');
-  color: mistakes-journal.color('text');
-
-  @include mistakes-journal.media-breakpoint-up(md) {
-    max-width: 32rem;
-    max-height: 17rem;
-    border-radius: 1rem;
-  }
-}
-
-.overlay {
-  display: block;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.27);
-}
-
 .mj-skip-mobile {
   position: absolute;
   top: 0;
@@ -502,5 +480,16 @@ export default Vue.extend({
 
 .v-tour__target--highlighted {
   box-shadow: 0 0 0 5px mistakes-journal.color('gray', '700');
+}
+
+.overlay {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.27);
 }
 </style>
