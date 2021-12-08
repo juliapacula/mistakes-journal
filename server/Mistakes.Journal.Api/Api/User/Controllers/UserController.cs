@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,13 @@ namespace Mistakes.Journal.Api.Api.User.Controllers
         public async Task<ActionResult<UserWebModel>> GetSelf()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (!user.LastLoggingIn.HasValue || !user.LastLoggingIn.Value.IsToday())
+            {
+                user.LastLoggingIn = DateTime.Now;
+                user.LoggedDaysCount++;
+                await _userManager.UpdateAsync(user);
+            }
 
             return Ok(user.ToWebModel());
         }
