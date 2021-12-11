@@ -209,5 +209,11 @@
       "Text": "Now you can control your progress towards eliminating the mistake! 66 days left, unless you repeat it and reset the progress bar!",
       "Text2": "Good luck!"
     }
+  },
+  "Solved": {
+    "Title": "Solved",
+    "EmptyList": "Once you defeat any of your mistakes,",
+    "EmptyList2": "by not repeating it for straight 66 days,",
+    "EmptyList3": "it will be moved here!"
   }
 }

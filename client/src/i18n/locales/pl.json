@@ -209,5 +209,11 @@
       "Text": "Teraz możesz kontrolować swój postęp w eliminowaniu błędu! Zostało 66 dni, chyba że powtórzysz błąd i zresetujesz pasek postępu.",
       "Text2": "Powodzenia!"
     }
+  },
+  "Solved": {
+    "Title": "Rozwiązane",
+    "EmptyList": "Gdy uda Ci się pokonać któryś z błędów,",
+    "EmptyList2": "nie powtarzając go przez 66 dni z rzędu,",
+    "EmptyList3": "zostanie on tutaj przeniesiony!"
   }
 }
