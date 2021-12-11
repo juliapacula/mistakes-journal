@@ -1,7 +1,7 @@
 <template>
   <div class="mj-landing-navbar">
     <application-title
-      :is-nav-bar="true"
+      :in-nav-bar="true"
       :with-icon="true" />
     <div class="mj-landing-navbar-buttons">
       <language-change-button :is-transparent="true" />

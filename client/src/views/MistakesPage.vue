@@ -7,7 +7,7 @@
         <section-header name="mistake">
           {{ $t('Mistakes.Title') }}
         </section-header>
-        <router-view />
+        <router-view class="flex-grow-1" />
       </div>
       <div
         v-if="areSolutionsVisible"
@@ -58,6 +58,11 @@ export default Vue.extend({
   lang="scss"
   scoped>
 @use '../styles/mistakes-journal';
+
+.mistakes-panel {
+  display: flex;
+  flex-direction: column;
+}
 
 .solutions-panel {
   position: absolute;

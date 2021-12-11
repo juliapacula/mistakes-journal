@@ -64,7 +64,7 @@ export default Vue.extend({
   top: 0;
   bottom: 0;
   grid-area: sidebar;
-  width: 15rem;
+  width: 18.5rem;
   overflow-x: hidden;
 
   @include mistakes-journal.media-breakpoint-up(sm) {
