@@ -4,6 +4,7 @@ import LandingPage from '@/views/LandingPage.vue';
 import MainPage from '@/views/MainPage.vue';
 import MistakeSolutionPage from '@/views/MistakeSolutionPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
+import SolvedPage from '@/views/SolvedPage.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
@@ -51,6 +52,11 @@ const routes: Array<RouteConfig> = [
             },
           },
         ],
+      },
+      {
+        path: 'solved',
+        name: 'SolvedMistakes',
+        component: SolvedPage,
       },
     ],
   },

@@ -3,19 +3,17 @@
     <img
       alt="Ice cream Logo"
       class="mj-empty-list-icon"
-      src="@/assets/icons/logo_mistakes_list.svg">
-    <div v-if="!areAnyFiltersApplied">
-      <div class="mj-empty-list-text">
-        {{ $t('Mistakes.EmptyList') }}
-      </div>
-      <div class="mj-empty-list-text">
-        {{ $t('Mistakes.EmptyList2') }}
-      </div>
-    </div>
-    <div v-else>
-      <div class="mj-empty-list-text">
-        {{ $t('Mistakes.EmptyListForFilters') }}
-      </div>
+      src="@/assets/icons/solved_empty_list.svg">
+    <div class="mj-empty-list-text">
+      <span>
+        {{ $t('Solved.EmptyList') }}
+      </span>
+      <span>
+        {{ $t('Solved.EmptyList2') }}
+      </span>
+      <span>
+        {{ $t('Solved.EmptyList3') }}
+      </span>
     </div>
   </div>
 </template>
@@ -24,12 +22,7 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'MistakesListNoMistakes',
-  computed: {
-    areAnyFiltersApplied(): boolean {
-      return this.$store.getters.areAnyFiltersApplied;
-    },
-  },
+  name: 'SolvedEmptyList',
 });
 </script>
 
@@ -61,7 +54,13 @@ export default Vue.extend({
 
   &-text {
     @include mistakes-journal.font-regular(1.2rem);
+    display: inline-block;
     text-align: center;
+
+    @include mistakes-journal.media-breakpoint-up(sm) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>

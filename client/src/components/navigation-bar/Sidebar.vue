@@ -42,14 +42,16 @@
         class="mj-sidebar-sub-items">
         <sidebar-labels-list />
       </li>
-      <li
+      <router-link
         id="step-3"
-        class="mj-sidebar-item disabled">
+        class="mj-sidebar-item"
+        tag="li"
+        to="/journal/solved">
         <remix-icon
           class="mj-sidebar-item-icon"
           icon="vip-diamond" />
-        <span class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Solved') }}</span>
-      </li>
+        <a class="mj-sidebar-item-link">{{ $t('Sidebar.Links.Solved') }}</a>
+      </router-link>
     </ul>
     <application-title
       :with-icon="true"
