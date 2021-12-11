@@ -10,7 +10,15 @@
       </div>
     </div>
     <div class="row justify-content-center mt-4 mb-5">
-      <div class="col-12 col-md-6 col-xl-6 mj-about-page-section-2">
+      <div class="col-10 col-md-8 col-lg-6 mj-about-page-section-early-access">
+        <h5>{{ $t('LandingPage.AboutMistakesJournal.EarlyAccessHeader') }}</h5>
+        <p>
+          {{ $t('LandingPage.AboutMistakesJournal.EarlyAccessText') }}
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4 mb-5">
+      <div class="col-12 col-md-10 col-xl-8 mj-about-page-section-2">
         <div class="ice-cream-icon">
           <img
             alt="Broken ice cream"
@@ -51,7 +59,7 @@
         <img
           alt="Mistakes journal tutorial presentation"
           class="mj-landing-steps-image"
-          src="@/assets/icons/onboard.svg">
+          :src="require('@/assets/icons/' + $i18n.locale + '/onboard.svg')">
       </div>
     </div>
     <div class="row justify-content-center mt-4">
@@ -62,9 +70,9 @@
           <span class="step-text">{{ $t('LandingPage.AboutMistakesJournal.Step2.Text') }}</span>
         </div>
         <img
-          alt="Mistakes journal solutions preview"
+          alt="Mistakes journal tutorial presentation"
           class="mj-landing-steps-image"
-          src="@/assets/icons/solution.svg">
+          :src="require('@/assets/icons/' + $i18n.locale + '/solution.svg')">
       </div>
     </div>
     <div class="row justify-content-center mt-4">
@@ -76,9 +84,9 @@
           <span class="step-text">{{ $t('LandingPage.AboutMistakesJournal.Step3.Text2') }}</span>
         </div>
         <img
-          alt="Mistakes journal front page"
+          alt="Mistakes journal tutorial presentation"
           class="mj-landing-steps-image"
-          src="@/assets/icons/mistakes.svg">
+          :src="require('@/assets/icons/' + $i18n.locale + '/mistakes.svg')">
       </div>
     </div>
     <div class="row justify-content-center">
@@ -139,6 +147,32 @@ export default Vue.extend({
 
       @include mistakes-journal.media-breakpoint-up(lg) {
         @include mistakes-journal.font-semi-bold(1.2rem);
+      }
+    }
+  }
+
+  &-early-access {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 1rem;
+    background-color: mistakes-journal.color('secondary', '50');
+    text-align: center;
+
+    h5 {
+      @include mistakes-journal.font-regular(1.2rem);
+      margin-top: 1rem;
+
+      @include mistakes-journal.media-breakpoint-up(md) {
+        @include mistakes-journal.font-regular(1.4rem);
+      }
+    }
+
+    p {
+      @include mistakes-journal.font-regular(1rem);
+
+      @include mistakes-journal.media-breakpoint-up(md) {
+        @include mistakes-journal.font-regular(1.2rem);
       }
     }
   }

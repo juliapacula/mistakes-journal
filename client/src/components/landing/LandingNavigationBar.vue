@@ -1,6 +1,7 @@
 <template>
   <div class="mj-landing-navbar">
     <application-title
+      :style="{ cursor: 'pointer'}"
       :in-nav-bar="true"
       :with-icon="true" />
     <div class="mj-landing-navbar-buttons">
@@ -51,9 +52,13 @@ export default Vue.extend({
   &-buttons {
     display: flex;
 
-    > :not(:last-child) {
+    > * {
       margin-right: 1rem;
     }
   }
+}
+
+a:hover {
+  cursor: pointer;
 }
 </style>
