@@ -46,7 +46,7 @@
         "Text": "We help you to save and organize your mistakes, so you can get the most out of them."
       },
       "Step2": {
-        "StepName": "Reflect",
+        "StepName": "Analyze",
         "Header": "Find the solutions",
         "Text": "Some mistakes are not easy, but we do our best to help you reflect on them, so you can have the lessons and tips for future."
       },
@@ -84,19 +84,25 @@
     "NoTips": "You've got no tips."
   },
   "MistakeForm": {
+    "Identify": "Identify",
+    "Analyze": "Analyze",
+    "Control": "Control",
     "Name": "Name",
-    "NamePlaceholder": "e.g. I spend too much time on Netflix.",
+    "NamePlaceholder": "e.g. I spend too much time on Netflix",
     "Goal": "Goal",
-    "GoalPlaceholder": "e.g. Limit Netflix to 1 episode.",
+    "GoalPlaceholder": "e.g. Limit watching Netflix to max. 1 episode daily",
     "Priority": "Priority",
     "Tips": "Tips",
-    "Labels": "Labels",
+    "NewTip": "New tip",
+    "TipPlaceholder": "np. Turn off autoplaying the next episode",
+    "Labels": "Select labels",
+    "NoLabels": "You haven't created labels yet. Add them in the left menu to categorize your mistakes.",
     "CancelButton": "Cancel",
     "AddButton": "Add",
     "UpdateButton": "Save",
     "Consequences": "Consequences",
     "WhatCanIDoBetter": "What can I do better next time?",
-    "WhatDidILearn": "What did I learn?",
+    "WhatDidILearn": "Have I learned anything yet?",
     "CanIFixIt": "Can I fix it?",
     "OnlyResponsible": "Am I the only one responsible?",
     "DeepAnalyzer": "Deep Analyzer"

@@ -4,143 +4,186 @@
       v-if="isMistakeLoaded"
       class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
+        <div class="col-12 col-md-6 mj-mistake-section">
+          {{ $t('MistakeForm.Identify') }}
+        </div>
         <div
           id="step-5"
-          class="col-12">
+          class="col-12 col-md-6 mj-form-group mb-0 text-end">
           <div class="form-check form-switch">
+            <label
+              class="form-check-label"
+              for="isDeepAnalyzer">{{ $t('MistakeForm.DeepAnalyzer') }}</label>
             <input
               id="isDeepAnalyzer"
               v-model="isDeepAnalyzer"
               class="form-check-input"
               type="checkbox">
-            <label
-              class="form-check-label"
-              for="isDeepAnalyzer">{{ $t('MistakeForm.DeepAnalyzer') }}</label>
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 mj-form-group">
           <label
             class="form-label"
             for="mistakeName">{{ $t('MistakeForm.Name') }}</label>
-          <input
-            id="mistakeName"
-            v-model.trim="$v.mistake.name.$model"
-            :class="{ 'is-invalid': $v.mistake.name.$dirty && $v.mistake.name.$invalid }"
-            :placeholder="$t('MistakeForm.NamePlaceholder')"
-            class="form-control"
-            type="text">
-          <mj-error :is-visible="!$v.mistake.name.required">
-            {{ $t('FormErrors.Required') }}
-          </mj-error>
-          <mj-error :is-visible="!$v.mistake.name.maxLength">
-            {{ $t('FormErrors.MaxLength', { max: $v.mistake.name.$params.maxLength.max }) }}
-          </mj-error>
+          <div class="input-group">
+            <span class="input-group-text">
+              <mj-icon name="ice-cream-name-mistake" />
+            </span>
+            <input
+              id="mistakeName"
+              v-model.trim="$v.mistake.name.$model"
+              :class="{ 'is-invalid': $v.mistake.name.$dirty && $v.mistake.name.$invalid }"
+              :placeholder="$t('MistakeForm.NamePlaceholder')"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.name.required">
+              {{ $t('FormErrors.Required') }}
+            </mj-error>
+            <mj-error :is-visible="!$v.mistake.name.maxLength">
+              {{ $t('FormErrors.MaxLength', { max: $v.mistake.name.$params.maxLength.max }) }}
+            </mj-error>
+          </div>
         </div>
         <div v-if="isDeepAnalyzer">
-          <div
-            class="col-12">
+          <div class="col-12 mj-mistake-section">
+            {{ $t('MistakeForm.Analyze') }}
+          </div>
+          <div class="col-12 mj-form-group">
             <label
               class="form-label"
               for="mistakeConsequences">{{ $t('MistakeForm.Consequences') }}</label>
-            <input
-              id="mistakeConsequences"
-              v-model.trim="$v.mistake.mistakeAdditionalQuestions.consequences.$model"
-              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.consequences.$dirty && $v.mistake.mistakeAdditionalQuestions.consequences.$invalid }"
-              class="form-control"
-              type="text">
-            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.consequences.maxLength">
-              {{
-                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.consequences.$params.maxLength.max })
-              }}
-            </mj-error>
+            <div class="input-group">
+              <span class="input-group-text">
+                <remix-icon icon="meteor" />
+              </span>
+              <input
+                id="mistakeConsequences"
+                v-model.trim="$v.mistake.mistakeAdditionalQuestions.consequences.$model"
+                :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.consequences.$dirty && $v.mistake.mistakeAdditionalQuestions.consequences.$invalid }"
+                class="form-control"
+                type="text">
+              <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.consequences.maxLength">
+                {{
+                  $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.consequences.$params.maxLength.max })
+                }}
+              </mj-error>
+            </div>
           </div>
-          <div
-            class="col-12">
+          <div class="col-12 mj-form-group">
             <label
               class="form-label"
               for="mistakeWhatCanIDoBetter">{{ $t('MistakeForm.WhatCanIDoBetter') }}</label>
-            <input
-              id="mistakeWhatCanIDoBetter"
-              v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$model"
-              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$dirty && $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$invalid }"
-              class="form-control"
-              type="text">
-            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.maxLength">
-              {{
-                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$params.maxLength.max })
-              }}
-            </mj-error>
+            <div class="input-group">
+              <span class="input-group-text">
+                <remix-icon icon="rocket-2" />
+              </span>
+              <input
+                id="mistakeWhatCanIDoBetter"
+                v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$model"
+                :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$dirty && $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$invalid }"
+                class="form-control"
+                type="text">
+              <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.maxLength">
+                {{
+                  $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatCanIDoBetter.$params.maxLength.max })
+                }}
+              </mj-error>
+            </div>
           </div>
-          <div
-            class="col-12">
+          <div class="col-12 mj-form-group">
             <label
               class="form-label"
               for="mistakeWhatDidILearn">{{ $t('MistakeForm.WhatDidILearn') }}</label>
-            <input
-              id="mistakeWhatDidILearn"
-              v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatDidILearn.$model"
-              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$dirty && $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$invalid }"
-              class="form-control"
-              type="text">
-            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatDidILearn.maxLength">
-              {{
-                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$params.maxLength.max })
-              }}
-            </mj-error>
+            <div class="input-group">
+              <span class="input-group-text">
+                <remix-icon icon="psychotherapy" />
+              </span>
+              <input
+                id="mistakeWhatDidILearn"
+                v-model.trim="$v.mistake.mistakeAdditionalQuestions.whatDidILearn.$model"
+                :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$dirty && $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$invalid }"
+                class="form-control"
+                type="text">
+              <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.whatDidILearn.maxLength">
+                {{
+                  $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.whatDidILearn.$params.maxLength.max })
+                }}
+              </mj-error>
+            </div>
           </div>
-          <div
-            class="col-12">
+          <div class="col-12 mj-form-group">
             <label
               class="form-label"
               for="mistakeCanIFixIt">{{ $t('MistakeForm.CanIFixIt') }}</label>
-            <input
-              id="mistakeCanIFixIt"
-              v-model.trim="$v.mistake.mistakeAdditionalQuestions.canIFixIt.$model"
-              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.canIFixIt.$dirty && $v.mistake.mistakeAdditionalQuestions.canIFixIt.$invalid }"
-              class="form-control"
-              type="text">
-            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.canIFixIt.maxLength">
-              {{
-                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.canIFixIt.$params.maxLength.max })
-              }}
-            </mj-error>
+            <div class="input-group">
+              <span class="input-group-text">
+                <remix-icon icon="tools" />
+              </span>
+              <input
+                id="mistakeCanIFixIt"
+                v-model.trim="$v.mistake.mistakeAdditionalQuestions.canIFixIt.$model"
+                :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.canIFixIt.$dirty && $v.mistake.mistakeAdditionalQuestions.canIFixIt.$invalid }"
+                class="form-control"
+                type="text">
+              <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.canIFixIt.maxLength">
+                {{
+                  $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.canIFixIt.$params.maxLength.max })
+                }}
+              </mj-error>
+            </div>
           </div>
-          <div
-            class="col-12">
+          <div class="col-12 mj-form-group">
             <label
               class="form-label"
               for="mistakeOnlyResponsible">{{ $t('MistakeForm.OnlyResponsible') }}</label>
-            <input
-              id="mistakeOnlyResponsible"
-              v-model.trim="$v.mistake.mistakeAdditionalQuestions.onlyResponsible.$model"
-              :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$dirty && $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$invalid }"
-              class="form-control"
-              type="text">
-            <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.onlyResponsible.maxLength">
-              {{
-                $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$params.maxLength.max })
-              }}
-            </mj-error>
+            <div class="input-group">
+              <span class="input-group-text">
+                <remix-icon icon="user-search" />
+              </span>
+              <input
+                id="mistakeOnlyResponsible"
+                v-model.trim="$v.mistake.mistakeAdditionalQuestions.onlyResponsible.$model"
+                :class="{ 'is-invalid': $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$dirty && $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$invalid }"
+                class="form-control"
+                type="text">
+              <mj-error :is-visible="!$v.mistake.mistakeAdditionalQuestions.onlyResponsible.maxLength">
+                {{
+                  $t('FormErrors.MaxLength', { max: $v.mistake.mistakeAdditionalQuestions.onlyResponsible.$params.maxLength.max })
+                }}
+              </mj-error>
+            </div>
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 mj-mistake-section">
+          {{ $t('MistakeForm.Control') }}
+        </div>
+        <div class="col-12 mj-form-group">
           <label
             class="form-label"
             for="mistakeGoal">{{ $t('MistakeForm.Goal') }}</label>
-          <input
-            id="mistakeGoal"
-            v-model.trim="$v.mistake.goal.$model"
-            :class="{ 'is-invalid': $v.mistake.goal.$dirty && $v.mistake.goal.$invalid }"
-            :placeholder="$t('MistakeForm.GoalPlaceholder')"
-            class="form-control"
-            type="text">
-          <mj-error :is-visible="!$v.mistake.goal.maxLength">
-            {{ $t('FormErrors.MaxLength', { max: $v.mistake.goal.$params.maxLength.max }) }}
-          </mj-error>
+          <div class="input-group">
+            <span class="input-group-text">
+              <remix-icon icon="focus-3" />
+            </span>
+            <input
+              id="mistakeGoal"
+              v-model.trim="$v.mistake.goal.$model"
+              :class="{ 'is-invalid': $v.mistake.goal.$dirty && $v.mistake.goal.$invalid }"
+              :placeholder="$t('MistakeForm.GoalPlaceholder')"
+              class="form-control"
+              type="text">
+            <mj-error :is-visible="!$v.mistake.goal.maxLength">
+              {{ $t('FormErrors.MaxLength', { max: $v.mistake.goal.$params.maxLength.max }) }}
+            </mj-error>
+          </div>
         </div>
-        <mistake-tips v-model="$v.mistake.tips.$model" />
-        <mistake-labels v-model="mistake.labelIds" />
-        <div class="col-12">
+        <mistake-tips
+          v-model="$v.mistake.tips.$model"
+          class="mj-form-group" />
+        <mistake-labels
+          v-model="mistake.labelIds"
+          class="mj-form-group" />
+        <div class="col-12 mj-form-group">
           <label
             class="form-label"
             for="mistakePriority">{{ $t('MistakeForm.Priority') }}</label>
@@ -160,7 +203,7 @@
             {{ $t('FormErrors.Required') }}
           </mj-error>
         </div>
-        <div class="col-12 mt-4 mj-action-items">
+        <div class="col-12 my-4 mj-action-items">
           <button
             class="btn btn-outline-secondary"
             type="button"
@@ -170,19 +213,19 @@
           <span v-if="!isEditingMistake">
             <button
               :disabled="$v.$invalid"
-              class="btn btn-primary with-icon"
+              class="btn btn-outline-primary with-icon"
               type="button"
               @click="save()">
-              <mj-icon
-                class="btn-icon"
-                name="add_circle" />
+              <span class="btn-icon">
+                <fa-icon :icon="['fas', 'plus-circle']" />
+              </span>
               <span class="btn-text">{{ $t('MistakeForm.AddButton') }}</span>
             </button>
           </span>
           <span v-else>
             <button
               :disabled="$v.$invalid"
-              class="btn btn-primary with-icon"
+              class="btn btn-outline-primary with-icon"
               type="button"
               @click="update()">
               <span class="btn-text">{{ $t('MistakeForm.UpdateButton') }}</span>
@@ -366,8 +409,48 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
-@use 'sass:color';
 @use '../../styles/mistakes-journal';
+
+.mj-mistake-section {
+  @include mistakes-journal.font-medium(0.9rem);
+  display: flex;
+  align-items: center;
+  text-transform: lowercase;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 2px;
+    margin-right: 0.5rem;
+    border-radius: 0.2rem;
+    background-color: mistakes-journal.color('gray', '400');
+  }
+}
+
+.mj-form-group {
+  margin-bottom: 0.5rem;
+
+  label {
+    @include mistakes-journal.font-regular(1rem);
+  }
+
+  .form-switch {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .form-check-input {
+    float: right;
+  }
+
+  .form-check-label {
+    width: 100%;
+    padding-right: 2.5rem;
+    float: left;
+    text-transform: lowercase;
+  }
+}
 
 .mj-mistake-tips {
   > div {

@@ -123,3 +123,7 @@ $button-outline-variants: (
   color: mistakes-journal.$black;
   text-decoration: none;
 }
+
+.btn-sm {
+  border-radius: 5rem;
+}

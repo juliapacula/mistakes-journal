@@ -22,6 +22,11 @@
           <span>{{ label.name }}</span>
         </label>
       </div>
+      <div
+        v-if="availableLabels.length === 0"
+        class="mj-no-labels">
+        {{ $t('MistakeForm.NoLabels') }}
+      </div>
     </div>
   </div>
 </template>
@@ -67,11 +72,15 @@ export default Vue.extend({
   scoped>
 @use '../../styles/mistakes-journal';
 
+label {
+  @include mistakes-journal.font-regular(1rem);
+}
+
 .btn-label {
   display: inline-flex;
   align-items: center;
   padding: 0.1rem 0.3rem;
-  border: 2px solid mistakes-journal.color('primary', '50');
+  border: 2px solid mistakes-journal.color('gray', '200');
   border-radius: 0.2rem;
   font-size: 0.8em;
 
@@ -80,8 +89,8 @@ export default Vue.extend({
   }
 
   &:hover {
-    border: 2px solid mistakes-journal.color('secondary', '300');
-    background-color: mistakes-journal.color('secondary', '50');
+    border: 2px solid mistakes-journal.color('primary', '700');
+    background-color: mistakes-journal.color('primary', '500');
   }
 }
 
@@ -90,8 +99,8 @@ export default Vue.extend({
   background-color: mistakes-journal.color('primary', '300');
 
   &:hover {
-    border: 2px solid mistakes-journal.color('secondary', '500');
-    background-color: mistakes-journal.color('secondary', '700');
+    border: 2px solid mistakes-journal.color('primary', '500');
+    background-color: mistakes-journal.color('primary', '700');
   }
 }
 
@@ -99,6 +108,15 @@ export default Vue.extend({
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.mj-no-labels {
+  @include mistakes-journal.font-regular(0.8rem);
+  width: 100%;
+  padding: 0.5rem 0.2rem;
+  border-radius: 0.2rem;
+  background-color: mistakes-journal.color('gray', '100');
+  text-align: center;
 }
 
 .mj-mistake-label {

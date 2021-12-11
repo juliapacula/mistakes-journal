@@ -7,8 +7,7 @@
     </div>
     <div class="mj-solution-section-items-content">
       <div class="mj-solution-section-items-icon">
-        <mj-icon
-          name="ice-cream-name-mistake" />
+        <mj-icon name="ice-cream-name-mistake" />
       </div>
       <div class="mj-solution-section-items-text">
         {{ mistake.name }}
@@ -24,8 +23,7 @@
         v-if="mistake.mistakeAdditionalQuestions.consequences"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="meteor" />
+          <remix-icon icon="meteor" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.consequences }}
@@ -40,8 +38,7 @@
         v-if="mistake.mistakeAdditionalQuestions.whatCanIDoBetter"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="rocket-2" />
+          <remix-icon icon="rocket-2" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.whatCanIDoBetter }}
@@ -56,8 +53,7 @@
         v-if="mistake.mistakeAdditionalQuestions.whatDidILearn"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="psychotherapy" />
+          <remix-icon icon="psychotherapy" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.whatDidILearn }}
@@ -72,8 +68,7 @@
         v-if="mistake.mistakeAdditionalQuestions.canIFixIt"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="tools" />
+          <remix-icon icon="tools" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.canIFixIt }}
@@ -88,8 +83,7 @@
         v-if="mistake.mistakeAdditionalQuestions.onlyResponsible"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="user-search" />
+          <remix-icon icon="user-search" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ mistake.mistakeAdditionalQuestions.onlyResponsible }}
@@ -103,8 +97,7 @@
       v-if="mistake.goal"
       class="mj-solution-section-items-content">
       <div class="mj-solution-section-items-icon">
-        <remix-icon
-          icon="focus-3" />
+        <remix-icon icon="focus-3" />
       </div>
       <div class="mj-solution-section-items-text">
         {{ mistake.goal }}
@@ -126,8 +119,7 @@
         :key="tip"
         class="mj-solution-section-items-content">
         <div class="mj-solution-section-items-icon">
-          <remix-icon
-            icon="lightbulb" />
+          <remix-icon icon="lightbulb" />
         </div>
         <div class="mj-solution-section-items-text">
           {{ tip }}
