@@ -7,21 +7,42 @@
         :key="index"
         class="input-group">
         <span class="input-group-text">
-          <mj-icon
+          <remix-icon
             class="mj-mistake-tips-icon"
-            name="tips" />
+            icon="lightbulb" />
         </span>
         <input
           :class="{ 'is-invalid': v.$dirty && v.$invalid }"
+          :placeholder="parseInt(index) === 0 ? $t('MistakeForm.TipPlaceholder') : undefined"
           :value="tips[index]"
           class="form-control"
           type="text"
-          @change="checkIfShouldAddATip(index, $event)"
           @input="handleInput(index, $event.target.value); v.$touch();">
+        <button
+          v-if="parseInt(index) !== 0"
+          class="btn"
+          type="button"
+          @click="removeTip(index)">
+          <fa-icon
+            :icon="['far', 'trash-alt']"
+            class="btn-icon"
+            transform="shrink-1" />
+        </button>
         <mj-error :is-visible="!v.maxLength">
           {{ $t('FormErrors.MaxLength', { max: v.$params.maxLength.max }) }}
         </mj-error>
       </div>
+      <button
+        class="btn btn-outline-primary ms-auto btn-sm with-icon"
+        type="button"
+        @click="addTip()">
+        <span class="btn-icon">
+          <fa-icon
+            :icon="['fas', 'plus']"
+            transform="shrink-1" />
+        </span>
+        <span class="btn-text">{{ $t('MistakeForm.NewTip') }}</span>
+      </button>
     </div>
   </div>
 </template>
@@ -55,19 +76,11 @@ export default Vue.extend({
     },
   },
   methods: {
-    checkIfShouldAddATip(id: string, { target }: InputEvent): void {
-      const inputValue = (target as HTMLInputElement).value;
-      const index = parseInt(id, 10);
-
-      if (!inputValue && this.tips.length === 1) {
-        return;
-      }
-
-      if (!inputValue) {
-        this.tips.splice(index, 1);
-      } else if (index === (this.tips.length - 1)) {
-        this.tips.push('');
-      }
+    addTip(): void {
+      this.tips.push('');
+    },
+    removeTip(index: number): void {
+      this.tips.splice(index, 1);
     },
     handleInput(index: number, tip: string): void {
       this.$set(this.tips, index, tip);
@@ -80,7 +93,16 @@ export default Vue.extend({
 <style
   lang="scss"
   scoped>
+@use '../../styles/mistakes-journal';
+
+label {
+  @include mistakes-journal.font-regular(1rem);
+}
+
 .mj-mistake-tips {
+  display: flex;
+  flex-direction: column;
+
   > div {
     margin-bottom: 1rem;
   }

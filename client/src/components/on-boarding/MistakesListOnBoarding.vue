@@ -179,7 +179,16 @@ export default Vue.extend({
           params: {
             placement: 'right',
           },
-          before: () => this.$store.commit(UiStateMutations.ExpandSidebar),
+          before: async () => {
+            const shouldWait = !this.$store.state.uiState.isSidebarVisible ?? false;
+
+            if (shouldWait) {
+              this.$store.commit(UiStateMutations.ExpandSidebar);
+
+              // Wait for sidebar to be displayed.
+              await new Promise((res) => setTimeout(res, 600));
+            }
+          },
         },
         {
           target: '#step-2',
