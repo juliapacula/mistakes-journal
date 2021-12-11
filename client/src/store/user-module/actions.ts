@@ -21,7 +21,7 @@ export enum UserActions {
   WatchLocation = 'user/WatchLocation',
   UpdateWeatherInfo = 'user/UpdateWeatherInfo',
   Logout = 'user/Logout',
-  ChangeWhetherWatchedTutorial = 'user/ChangeWhetherWatchedTutorial',
+  UpdateUserTutorialState = 'user/UpdateUserTutorialState',
 }
 
 export const actions: ActionTree<UserState, State> = {
@@ -113,7 +113,7 @@ export const actions: ActionTree<UserState, State> = {
     } catch (e) {}
   },
 
-  async [UserActions.ChangeWhetherWatchedTutorial]({ commit, dispatch }: Context, watchedTutorial: boolean): Promise<void> {
+  async [UserActions.UpdateUserTutorialState]({ commit, dispatch }: Context, watchedTutorial: boolean): Promise<void> {
     try {
       await UserApiMethods.userWatchedTutorial(watchedTutorial);
       await dispatch(UserActions.Get);

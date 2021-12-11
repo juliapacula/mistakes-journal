@@ -30,11 +30,10 @@
         <div class="mj-priority-repetition">
           <mistake-priority :priority="mistake.priority" />
           <repetition-button
-            :class="{ 'step-6' : index === 0 }"
+            :id="index === 0 ? 'step-6' : undefined"
             :mistake-id="mistake.id"
             :repetition-counter="mistake.repetitionDates.length" />
         </div>
-        <!--- nie mozna jeszcze tu dac bo nie dziala <onboard-repetition/> --->
       </div>
     </div>
     <div
@@ -54,7 +53,8 @@
     <div class="col-12">
       <mistakes-pagination />
     </div>
-    <user-onboard />
+    <adding-repetition-on-boarding />
+    <mistakes-list-on-boarding />
   </div>
 </template>
 
@@ -65,9 +65,9 @@ import MistakePriority from '@/components/mistakes/MistakePriority.vue';
 import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
+import AddingRepetitionOnBoarding from '@/components/on-boarding/AddingRepetitionOnBoarding.vue';
+import MistakesListOnBoarding from '@/components/on-boarding/MistakesListOnBoarding.vue';
 import AddNewMistakeButton from '@/components/shared/AddNewMistakeButton.vue';
-import OnboardRepetition from '@/components/shared/OnboardRepetition.vue';
-import UserOnboard from '@/components/shared/UserOnboard.vue';
 import { MISTAKES_COUNTING_DAYS } from '@/config/mistakes.config';
 import { Mistake } from '@/model/mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
@@ -77,7 +77,8 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MistakesList',
   components: {
-    UserOnboard,
+    AddingRepetitionOnBoarding,
+    MistakesListOnBoarding,
     MistakeLabelsList,
     MistakesPagination,
     ProgressBar,

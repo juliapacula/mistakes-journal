@@ -2,6 +2,7 @@ import {
   DEFAULT_SATURATION,
   MIN_FONT_SIZE,
 } from '@/config/weather.config';
+import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { Module } from 'vuex';
 import { State } from '../state';
 import { actions } from './actions';
@@ -16,6 +17,6 @@ export default {
     errorMessageKeys: [],
     saturation: DEFAULT_SATURATION,
     fontSize: MIN_FONT_SIZE,
-    whichUserTour: 1,
+    currentOnBoardingTourStep: OnBoardingTourSteps.MistakesList,
   } as UiState,
 } as Module<UiState, State>;

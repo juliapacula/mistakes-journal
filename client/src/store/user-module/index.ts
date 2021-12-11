@@ -10,6 +10,7 @@ export default {
   mutations,
   getters,
   state: {
+    hasLoadedUser: false,
     user: null,
     configuration: null,
     location: null,

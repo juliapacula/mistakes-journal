@@ -1,5 +1,7 @@
 <template>
-  <div :style="{'font-size': fontSize, 'filter': filter, 'transition': 'font-size 100ms, filter 200ms'}">
+  <div
+    v-if="canBootstrap"
+    :style="{'font-size': fontSize, 'filter': filter, 'transition': 'font-size 100ms, filter 200ms'}">
     <router-view />
   </div>
 </template>
@@ -20,6 +22,9 @@ export default Vue.extend({
     },
     filter(): string {
       return `saturate(${this.$store.state.uiState.saturation})`;
+    },
+    canBootstrap(): boolean {
+      return this.$store.state.user.hasLoadedUser;
     },
   },
   async beforeCreate() {

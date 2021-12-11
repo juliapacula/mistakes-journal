@@ -3,6 +3,7 @@ import { User } from '@/model/user';
 import { UserLocationData } from '@/model/user-location-data';
 
 export interface UserState {
+  hasLoadedUser: boolean;
   user: User | null;
   configuration: Configuration | null;
   location: { latitude: number, longitude: number } | null;

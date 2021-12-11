@@ -6,6 +6,7 @@ import {
   MIN_SATURATION,
   WORST_WEATHER,
 } from '@/config/weather.config';
+import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { TimeOfDay } from '@/model/time-of-day.enum';
 import { State } from '@/store/state';
 import { UiStateMutations } from '@/store/ui-state-module/mutations';
@@ -22,7 +23,8 @@ export enum UiStateActions {
   ChangeSaturationToPlain = 'uiState/ChangeSaturationToPlain',
   ChangeSaturationBasedOnWeather = 'uiState/ChangeSaturationBasedOnWeather',
   ChangeSizeBasedOnDayTime = 'uiState/ChangeSizeBasedOnDayTime',
-  ChangeWhichUserTour = 'uiState/ChangeWhichUserTour'
+  NextOnBoardingTourStep = 'uiState/NextOnBoardingTourStep',
+  ResetUserOnBoardingTour = 'uiState/ResetUserOnBoardingTour'
 }
 
 export const actions: ActionTree<UiState, State> = {
@@ -69,7 +71,22 @@ export const actions: ActionTree<UiState, State> = {
 
     commit(UiStateMutations.SetFontSize, fontSize);
   },
-  [UiStateActions.ChangeWhichUserTour]({ commit }: Context, tourNumber: number): void {
-    commit(UiStateMutations.SetWhichUserTour, tourNumber);
+  [UiStateActions.NextOnBoardingTourStep]({ commit, state }: Context): void {
+    switch (state.currentOnBoardingTourStep) {
+      case OnBoardingTourSteps.MistakesList:
+        commit(UiStateMutations.SetOnBoardingTourStep, OnBoardingTourSteps.AddingMistake);
+        break;
+      case OnBoardingTourSteps.AddingMistake:
+        commit(UiStateMutations.SetOnBoardingTourStep, OnBoardingTourSteps.AddingRepetition);
+        break;
+      case OnBoardingTourSteps.AddingRepetition:
+        commit(UiStateMutations.SetOnBoardingTourStep, OnBoardingTourSteps.Finshed);
+        break;
+      default:
+        break;
+    }
+  },
+  [UiStateActions.ResetUserOnBoardingTour]({ commit }: Context): void {
+    commit(UiStateMutations.SetOnBoardingTourStep, OnBoardingTourSteps.MistakesList);
   },
 };

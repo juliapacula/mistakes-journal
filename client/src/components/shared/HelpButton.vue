@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts">
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
@@ -18,8 +19,13 @@ export default Vue.extend({
   name: 'HelpButton',
   methods: {
     async showTutorial(): Promise<void> {
-      await this.$store.dispatch(UserActions.ChangeWhetherWatchedTutorial, false);
-      await this.$tours.myTour.start();
+      await this.$store.dispatch(UserActions.UpdateUserTutorialState, false);
+
+      if (this.$route.name !== 'MistakeSolutions' && this.$route.name !== 'MistakesPage') {
+        await this.$router.push('/journal/mistakes');
+      }
+
+      await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
     },
   },
 });
