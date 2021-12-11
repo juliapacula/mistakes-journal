@@ -63,7 +63,8 @@
   "Mistakes": {
     "Title": "Błędy",
     "AddButton": "Dodaj błąd",
-    "EmptyList": "Brak błędów o wybranych kryteriach wyszukiwania. Dodaj nowy błąd w celu wyświetlenia listy.",
+    "EmptyList": "Tutaj zobaczysz listę swoich błędów.",
+    "EmptyList2": "Nie wahaj się i dodaj swój pierwszy błąd!",
     "ShowMore": "Pokaż więcej",
     "RepetitionButton": "Ups! Powtórzono"
   },

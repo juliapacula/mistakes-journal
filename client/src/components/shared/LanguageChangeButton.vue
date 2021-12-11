@@ -17,6 +17,7 @@ import {
   Locale,
   LOCALES,
 } from '@/i18n/locales';
+import { UiStateMutations } from '@/store/ui-state-module/mutations';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
@@ -35,7 +36,11 @@ export default Vue.extend({
   },
   methods: {
     async changeLocale(value: Locale): Promise<void> {
-      await this.$store.dispatch(UserActions.ChangeLanguage, value);
+      if (this.$store.state.user.user) {
+        await this.$store.dispatch(UserActions.ChangeLanguage, value);
+      } else {
+        this.$store.commit(UiStateMutations.SetLanguage, value);
+      }
     },
   },
 });
