@@ -65,6 +65,8 @@
     "AddButton": "Dodaj błąd",
     "EmptyList": "Tutaj zobaczysz listę swoich błędów.",
     "EmptyList2": "Nie wahaj się i dodaj swój pierwszy błąd!",
+    "EmptyListForFilters": "Brak błędów dla wybranych filtrów.",
+    "RemoveLabelFilter": "Pokaż wszystkie błędy",
     "ShowMore": "Pokaż więcej",
     "RepetitionButton": "Ups! Powtórzono"
   },
@@ -137,10 +139,10 @@
   "LabelColors": {
     "Lemon": "Cytryna",
     "Amber": "Bursztyn",
-    "Watermelon": "Arbuz",
+    "Strawberry": "Truskawka",
     "BubbleGum": "Guma do żucia",
     "Grapes": "Winogrono",
-    "Berry": "Jagoda",
+    "Sky": "Niebo",
     "Sea": "Morski",
     "Grass": "Trawa",
     "Meteorite": "Meteoryt"

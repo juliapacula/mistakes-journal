@@ -1,11 +1,10 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <add-new-mistake-button />
-    </div>
+  <div class="mj-mistake-list">
+    <mistakes-list-applied-filters />
+    <add-new-mistake-button />
     <div
       v-if="mistakes.length > 0"
-      class="col-12 mt-4 mj-mistake-items">
+      class="mt-4 mj-mistake-items">
       <div
         v-for="(mistake, index) in mistakes"
         :key="mistake.id"
@@ -36,23 +35,10 @@
         </div>
       </div>
     </div>
-    <div
+    <mistakes-list-no-mistakes
       v-else
-      class="col-12 my-4 mj-empty-list">
-      <img
-        alt="Ice cream Logo"
-        class="mj-empty-list-icon"
-        src="@/assets/icons/logo_mistakes_list.svg">
-      <div class="mj-empty-list-text">
-        {{ $t('Mistakes.EmptyList') }}
-      </div>
-      <div class="mj-empty-list-text">
-        {{ $t('Mistakes.EmptyList2') }}
-      </div>
-    </div>
-    <div class="col-12">
-      <mistakes-pagination />
-    </div>
+      class="my-4" />
+    <mistakes-pagination v-if="mistakes.length > 0" />
     <adding-repetition-on-boarding />
     <mistakes-list-on-boarding />
   </div>
@@ -62,6 +48,8 @@
 import MistakeLabelsList from '@/components/mistakes/MistakeLabelsList.vue';
 import MistakeOptionsMenu from '@/components/mistakes/MistakeOptionsMenu.vue';
 import MistakePriority from '@/components/mistakes/MistakePriority.vue';
+import MistakesListAppliedFilters from '@/components/mistakes/MistakesListAppliedFilters.vue';
+import MistakesListNoMistakes from '@/components/mistakes/MistakesListNoMistakes.vue';
 import MistakesPagination from '@/components/mistakes/MistakesPagination.vue';
 import ProgressBar from '@/components/mistakes/ProgressBar.vue';
 import RepetitionButton from '@/components/mistakes/RepetitionButton.vue';
@@ -79,6 +67,8 @@ export default Vue.extend({
   components: {
     AddingRepetitionOnBoarding,
     MistakesListOnBoarding,
+    MistakesListAppliedFilters,
+    MistakesListNoMistakes,
     MistakeLabelsList,
     MistakesPagination,
     ProgressBar,
@@ -118,6 +108,12 @@ export default Vue.extend({
   scoped>
 @use 'sass:color';
 @use '../../styles/mistakes-journal';
+
+.mj-mistake-list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
 
 .mj-mistake-items {
   width: 100%;
@@ -183,29 +179,6 @@ a {
   position: relative;
   align-items: center;
   justify-content: space-between;
-}
-
-.mj-empty-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background-color: mistakes-journal.color('gray', '200');
-
-  &-icon {
-    padding-bottom: 2rem;
-    @include mistakes-journal.media-breakpoint-up(lg) {
-      width: 15.625rem;
-      height: 18rem;
-    }
-  }
-
-  &-text {
-    @include mistakes-journal.font-regular(1.2rem);
-    display: block;
-  }
 }
 
 .success-past-days {

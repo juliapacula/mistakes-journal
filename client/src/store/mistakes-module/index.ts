@@ -2,12 +2,14 @@ import { PAGINATION_MAX_RESULTS_STEP } from '@/config/pagination.config';
 import { Module } from 'vuex';
 import { State } from '../state';
 import { actions } from './actions';
+import { getters } from './getters';
 import { mutations } from './mutations';
 import { MistakesState } from './state';
 
 export default {
   actions,
   mutations,
+  getters,
   state: {
     mistakes: [],
     mistakesTotalCount: 0,

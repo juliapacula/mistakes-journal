@@ -22,7 +22,7 @@
       "Solved": "Solved"
     },
     "Labels": {
-      "Create": "Add label",
+      "Create": "Add a new label",
       "Options": "Options",
       "Edit": "Edit",
       "Delete": "Delete"
@@ -65,6 +65,8 @@
     "AddButton": "Add mistake",
     "EmptyList": "Here you will see your mistakes list.",
     "EmptyList2": "Don't hesitate and add your first one!",
+    "EmptyListForFilters": "No mistakes with given filters.",
+    "RemoveLabelFilter": "Show all mistakes",
     "ShowMore": "Show more",
     "RepetitionButton": "Oops! I did it again"
   },
@@ -137,10 +139,10 @@
   "LabelColors": {
     "Lemon": "Lemon",
     "Amber": "Amber",
-    "Watermelon": "Watermelon",
+    "Strawberry": "Strawberry",
     "BubbleGum": "BubbleGum",
     "Grapes": "Grapes",
-    "Berry": "Berry",
+    "Sky": "Sky",
     "Sea": "Sea",
     "Grass": "Grass",
     "Meteorite": "Meteorite"

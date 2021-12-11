@@ -1,11 +1,12 @@
 <template>
   <ul class="mj-sidebar-items">
-    <li class="mj-sidebar-item">
+    <li
+      v-b-modal.label-modal
+      class="mj-sidebar-item">
       <remix-icon
         class="mj-sidebar-item-icon"
         icon="add-circle" />
       <button
-        v-b-modal.label-modal
         class="btn btn-link"
         type="button">
         {{ $t('Sidebar.Labels.Create') }}

@@ -78,11 +78,21 @@ export default Vue.extend({
   .icon {
     margin-right: 0.2rem;
   }
+
+  &:hover {
+    border: 2px solid mistakes-journal.color('secondary', '300');
+    background-color: mistakes-journal.color('secondary', '50');
+  }
 }
 
 .btn-check:checked + .btn-label {
   border: 2px solid mistakes-journal.color('primary', '500');
   background-color: mistakes-journal.color('primary', '300');
+
+  &:hover {
+    border: 2px solid mistakes-journal.color('secondary', '500');
+    background-color: mistakes-journal.color('secondary', '700');
+  }
 }
 
 .mj-mistake-labels {
