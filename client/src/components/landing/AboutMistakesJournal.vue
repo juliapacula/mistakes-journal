@@ -35,8 +35,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-center mt-5 mb-5">
-        <register-button>{{ $t('LandingPage.Nav.GetStarted') }}</register-button>
+      <div class="col-12 text-center">
+        <register-button class="my-5">
+          {{ $t('LandingPage.Nav.GetStarted') }}
+        </register-button>
       </div>
     </div>
     <div class="row justify-content-center mt-5">

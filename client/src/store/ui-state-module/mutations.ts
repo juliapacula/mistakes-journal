@@ -1,3 +1,4 @@
+import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { MutationTree } from 'vuex';
 import { UiState } from './state';
 
@@ -7,7 +8,7 @@ export enum UiStateMutations {
   AddErrorMessageKey = 'uiState/AddErrorMessageKey',
   SetSaturation = 'uiState/SetSaturation',
   SetFontSize = 'uiState/SetFontSize',
-  SetWhichUserTour = 'uiState/SetWhichUserTour'
+  SetOnBoardingTourStep = 'uiState/SetOnBoardingTourStep'
 }
 
 export const mutations: MutationTree<UiState> = {
@@ -26,7 +27,7 @@ export const mutations: MutationTree<UiState> = {
   [UiStateMutations.SetFontSize](state: UiState, fontSize: number): void {
     state.fontSize = fontSize;
   },
-  [UiStateMutations.SetWhichUserTour](state: UiState, tourNumber: number): void {
-    state.whichUserTour = tourNumber;
+  [UiStateMutations.SetOnBoardingTourStep](state: UiState, tourStep: OnBoardingTourSteps): void {
+    state.currentOnBoardingTourStep = tourStep;
   },
 };

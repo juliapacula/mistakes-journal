@@ -4,17 +4,19 @@
       v-if="isMistakeLoaded"
       class="col-12 col-md-8 col-xl-6 col-xxl-4">
       <div class="row">
-        <div id="step-5"
-             class="col-12 form-check form-switch mj-deep-analyzer-switch">
-          <input
-            id="isDeepAnalyzer"
-            v-model="isDeepAnalyzer"
-            class="form-check-input"
-            type="checkbox">
-          <label
-            id="step-5"
-            class="form-check-label"
-            for="isDeepAnalyzer">{{ $t('MistakeForm.DeepAnalyzer') }}</label>
+        <div
+          id="step-5"
+          class="col-12">
+          <div class="form-check form-switch">
+            <input
+              id="isDeepAnalyzer"
+              v-model="isDeepAnalyzer"
+              class="form-check-input"
+              type="checkbox">
+            <label
+              class="form-check-label"
+              for="isDeepAnalyzer">{{ $t('MistakeForm.DeepAnalyzer') }}</label>
+          </div>
         </div>
         <div class="col-12">
           <label
@@ -189,14 +191,14 @@
         </div>
       </div>
     </div>
-    <onboard-adding-mistake/>
+    <adding-mistake-on-boarding />
   </div>
 </template>
 
 <script lang="ts">
 import MistakeLabels from '@/components/mistake/MistakeLabels.vue';
 import MistakeTips from '@/components/mistake/MistakeTips.vue';
-import OnboardAddingMistake from '@/components/shared/OnboardAddingMistake.vue';
+import AddingMistakeOnBoarding from '@/components/on-boarding/AddingMistakeOnBoarding.vue';
 import { Label } from '@/model/label';
 import { Mistake } from '@/model/mistake';
 import { MistakePriority } from '@/model/mistake-priority.enum';
@@ -206,13 +208,12 @@ import { MistakesMutations } from '@/store/mistakes-module/mutations';
 import { getEnumValues } from '@/utils/object.utils';
 import { maxShortTextLength } from '@/utils/validators.utils';
 import Vue from 'vue';
-import VueI18n from 'vue-i18n';
 import { Route } from 'vue-router';
 import { required } from 'vuelidate/lib/validators';
 
 export default Vue.extend({
   name: 'MistakeForm',
-  components: { OnboardAddingMistake, MistakeLabels, MistakeTips },
+  components: { AddingMistakeOnBoarding, MistakeLabels, MistakeTips },
   data(): { isDeepAnalyzer: boolean, mistake: NewMistake, availablePriorities: string[] } {
     return {
       isDeepAnalyzer: false,
@@ -382,9 +383,5 @@ export default Vue.extend({
       margin-right: 1rem;
     }
   }
-}
-
-.mj-deep-analyzer-switch {
-  margin-left: 1rem;
 }
 </style>

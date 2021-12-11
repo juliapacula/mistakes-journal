@@ -16,6 +16,7 @@ export enum UserMutations {
 export const mutations: MutationTree<UserState> = {
   [UserMutations.SetUser](state: UserState, user: User | null): void {
     state.user = user ? { ...user } : null;
+    state.hasLoadedUser = true;
   },
   [UserMutations.SetConfiguration](state: UserState, configuration: Configuration): void {
     state.configuration = { ...configuration };

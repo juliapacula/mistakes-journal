@@ -1,7 +1,9 @@
+import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
+
 export interface UiState {
   isSidebarVisible: boolean;
   errorMessageKeys: string[];
   saturation: number;
   fontSize: number;
-  whichUserTour: number;
+  currentOnBoardingTourStep: OnBoardingTourSteps;
 }
