@@ -38,6 +38,8 @@
     "AboutMistakesJournal": {
       "HeaderFirstPart": "Get the most out of your mistakes",
       "HeaderSecondPart": "by keeping a",
+      "EarlyAccessHeader": "Welcome to Early Access!",
+      "EarlyAccessText": "See for yourself and tell us what you think.",
       "Step1": {
         "StepName": "Identify",
         "Header": "Mistakes are precious",
