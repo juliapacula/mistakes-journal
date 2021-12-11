@@ -24,7 +24,7 @@ export enum UiStateActions {
   ChangeSaturationBasedOnWeather = 'uiState/ChangeSaturationBasedOnWeather',
   ChangeSizeBasedOnDayTime = 'uiState/ChangeSizeBasedOnDayTime',
   NextOnBoardingTourStep = 'uiState/NextOnBoardingTourStep',
-  ResetUserOnBoardingTour = 'uiState/ResetUserOnBoardingTour'
+  ResetUserOnBoardingTour = 'uiState/ResetUserOnBoardingTour',
 }
 
 export const actions: ActionTree<UiState, State> = {

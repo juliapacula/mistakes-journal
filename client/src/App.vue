@@ -11,6 +11,7 @@ import { REFRESH_TIME } from '@/config/weather.config';
 import { Locale } from '@/i18n/locales';
 import { User } from '@/model/user';
 import { State } from '@/store/state';
+import { UiStateMutations } from '@/store/ui-state-module/mutations';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 
@@ -58,7 +59,15 @@ export default Vue.extend({
       this.$store.watch(
         (s: State) => s.user.user,
         (user: User | null) => {
-          this.$i18n.locale = user?.language ?? Locale.EN;
+          if (user) {
+            this.$store.commit(UiStateMutations.SetLanguage, user.language);
+          }
+        },
+      );
+      this.$store.watch(
+        (s: State) => s.uiState.language,
+        (language: Locale) => {
+          this.$i18n.locale = language ?? Locale.EN;
         },
       );
     },
