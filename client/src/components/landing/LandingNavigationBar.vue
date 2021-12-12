@@ -57,8 +57,4 @@ export default Vue.extend({
     }
   }
 }
-
-a:hover {
-  cursor: pointer;
-}
 </style>
