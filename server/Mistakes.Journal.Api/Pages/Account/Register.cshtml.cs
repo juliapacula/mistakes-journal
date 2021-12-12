@@ -59,6 +59,10 @@ namespace Mistakes.Journal.Api.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "I agree to receive the newsletter")]
+            [Required]
+            public bool AgreeToNewsletter { get; set; }
         }
 
         public void OnGetAsync(string returnUrl = null)
@@ -102,7 +106,8 @@ namespace Mistakes.Journal.Api.Pages.Account
                 UserName = NewUser.Email,
                 Email = NewUser.Email,
                 Language = ApplicationLanguage.EN,
-                Group = groupForNewUser
+                Group = groupForNewUser,
+                AgreeToNewsletter = NewUser.AgreeToNewsletter,
             };
 
             var result = await _userManager.CreateAsync(user, NewUser.Password);

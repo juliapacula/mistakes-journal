@@ -125,6 +125,9 @@ namespace Mistakes.Journal.Api
                 user.Property(u => u.WatchedTutorial)
                     .IsRequired()
                     .HasDefaultValue(false);
+                user.Property(u => u.AgreeToNewsletter)
+                    .IsRequired()
+                    .HasDefaultValue(false);
                 user.Property(u => u.LastLoggingIn);
                 user.Property(u => u.LoggedDaysCount)
                     .IsRequired()

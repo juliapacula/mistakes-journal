@@ -19,5 +19,6 @@ namespace Mistakes.Journal.Api.Logic.Identity.Models
         public bool WatchedTutorial { get; set; }
         public DateTime? LastLoggingIn { get; set; }
         public int LoggedDaysCount { get; set; }
+        public bool AgreeToNewsletter { get; set; }
     }
 }
