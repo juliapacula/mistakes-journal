@@ -1,3 +1,4 @@
+using System;
 using Mistakes.Journal.Api.Api.User.WebModels;
 using Mistakes.Journal.Api.Logic.Identity.Models;
 
@@ -16,6 +17,12 @@ namespace Mistakes.Journal.Api.Api.User.Mappers
                 Language = user.Language,
                 WatchedTutorial = user.WatchedTutorial,
             };
+        }
+
+        public static bool IsToday(this DateTime dateTime)
+        {
+            // 4 = next day starts at 4 a.m.
+            return (DateTime.Now - TimeSpan.FromHours(4)).Date - (dateTime - TimeSpan.FromHours(4)).Date == TimeSpan.Zero;
         }
 
         public static UserWebModel.AgeRange AgeToAgeRange(int age)
