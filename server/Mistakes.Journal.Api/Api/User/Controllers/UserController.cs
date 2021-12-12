@@ -31,12 +31,12 @@ namespace Mistakes.Journal.Api.Api.User.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (!user.LastLoggingIn.HasValue || !user.LastLoggingIn.Value.IsToday())
-            {
-                user.LastLoggingIn = DateTime.Now;
-                user.LoggedDaysCount++;
-                await _userManager.UpdateAsync(user);
-            }
+            if (user.LastLoggingIn.HasValue && user.LastLoggingIn.Value.IsToday())
+                return Ok(user.ToWebModel());
+
+            user.LastLoggingIn = DateTime.Now;
+            user.LoggedDaysCount++;
+            await _userManager.UpdateAsync(user);
 
             return Ok(user.ToWebModel());
         }

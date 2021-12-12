@@ -22,7 +22,7 @@ namespace Mistakes.Journal.Api.Api.User.Mappers
         public static bool IsToday(this DateTime dateTime)
         {
             // 4 = next day starts at 4 a.m.
-            return (DateTime.Now - TimeSpan.FromHours(4)).Date - (dateTime.Date - TimeSpan.FromHours(4)).Date != TimeSpan.Zero;
+            return (DateTime.Now - TimeSpan.FromHours(4)).Date - (dateTime - TimeSpan.FromHours(4)).Date == TimeSpan.Zero;
         }
 
         public static UserWebModel.AgeRange AgeToAgeRange(int age)
