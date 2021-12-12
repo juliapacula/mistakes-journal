@@ -3,7 +3,8 @@
     "Title": {
       "First": "dziennik",
       "Second": "błędów"
-    }
+    },
+    "Mail": "mistakesjournal@gmail.com"
   },
   "NavigationBar": {
     "Toggle": "Menu",
@@ -39,7 +40,7 @@
       "HeaderFirstPart": "Wykorzystaj w pełni swoje błędy",
       "HeaderSecondPart": "prowadząc",
       "EarlyAccessHeader": "Witamy we wczesnym dostępie!",
-      "EarlyAccessText": "Przekonaj się sam i daj znać do myślisz.",
+      "EarlyAccessText": "Przekonaj się sam i daj znać co myślisz.",
       "Step1": {
         "StepName": "Rozpoznaj",
         "Header": "Błędy są cenne",
