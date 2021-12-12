@@ -125,6 +125,10 @@ namespace Mistakes.Journal.Api
                 user.Property(u => u.WatchedTutorial)
                     .IsRequired()
                     .HasDefaultValue(false);
+                user.Property(u => u.LastLoggingIn);
+                user.Property(u => u.LoggedDaysCount)
+                    .IsRequired()
+                    .HasDefaultValue(0);
             });
 
             modelBuilder.Entity<IdentityRole<Guid>>().ToTable("role");

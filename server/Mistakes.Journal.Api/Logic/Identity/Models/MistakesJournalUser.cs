@@ -17,5 +17,7 @@ namespace Mistakes.Journal.Api.Logic.Identity.Models
         public ApplicationLanguage Language { get; set; }
         public ResearchGroup Group { get; set; }
         public bool WatchedTutorial { get; set; }
+        public DateTime? LastLoggingIn { get; set; }
+        public int LoggedDaysCount { get; set; }
     }
 }
