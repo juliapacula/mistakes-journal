@@ -26,6 +26,12 @@ $button-variants: (
 );
 
 $button-outline-variants: (
+  'gray': (
+    'regular': '400',
+    'focus': '600',
+    'hover': '600',
+    'active': '500',
+  ),
   'primary': (
     'regular': '700',
     'focus': '900',

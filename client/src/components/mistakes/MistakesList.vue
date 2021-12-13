@@ -39,7 +39,7 @@
       v-else
       class="my-4" />
     <mistakes-pagination v-if="mistakes.length > 0" />
-    <adding-repetition-on-boarding />
+    <adding-repetition-on-boarding v-if="mistakes.length > 0" />
     <mistakes-list-on-boarding />
   </div>
 </template>

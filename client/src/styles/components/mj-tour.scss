@@ -1,15 +1,22 @@
+/* stylelint-disable selector-class-pattern */
 @use '../mistakes-journal';
 
 .mj-onboard-button-skip {
+  @include mistakes-journal.font-semi-bold(1rem);
   margin-right: 1em;
+  border-width: 0.125rem;
   border-color: mistakes-journal.color('gray', '400');
   color: mistakes-journal.color('gray', '400');
-  font-size: 0.75em;
   white-space: nowrap;
 
   &:hover {
-    border-color: mistakes-journal.color('gray', '600');
-    color: mistakes-journal.color('gray', '600');
+    border-color: mistakes-journal.color('gray', '200');
+    color: mistakes-journal.color('gray', '200');
+  }
+
+  &:active {
+    border-color: mistakes-journal.color('gray', '100');
+    color: mistakes-journal.color('gray', '100');
   }
 }
 
@@ -129,14 +136,16 @@
   margin: 2rem;
 }
 
-::v-deep .v-step__arrow--dark {
-  &:before {
-    background: mistakes-journal.color('gray', '100') !important;
+::v-deep {
+  .v-step__arrow--dark {
+    &::before {
+      background: mistakes-journal.color('gray', '100') !important;
+    }
   }
-}
 
-.v-tour__target--highlighted {
-  box-shadow: 0 0 0 5px mistakes-journal.color('gray', '700');
+  .v-tour__target--highlighted {
+    box-shadow: 0 0 0 5px rgb(0 0 0 / 20%);
+  }
 }
 
 .overlay {
@@ -149,3 +158,19 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.27);
 }
+
+.mj-onboard-change-language {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2rem;
+
+  @include mistakes-journal.media-breakpoint-up(md) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin: 1rem;
+  }
+}
+/* stylelint-enable selector-class-pattern */

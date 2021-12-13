@@ -189,7 +189,8 @@
     "GotIt": "Got it!",
     "Step0": {
       "Header": "Hi, I'm Minty!",
-      "Text": "Mistakes are my speciality! I will help you to eliminate them. Follow me to quickly show you around!"
+      "Text": "Mistakes are my speciality! I will help you to eliminate them. Follow me to quickly show you around!",
+      "LanguageChange": "Change Language"
     },
     "Step1": {
       "Header": "Mistakes list",
