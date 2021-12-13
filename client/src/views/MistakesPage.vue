@@ -4,7 +4,7 @@
       <div
         :class="{ 'col-lg-6': areSolutionsVisible }"
         class="mistakes-panel col-12">
-        <section-header name="mistake">
+        <section-header name="booklet">
           {{ $t('Mistakes.Title') }}
         </section-header>
         <router-view class="flex-grow-1" />
@@ -12,7 +12,7 @@
       <div
         v-if="areSolutionsVisible"
         class="solutions-panel col-7 col-lg-6">
-        <section-header name="tips">
+        <section-header name="lightbulb">
           {{ $t('Solutions.Title') }}
           <template v-slot:actions>
             <router-link

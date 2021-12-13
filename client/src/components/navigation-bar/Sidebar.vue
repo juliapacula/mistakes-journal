@@ -139,11 +139,13 @@ export default Vue.extend({
   }
 
   a {
+    color: mistakes-journal.color('text');
     text-decoration: none;
 
     &:hover,
     &:focus,
     &:active {
+      color: mistakes-journal.color('text');
       text-decoration: none;
     }
   }
@@ -160,6 +162,12 @@ export default Vue.extend({
 
     a {
       @include mistakes-journal.font-semi-bold;
+    }
+
+    &:not(.disabled) {
+      &:hover {
+        background-color: mistakes-journal.color('secondary', '700');
+      }
     }
   }
 

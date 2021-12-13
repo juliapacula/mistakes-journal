@@ -2,11 +2,8 @@
   <div class="row">
     <div
       v-if="isMistakeLoaded"
-      class="col-12 col-md-8 col-xl-6 col-xxl-4">
-      <div class="row">
-        <div class="col-12 col-md-6 mj-mistake-section">
-          {{ $t('MistakeForm.Identify') }}
-        </div>
+      class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-5">
+      <div class="row align-items-center flex-sm-row-reverse">
         <div
           id="step-5"
           class="col-12 col-md-6 mj-form-group mb-0 text-end">
@@ -21,6 +18,11 @@
               type="checkbox">
           </div>
         </div>
+        <div class="col-12 col-md-6 mj-mistake-section">
+          {{ $t('MistakeForm.Identify') }}
+        </div>
+      </div>
+      <div class="row">
         <div class="col-12 mj-form-group">
           <label
             class="form-label"
@@ -213,11 +215,11 @@
           <span v-if="!isEditingMistake">
             <button
               :disabled="$v.$invalid"
-              class="btn btn-outline-primary with-icon"
+              class="btn btn-primary with-icon"
               type="button"
               @click="save()">
               <span class="btn-icon">
-                <fa-icon :icon="['fas', 'plus-circle']" />
+                <fa-icon :icon="['fas', 'plus']" />
               </span>
               <span class="btn-text">{{ $t('MistakeForm.AddButton') }}</span>
             </button>
@@ -225,7 +227,7 @@
           <span v-else>
             <button
               :disabled="$v.$invalid"
-              class="btn btn-outline-primary with-icon"
+              class="btn btn-primary with-icon"
               type="button"
               @click="update()">
               <span class="btn-text">{{ $t('MistakeForm.UpdateButton') }}</span>
@@ -415,6 +417,8 @@ export default Vue.extend({
   @include mistakes-journal.font-medium(0.9rem);
   display: flex;
   align-items: center;
+  margin: 0.5rem 0;
+  color: mistakes-journal.color('gray', '400');
   text-transform: lowercase;
 
   &::before {

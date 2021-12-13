@@ -3,7 +3,7 @@
     <div class="row position-relative h-100">
       <div
         class="solved-panel col-12 mb-2">
-        <section-header name="solved">
+        <section-header name="vip-diamond">
           {{ $t('Solved.Title') }}
         </section-header>
         <router-view class="flex-grow-1" />

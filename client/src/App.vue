@@ -11,6 +11,7 @@ import { REFRESH_TIME } from '@/config/weather.config';
 import { Locale } from '@/i18n/locales';
 import { User } from '@/model/user';
 import { State } from '@/store/state';
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UiStateMutations } from '@/store/ui-state-module/mutations';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
@@ -39,6 +40,10 @@ export default Vue.extend({
     this.watchStateForErrors();
     this.watchStateForLanguageChange();
     this.watchStateForLocationChange();
+    window.addEventListener('resize', this.hideSidebar);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.hideSidebar);
   },
   methods: {
     watchStateForErrors(): void {
@@ -82,6 +87,11 @@ export default Vue.extend({
           this.$store.dispatch(UserActions.UpdateWeatherInfo);
         },
       );
+    },
+    hideSidebar(): void {
+      if (window.innerWidth < 768 && this.$store.state.uiState.isSidebarVisible) {
+        this.$store.dispatch(UiStateActions.ToggleSidebar);
+      }
     },
   },
 });

@@ -1,7 +1,7 @@
 <template>
   <div class="mj-section-header">
-    <mj-icon
-      :name="name"
+    <remix-icon
+      :icon="name"
       class="mj-section-header-icon" />
     <h1>
       <slot />
@@ -51,12 +51,12 @@ export default Vue.extend({
     bottom: 0;
     width: 100%;
     height: 3px;
-    background-color: mistakes-journal.color('secondary', '900');
+    background-color: mistakes-journal.color('secondary', '300');
   }
 
   &-icon {
-    width: var(--header-size);
     margin-right: 0.5rem;
+    font-size: 1.5rem;
   }
 
   h1 {

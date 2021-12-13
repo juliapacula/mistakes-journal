@@ -10,7 +10,13 @@
         <sidebar />
       </div>
     </transition>
-    <div class="mj-content">
+    <div
+      :class="{ 'sidebar-visible': !isSidebarHidden }"
+      class="mj-content">
+      <div
+        v-if="!isSidebarHidden"
+        class="mj-sidebar-overlay"
+        @click="closeSidebar()" />
       <router-view />
     </div>
     <label-modal />
@@ -21,6 +27,7 @@
 import LabelModal from '@/components/labels/LabelModal.vue';
 import NavigationBar from '@/components/navigation-bar/NavigationBar.vue';
 import Sidebar from '@/components/navigation-bar/Sidebar.vue';
+import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -33,6 +40,11 @@ export default Vue.extend({
   computed: {
     isSidebarHidden(): boolean {
       return !this.$store.state.uiState.isSidebarVisible;
+    },
+  },
+  methods: {
+    async closeSidebar(): Promise<void> {
+      await this.$store.dispatch(UiStateActions.ToggleSidebar);
     },
   },
 });
@@ -56,6 +68,21 @@ export default Vue.extend({
 
 .mj-nav {
   grid-area: nav;
+}
+
+.mj-sidebar-overlay {
+  position: absolute;
+  z-index: 500;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.2;
+  background-color: mistakes-journal.color('gray', '900');
+
+  @include mistakes-journal.media-breakpoint-up(md) {
+    display: none;
+  }
 }
 
 .mj-sidebar {
@@ -83,7 +110,14 @@ export default Vue.extend({
 }
 
 .mj-content {
+  position: relative;
   grid-area: content;
   overflow-y: auto;
+
+  &.sidebar-visible {
+    @include mistakes-journal.media-breakpoint-down(md) {
+      overflow-y: hidden;
+    }
+  }
 }
 </style>
