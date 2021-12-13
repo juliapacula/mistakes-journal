@@ -41,7 +41,7 @@ export default Vue.extend({
   padding-top: 1rem;
   padding-bottom: 1rem;
   border-radius: 1rem;
-  background-color: mistakes-journal.color('gray', '100');
+  background-color: mistakes-journal.color('gray', '50');
 
   &-icon {
     padding-bottom: 2rem;

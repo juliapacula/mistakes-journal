@@ -22,8 +22,8 @@
       </button>
     </div>
     <div class="mj-nav-actions">
-      <help-button class="d-none d-sm-flex"/>
       <add-new-mistake-button class="mj-new" />
+      <help-button />
       <language-change-button />
       <logout-button />
     </div>

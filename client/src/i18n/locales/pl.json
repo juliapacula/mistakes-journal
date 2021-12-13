@@ -185,11 +185,12 @@
   "Onboard": {
     "ButtonStart": "Pewnie, zaczynajmy!",
     "Skip": "Pomiń",
-    "Next": "Mam to! Dalej",
-    "GotIt": "Mam to!",
+    "Next": "Jasne! Dalej",
+    "GotIt": "Jasne!",
     "Step0": {
       "Header": "Cześć, jestem Minty!",
-      "Text": "Błędy to moja specjalność! Pomogę Ci je wyeliminować. Podążaj za mną, szybko Cię oprowadzę!"
+      "Text": "Błędy to moja specjalność! Chętnie pomogę Ci je wyeliminować. Podążaj za mną, szybko Cię oprowadzę!",
+      "LanguageChange": "Zmień język"
     },
     "Step1": {
       "Header": "Lista błędów",
@@ -197,7 +198,7 @@
     },
     "Step2": {
       "Header": "Etykiety błędów",
-      "Text": "Twórz etykiety i taguj swoje błędy by lepiej je organizować!"
+      "Text": "Twórz etykiety by lepiej organizować swoje błędy!"
     },
     "Step3": {
       "Header": "Rozwiązane błędy",
@@ -205,11 +206,11 @@
     },
     "Step4": {
       "Header": "Przyszłe funkcje",
-      "Text": "Zarządzanie poradami i inne funkcje będą wkrótce dostępne! Powiadomię Cię, kiedy będą dostępne!"
+      "Text": "Zarządzanie poradami i inne funkcje będa wkrótce dostępne! Powiadomię Cię, gdy tak się stanie!"
     },
     "Step5": {
       "Header": "Przeanalizuj swój błąd",
-      "Text": "Bez obaw, to łatwe! Po prostu wypełnij krótki formularz (lub wybierz zaawansowaną analizę dla większej ilości wskazówek), dodaj priorytet i etykietę błędu."
+      "Text": "To proste! Wypełnij krótki formularz (lub wybierz zaawansowaną analizę dla większej ilości wskazówek), dodaj priorytet i otaguj błąd!"
     },
     "Step6": {
       "Header": "Super!",

@@ -1,36 +1,45 @@
 <template>
-  <div class="mj-progress">
-    <b-progress
-      :max="max1"
-      :value="firstProgressValue > 0 ? firstProgressValue : 0.5"
-      class="w-25"
-      height="3px"
-      precision="1" />
-    <span class="mj-progress-icon">
-      <remix-icon
-        :class="{'mj-color-icon-active': isProgress1}"
-        icon="emotion-happy" />
-    </span>
-    <b-progress
-      :max="max2"
-      :value="secondProgressValue"
-      class="w-50"
-      height="3px" />
-    <span class="mj-progress-icon">
-      <remix-icon
-        :class="{'mj-color-icon-active': isProgress2}"
-        icon="emotion" />
-    </span>
-    <b-progress
-      :max="max3"
-      :value="thirdProgressValue"
-      class="w-100"
-      height="3px" />
-    <span class="mj-progress-icon">
-      <remix-icon
-        :class="{'mj-color-icon-active': isProgress3}"
-        icon="emotion-laugh" />
-    </span>
+  <div>
+    <div class="mj-progress">
+      <b-progress
+        :max="max1"
+        :value="firstProgressValue > 0 ? firstProgressValue : 0.5"
+        class="w-25 mj-progress-bar"
+        height="3px"
+        precision="1" />
+      <span class="mj-progress-icon">
+        <remix-icon
+          :class="{'mj-color-active': isProgress1}"
+          icon="emotion-happy" />
+      </span>
+      <b-progress
+        :max="max2"
+        :value="secondProgressValue"
+        class="w-50 mj-progress-bar"
+        height="3px" />
+      <span class="mj-progress-icon">
+        <remix-icon
+          :class="{'mj-color-active': isProgress2}"
+          icon="emotion" />
+      </span>
+      <b-progress
+        :max="max3"
+        :value="thirdProgressValue"
+        class="w-100 mj-progress-bar"
+        height="3px" />
+      <span class="mj-progress-icon">
+        <remix-icon
+          :class="{'mj-color-active': isProgress3}"
+          icon="emotion-laugh" />
+      </span>
+    </div>
+    <div class="mj-progress mj-days">
+      <div class="w-25" />
+      <span :class="{'mj-color-active': isProgress1}">7</span>
+      <div class="w-50" />
+      <span :class="{'mj-color-active': isProgress2}">21</span>
+      <div class="w-100" />
+    </div>
   </div>
 </template>
 
@@ -103,13 +112,21 @@ export default Vue.extend({
   padding: 0.25rem 1rem 0;
   color: mistakes-journal.color('gray', '300');
 
+  &-bar {
+    background-color: mistakes-journal.color('gray', '300');
+  }
+
   &-icon {
     padding: 0.5em;
     font-size: 1rem;
   }
 }
 
-.mj-color-icon-active {
+.mj-color-active {
   color: mistakes-journal.color('success');
+}
+
+.mj-days {
+  padding-top: 0;
 }
 </style>

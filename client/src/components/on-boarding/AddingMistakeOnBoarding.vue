@@ -2,6 +2,7 @@
   <v-tour
     :class="{'overlay' : canRunTour}"
     :steps="isMobile ? stepsMobile : stepsDesktop"
+    :callbacks="tourCallbacks"
     name="addingMistakeOnboarding">
     <template slot-scope="tour">
       <transition name="fade">
@@ -22,6 +23,9 @@
               <div class="v_step__header" />
             </div>
             <div slot="content">
+              <div class="mj-onboard-change-language">
+                <language-change-button :is-transparent="true" />
+              </div>
               <div class="mj-onboard-content">
                 <img
                   v-if="tour.currentStep === 0"
@@ -72,7 +76,7 @@
               <button
                 :class="{ 'mj-button-proceed': isMobile }"
                 class="btn btn-primary with-icon mj-onboard-end-button"
-                @click="nextStep()">
+                @click="tour.finish">
                 <span class="btn-icon">
                   <fa-icon
                     :icon="['far', 'laugh-beam']" />
@@ -90,12 +94,14 @@
 </template>
 
 <script lang="ts">
+import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
 import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'OnboardAddingMistake',
+  components: { LanguageChangeButton },
   data() {
     return {
       stepsDesktop: [
@@ -135,6 +141,11 @@ export default Vue.extend({
     canRunTour(): boolean {
       return !this.userWatchedTutorial && this.$store.state.uiState.currentOnBoardingTourStep === OnBoardingTourSteps.AddingMistake;
     },
+    tourCallbacks(): object {
+      return {
+        onStop: this.stopTutorial,
+      };
+    },
   },
   watch: {
     canRunTour(): void {
@@ -156,8 +167,7 @@ export default Vue.extend({
         this.$tours.addingMistakeOnboarding.start();
       }
     },
-    async nextStep(): Promise<void> {
-      await this.$tours.addingMistakeOnboarding.finish();
+    async stopTutorial(): Promise<void> {
       await this.$store.dispatch(UiStateActions.NextOnBoardingTourStep);
     },
     updateIsMobile(): void {

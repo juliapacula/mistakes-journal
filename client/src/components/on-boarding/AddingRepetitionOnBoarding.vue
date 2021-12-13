@@ -2,6 +2,7 @@
   <v-tour
     :class="{'overlay' : canRunTour}"
     :steps="isMobile ? stepsMobile : stepsDesktop"
+    :callbacks="tourCallbacks"
     name="addingRepetitionOnBoarding">
     <template slot-scope="tour">
       <transition name="fade">
@@ -22,6 +23,9 @@
               <div class="v_step__header" />
             </div>
             <div slot="content">
+              <div class="mj-onboard-change-language">
+                <language-change-button :is-transparent="true" />
+              </div>
               <div class="mj-onboard-content">
                 <img
                   alt="Ice cream"
@@ -48,7 +52,7 @@
               slot="actions">
               <button
                 class="btn btn-primary with-icon mj-onboard-end-button"
-                @click="nextStep()">
+                @click="tour.finish">
                 <span class="btn-icon">
                   <fa-icon :icon="['far', 'laugh-beam']" />
                 </span>
@@ -63,6 +67,7 @@
 </template>
 
 <script lang="ts">
+import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
 import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
@@ -70,6 +75,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'OnboardRepetition',
+  components: { LanguageChangeButton },
   data() {
     return {
       stepsDesktop: [
@@ -100,6 +106,11 @@ export default Vue.extend({
     canRunTour(): boolean {
       return !this.userWatchedTutorial && this.$store.state.uiState.currentOnBoardingTourStep === OnBoardingTourSteps.AddingRepetition;
     },
+    tourCallbacks(): object {
+      return {
+        onStop: this.stopTutorial,
+      };
+    },
   },
   watch: {
     canRunTour(): void {
@@ -121,8 +132,7 @@ export default Vue.extend({
         this.$tours.addingRepetitionOnBoarding.start();
       }
     },
-    async nextStep(): Promise<void> {
-      await this.$tours.addingRepetitionOnBoarding.finish();
+    async stopTutorial(): Promise<void> {
       await this.$store.dispatch(UserActions.UpdateUserTutorialState, true);
       await this.$store.dispatch(UiStateActions.NextOnBoardingTourStep);
     },

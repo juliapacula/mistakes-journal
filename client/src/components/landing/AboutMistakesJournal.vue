@@ -17,7 +17,7 @@
         </p>
       </div>
     </div>
-    <div class="row justify-content-center mt-4 mb-5">
+    <div class="row justify-content-center mt-4 mb-3">
       <div class="col-12 col-md-10 col-xl-8 mj-about-page-section-2">
         <div class="ice-cream-icon">
           <img
@@ -44,7 +44,7 @@
     </div>
     <div class="row">
       <div class="col-12 text-center">
-        <register-button class="my-5">
+        <register-button class="mb-5 mt-3">
           {{ $t('LandingPage.Nav.GetStarted') }}
         </register-button>
       </div>

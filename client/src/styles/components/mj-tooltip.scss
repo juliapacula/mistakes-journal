@@ -6,6 +6,12 @@
   z-index: 10000;
   font-size: 0.75rem;
 
+  &.only-sm {
+    @include mistakes-journal.media-breakpoint-up(sm) {
+      display: none !important;
+    }
+  }
+
   .tooltip-inner {
     padding: 0.25rem 0.5rem;
     border-radius: 1rem;

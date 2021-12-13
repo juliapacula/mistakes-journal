@@ -3,6 +3,7 @@
     :class="{'overlay': canRunTour}"
     :options="{ highlight: true }"
     :steps="isMobile ? stepsMobile : stepsDesktop"
+    :callbacks="tourCallbacks"
     name="mistakesListOnBoarding">
     <template slot-scope="tour">
       <transition name="fade">
@@ -29,11 +30,14 @@
               <button
                 class="btn mj-onboard-button-skip mj-skip-mobile"
                 type="button"
-                @click="skipTutorial()">
+                @click="tour.skip()">
                 <span class="btn-text">{{ $t('Onboard.Skip') }}</span>
               </button>
             </div>
             <div slot="content">
+              <div class="mj-onboard-change-language">
+                <language-change-button :is-transparent="true" />
+              </div>
               <div class="mj-onboard-content">
                 <img
                   :src="require('@/assets/icons/onboard_step_' + tour.currentStep +'.svg')"
@@ -70,27 +74,23 @@
               </div>
             </div>
             <div
-              v-if="tour.currentStep === 0"
+              v-if="tour.isFirst"
               slot="actions"
               :class="{'mj-onboard-two-buttons' : !isMobile}">
               <button
                 v-if="isMobile !== true"
                 class="btn mj-onboard-button-skip"
                 type="button"
-                @click="skipTutorial()">
+                @click="tour.skip()">
                 <span class="btn-text">{{ $t('Onboard.Skip') }}</span>
               </button>
-              <on-boarding-progress-bar
-                :current-step="tour.currentStep"
-                :is-mobile="isMobile" />
               <button
                 :class="{ 'mj-button-proceed': isMobile }"
                 class="btn btn-primary with-icon"
                 type="button"
                 @click="tour.nextStep">
                 <span class="btn-icon">
-                  <fa-icon
-                    :icon="['far', 'laugh-beam']" />
+                  <fa-icon :icon="['far', 'laugh-beam']" />
                 </span>
                 <span class="btn-text">{{ $t('Onboard.ButtonStart') }}</span>
               </button>
@@ -105,7 +105,7 @@
                 :class="{ 'mj-button-proceed': isMobile }"
                 class="btn btn-primary with-icon mj-onboard-end-button"
                 type="button"
-                @click="nextStep()">
+                @click="tour.finish">
                 <span class="btn-icon">
                   <fa-icon :icon="['far', 'laugh-beam']" />
                 </span>
@@ -120,7 +120,7 @@
                 v-if="!isMobile"
                 class="btn mj-onboard-button-skip"
                 type="button"
-                @click="skipTutorial()">
+                @click="tour.skip()">
                 <span class="btn-text">{{ $t('Onboard.Skip') }}</span>
               </button>
               <on-boarding-progress-bar
@@ -146,6 +146,7 @@
 </template>
 
 <script lang="ts">
+import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
 import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UiStateMutations } from '@/store/ui-state-module/mutations';
@@ -155,7 +156,7 @@ import OnBoardingProgressBar from './OnBoardingProgressBar.vue';
 
 export default Vue.extend({
   name: 'MistakesListOnBoarding',
-  components: { OnBoardingProgressBar },
+  components: { LanguageChangeButton, OnBoardingProgressBar },
   data() {
     return {
       stepsDesktop: [
@@ -291,6 +292,12 @@ export default Vue.extend({
     canRunTour(): boolean {
       return !this.userWatchedTutorial && this.$store.state.uiState.currentOnBoardingTourStep === OnBoardingTourSteps.MistakesList;
     },
+    tourCallbacks(): object {
+      return {
+        onStop: this.stopTutorial,
+        onSkip: this.skipTutorial,
+      };
+    },
   },
   watch: {
     canRunTour(): void {
@@ -306,11 +313,6 @@ export default Vue.extend({
   mounted() {
     this.startTour();
   },
-  beforeDestroy() {
-    if (this.$tours.mistakesListOnBoarding.isRunning) {
-      this.$tours.mistakesListOnBoarding.stop();
-    }
-  },
   methods: {
     startTour(): void {
       if (this.canRunTour && !this.$tours.mistakesListOnBoarding.isRunning) {
@@ -318,12 +320,10 @@ export default Vue.extend({
       }
     },
     async skipTutorial(): Promise<void> {
-      await this.$tours.mistakesListOnBoarding.finish();
       await this.$store.dispatch(UserActions.UpdateUserTutorialState, true);
       await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
     },
-    async nextStep(): Promise<void> {
-      this.$tours.mistakesListOnBoarding.finish();
+    async stopTutorial(): Promise<void> {
       await this.$store.dispatch(UiStateActions.NextOnBoardingTourStep);
     },
     updateIsMobile(): void {
