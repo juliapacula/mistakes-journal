@@ -42,6 +42,11 @@ namespace Mistakes.Journal.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
+            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,15 +1,16 @@
 <template>
   <v-tour
+    :callbacks="tourCallbacks"
     :class="{'overlay': canRunTour}"
     :options="{ highlight: true }"
     :steps="isMobile ? stepsMobile : stepsDesktop"
-    :callbacks="tourCallbacks"
     name="mistakesListOnBoarding">
     <template slot-scope="tour">
       <transition name="fade">
         <v-step
           v-if="tour.steps[tour.currentStep]"
           :key="tour.currentStep"
+          :class="{ 'mobile-layout': isMobile }"
           :highlight="tour.highlight"
           :is-first="tour.isFirst"
           :is-last="tour.isLast"
@@ -23,16 +24,14 @@
           <template>
             <div slot="header">
               <div class="v_step__header" />
-            </div>
-            <div
-              v-if="isMobile"
-              slot="actions">
-              <button
-                class="btn mj-onboard-button-skip mj-skip-mobile"
-                type="button"
-                @click="tour.skip()">
-                <span class="btn-text">{{ $t('Onboard.Skip') }}</span>
-              </button>
+              <div v-if="isMobile">
+                <button
+                  class="btn mj-onboard-button-skip mj-skip-mobile"
+                  type="button"
+                  @click="tour.skip()">
+                  <span class="btn-text">{{ $t('Onboard.Skip') }}</span>
+                </button>
+              </div>
             </div>
             <div slot="content">
               <div class="mj-onboard-change-language">
@@ -154,6 +153,13 @@ import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
 import OnBoardingProgressBar from './OnBoardingProgressBar.vue';
 
+// Declaration for current component.
+declare module 'vue/types/vue' {
+  interface Vue {
+    showSidebarIfHidden: () => void;
+  }
+}
+
 export default Vue.extend({
   name: 'MistakesListOnBoarding',
   components: { LanguageChangeButton, OnBoardingProgressBar },
@@ -180,16 +186,7 @@ export default Vue.extend({
           params: {
             placement: 'right',
           },
-          before: async () => {
-            const shouldWait = !this.$store.state.uiState.isSidebarVisible ?? false;
-
-            if (shouldWait) {
-              this.$store.commit(UiStateMutations.ExpandSidebar);
-
-              // Wait for sidebar to be displayed.
-              await new Promise((res) => setTimeout(res, 600));
-            }
-          },
+          before: this.showSidebarIfHidden,
         },
         {
           target: '#step-2',
@@ -200,6 +197,7 @@ export default Vue.extend({
           params: {
             placement: 'right',
           },
+          before: this.showSidebarIfHidden,
         },
         {
           target: '#step-3',
@@ -210,6 +208,7 @@ export default Vue.extend({
           params: {
             placement: 'right',
           },
+          before: this.showSidebarIfHidden,
         },
         {
           target: '#step-4',
@@ -220,6 +219,7 @@ export default Vue.extend({
           params: {
             placement: 'right',
           },
+          before: this.showSidebarIfHidden,
         },
       ],
       stepsMobile: [
@@ -294,6 +294,8 @@ export default Vue.extend({
     },
     tourCallbacks(): object {
       return {
+        onPrevStep: this.updateIsMobile,
+        onNextStep: this.updateIsMobile,
         onStop: this.stopTutorial,
         onSkip: this.skipTutorial,
       };
@@ -303,12 +305,6 @@ export default Vue.extend({
     canRunTour(): void {
       this.startTour();
     },
-  },
-  created() {
-    window.addEventListener('resize', this.updateIsMobile);
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.updateIsMobile);
   },
   mounted() {
     this.startTour();
@@ -326,8 +322,19 @@ export default Vue.extend({
     async stopTutorial(): Promise<void> {
       await this.$store.dispatch(UiStateActions.NextOnBoardingTourStep);
     },
-    updateIsMobile(): void {
+    async showSidebarIfHidden(): Promise<void> {
+      const shouldWait = !this.$store.state.uiState.isSidebarVisible ?? false;
+
+      if (shouldWait) {
+        this.$store.commit(UiStateMutations.ExpandSidebar);
+
+        // Wait for sidebar to be displayed.
+        await new Promise((res) => setTimeout(res, 600));
+      }
+    },
+    async updateIsMobile(): Promise<void> {
       this.isMobile = window.innerWidth < 768;
+      await this.showSidebarIfHidden();
     },
   },
 });

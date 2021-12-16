@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Mistakes.Journal.Api.Api.Shared;
 using Mistakes.Journal.Api.Api.Weather.Mapper;
 using Mistakes.Journal.Api.Api.Weather.WebModels;
@@ -18,9 +19,14 @@ namespace Mistakes.Journal.Api.Api.Weather.Controller
     public class UserLocationDataController : ControllerBase
     {
         private readonly Uri _owmApiUri = new Uri("http://api.openweathermap.org");
-        private readonly Uri _ssApiUri = new Uri("https://api.sunrise-sunset.org");
+        private readonly ILogger _logger;
 
         private readonly string _owKey = Environment.GetEnvironmentVariable("OPEN_WEATHER_API_KEY");
+
+        public UserLocationDataController(ILogger<UserLocationDataController> logger)
+        {
+            _logger = logger;
+        }
 
         [HttpGet]
         public async Task<ActionResult<UserLocationDataWebModel>> GetUserLocationData(string lat, string lon)
@@ -33,7 +39,17 @@ namespace Mistakes.Journal.Api.Api.Weather.Controller
             var response = await client.GetAsync(request);
 
             if (!response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.BadRequest)
+            {
                 return BadRequest(GetErrorType(await response.Content.ReadAsStringAsync()).ToString());
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.Log(LogLevel.Error, $"GetUserLocationData: request = {request}");
+                _logger.Log(LogLevel.Error, $"GetUserLocationData: responseStatusCode = {response.StatusCode}, owKey={_owKey}");
+
+                return BadRequest();
+            }
 
             var output = await response.Content.ReadAsStringAsync();
             return Ok(output.ToUserLocationDataWebModel());

@@ -20,12 +20,11 @@ export default Vue.extend({
   methods: {
     async showTutorial(): Promise<void> {
       await this.$store.dispatch(UserActions.UpdateUserTutorialState, false);
+      await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
 
       if (this.$route.name !== 'MistakeSolutions' && this.$route.name !== 'MistakesPage') {
         await this.$router.push('/journal/mistakes');
       }
-
-      await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
     },
   },
 });

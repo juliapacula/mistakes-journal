@@ -1,14 +1,15 @@
 <template>
   <v-tour
+    :callbacks="tourCallbacks"
     :class="{'overlay' : canRunTour}"
     :steps="isMobile ? stepsMobile : stepsDesktop"
-    :callbacks="tourCallbacks"
     name="addingRepetitionOnBoarding">
     <template slot-scope="tour">
       <transition name="fade">
         <v-step
           v-if="tour.steps[tour.currentStep]"
           :key="tour.currentStep"
+          :class="{ 'mobile-layout': isMobile }"
           :is-first="tour.isFirst"
           :is-last="tour.isLast"
           :labels="tour.labels"
@@ -21,11 +22,11 @@
           <template>
             <div slot="header">
               <div class="v_step__header" />
-            </div>
-            <div slot="content">
               <div class="mj-onboard-change-language">
                 <language-change-button :is-transparent="true" />
               </div>
+            </div>
+            <div slot="content">
               <div class="mj-onboard-content">
                 <img
                   alt="Ice cream"
@@ -108,6 +109,8 @@ export default Vue.extend({
     },
     tourCallbacks(): object {
       return {
+        onPrevStep: this.updateIsMobile,
+        onNextStep: this.updateIsMobile,
         onStop: this.stopTutorial,
       };
     },
@@ -116,12 +119,6 @@ export default Vue.extend({
     canRunTour(): void {
       this.startTour();
     },
-  },
-  created() {
-    window.addEventListener('resize', this.updateIsMobile);
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.updateIsMobile);
   },
   mounted() {
     this.startTour();
