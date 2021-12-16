@@ -316,6 +316,14 @@
                             class="form-control  @(ModelState.GetFieldValidationState("ConfirmPassword") == ModelValidationState.Invalid ? "invalid" : "")"/>
                         <span asp-validation-for="NewUser.ConfirmPassword" class="invalid-feedback"></span>
                     </div>
+                    <div class="mj-form-group form-check">
+                        <input
+                            type="checkbox"
+                            asp-for="NewUser.AgreeToNewsletter"
+                            class="form-check-input  @(ModelState.GetFieldValidationState("AgreeToNewsletter") == ModelValidationState.Invalid ? "invalid" : "")"/>
+                        <label asp-for="NewUser.AgreeToNewsletter" class="form-check-label"></label>
+                        <span asp-validation-for="NewUser.AgreeToNewsletter" class="invalid-feedback"></span>
+                    </div>
                     <div class="mj-form-group mt-4">
                         <button type="submit" class="btn btn-primary mj-action">Sign up</button>
                     </div>
