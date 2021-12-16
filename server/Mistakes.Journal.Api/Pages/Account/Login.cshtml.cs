@@ -71,6 +71,7 @@ namespace Mistakes.Journal.Api.Pages.Account
             }
 
             ModelState.AddModelError(string.Empty, "User with such email and password does not exist.");
+            ReturnUrl = returnUrl;
 
             return Page();
         }
