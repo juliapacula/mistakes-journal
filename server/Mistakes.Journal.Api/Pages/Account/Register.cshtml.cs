@@ -79,30 +79,18 @@ namespace Mistakes.Journal.Api.Pages.Account
                 return Page();
             }
 
-            var groupForNewUser = ResearchGroup.Default;
-
-            // Will be uncommented when experiment starts.
-            //var availableGroups = Enum.GetValues(typeof(ResearchGroup)).OfType<ResearchGroup>().ToList();
-            //var allUsers = await _userManager.Users.ToListAsync();
-            //var groupForNewUser = availableGroups.GroupJoin(
-            //       allUsers,
-            //       group => group,
-            //       u => u.Group,
-            //       (group, groupUsers) => new
-            //       {
-            //           Group = group,
-            //           NumberOfUsers = groupUsers.Count()
-            //       })
-            //   .OrderBy(g => g.NumberOfUsers)
-            //   .Select(g => g.Group)
-            //   .First();
-
-            //var groupForNewUser = await SelectGroup(allUsers, NewUser.Country, NewUser.Age);
+            var userAgeRange = UserMapper.AgeToAgeRange(NewUser.Age);
+            var availableGroups = Enum.GetValues(typeof(ResearchGroup)).OfType<ResearchGroup>().ToList();
+            var allUsers = await _userManager.Users.ToListAsync();
+            
+            var groupForNewUser = Convert.ToBoolean(Environment.GetEnvironmentVariable("RESEARCH_GROUPS") ?? "false")
+                ? SelectGroup(allUsers, availableGroups, NewUser.Country, userAgeRange)
+                : ResearchGroup.Default;
 
             var user = new MistakesJournalUser
             {
                 Country = NewUser.Country,
-                Age = UserMapper.AgeToAgeRange(NewUser.Age),
+                Age = userAgeRange,
                 UserName = NewUser.Email,
                 Email = NewUser.Email,
                 Language = ApplicationLanguage.EN,

@@ -1,11 +1,11 @@
 <template>
   <div class="mj-mail">
-    <remix-icon
-      class="mj-mail-icon ri-mail-line" />
-    <span
-      class="mj-mail-text">
+    <remix-icon class="mj-mail-icon ri-mail-line" />
+    <a
+      class="mj-mail-text"
+      href="mailto:mistakesjournal@gmail.com">
       {{ $t('Application.Mail') }}
-    </span>
+    </a>
   </div>
 </template>
 
@@ -31,6 +31,16 @@ export default Vue.extend({
   &-icon {
     @include mistakes-journal.font-regular(1.5rem);
     margin-right: 0.5rem;
+  }
+
+  &-text {
+    color: mistakes-journal.color('gray', '500');
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: mistakes-journal.color('gray', '700');
+    }
   }
 }
 </style>

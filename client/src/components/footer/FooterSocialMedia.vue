@@ -1,11 +1,10 @@
 <template>
   <div class="mj-social-media">
-    <!-- TODO change links to proper social media accouts -->
-    <a href="https://facebook.com">
+    <a href="https://www.facebook.com/mistakesjournal">
       <remix-icon
         class="mj-social-media-icon ri-facebook-circle-fill" />
     </a>
-    <a href="https://instagram.com">
+    <a href="https://www.instagram.com/mistakesjournal">
       <remix-icon
         class="mj-social-media-icon ri-instagram-fill" />
     </a>
