@@ -92,12 +92,13 @@ export default Vue.extend({
   },
   methods: {
     countMistakeDays(mistake: Mistake): Number {
+      const now = moment().startOf('date');
+
       if (mistake.repetitionDates.length === 0) {
-        return moment()
-          .diff(mistake.createdAt, 'days');
+        return now.diff(mistake.createdAt.startOf('date'), 'days');
       }
-      return moment()
-        .diff(moment.max(mistake.repetitionDates), 'days');
+
+      return now.diff(moment.max(mistake.repetitionDates).startOf('date'), 'days');
     },
   },
 });
