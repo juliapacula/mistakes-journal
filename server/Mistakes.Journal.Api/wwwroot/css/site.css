@@ -97,3 +97,32 @@ body {
     margin: 0;
     padding: 0 0 0 1rem;
 }
+
+.mj-terms-of-service {
+    font-weight: 400;
+}
+
+.mj-registration-info-box {
+    background-color: #FBF5E2;
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+    margin: 1rem 0;
+}
+
+.mj-registration-info-header {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.mj-registration-info-message {
+    font-style: italic;
+}
+
+.mj-registration-info-message ul {
+    margin-left: 0.5rem;
+}
+
+.mj-language-change {
+    text-decoration: none;
+}

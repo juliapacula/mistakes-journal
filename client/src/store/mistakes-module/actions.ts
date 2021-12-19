@@ -2,6 +2,7 @@ import { MistakesApiMethods } from '@/api/methods/mistakes.api-methods';
 import { NewMistakeApiModel } from '@/api/models/new-mistake.api-model';
 import { RepetitionApiModel } from '@/api/models/repetition.api-model';
 import { UpdatedMistakeApiModel } from '@/api/models/updated-mistake.api-model';
+import { GOOGLE_EVENTS } from '@/config/google-analytics-events.config';
 import { NewMistake } from '@/model/new-mistake';
 import { Pagination } from '@/model/pagination';
 import { MistakesMutations } from '@/store/mistakes-module/mutations';
@@ -10,6 +11,7 @@ import { State } from '@/store/state';
 import { convertToTimestamp } from '@/utils/date.utils';
 import { handleDefaultResponseErrors } from '@/utils/errors.utils';
 import { Moment } from 'moment';
+import { event } from 'vue-gtag';
 import {
   ActionContext,
   ActionTree,
@@ -29,6 +31,17 @@ export enum MistakesActions {
 
 export const actions: ActionTree<MistakesState, State> = {
   async [MistakesActions.AddMistake]({ commit }: Context, mistake: NewMistake): Promise<void> {
+    if (mistake.mistakeAdditionalQuestions
+      && mistake.mistakeAdditionalQuestions.consequences !== null
+      && mistake.mistakeAdditionalQuestions.onlyResponsible !== null
+      && mistake.mistakeAdditionalQuestions.canIFixIt !== null
+      && mistake.mistakeAdditionalQuestions.whatDidILearn !== null
+      && mistake.mistakeAdditionalQuestions.whatCanIDoBetter !== null) {
+      event(GOOGLE_EVENTS.NEW_MISTAKE_WITH_DEEP_ANALYZER);
+    } else {
+      event(GOOGLE_EVENTS.NEW_MISTAKE_WITHOUT_DEEP_ANALYZER);
+    }
+
     const payload: NewMistakeApiModel = {
       name: mistake.name,
       consequences: mistake.mistakeAdditionalQuestions?.consequences ? mistake.mistakeAdditionalQuestions?.consequences : null,
@@ -120,6 +133,8 @@ export const actions: ActionTree<MistakesState, State> = {
     { commit, dispatch }: Context,
     { mistakeId, occurredAt }: { mistakeId: string, occurredAt?: Moment },
   ): Promise<void> {
+    event(GOOGLE_EVENTS.NEW_REPETITION);
+
     const payload: RepetitionApiModel = {
       id: mistakeId,
       occurredAt: occurredAt ? convertToTimestamp(occurredAt) : null,

@@ -1,0 +1,545 @@
+@page "/document/terms_of_service"
+@using System.Globalization
+@using Mistakes.Journal.Api.Resources
+@inject AccountLocalizationService AccountLocalizer
+@{
+    ViewData["Title"] = @AccountLocalizer.GetLocalizedHtmlString("TermsOfService");
+}
+
+@{
+    if (CultureInfo.CurrentCulture.Name == new CultureInfo("pl").Name)
+    {
+        <article>
+    <h1 class="page-title text-center">Regulamin serwisu</h1>
+    <h2>I. Pojęcia ogólne</h2>
+    <ul>
+        <li><strong>Regulamin</strong> – niniejszy regulamin</li>
+        <li><strong>Serwis</strong> – serwis internetowych &quot;mistakes journal&quot;, działających pod adresem
+            mistakesjournal.com</li>
+        <li><strong>Usługodawca</strong> – właściciel serwisu będący osobą fizyczną.
+        <li><strong>Usługobiorca</strong> – każda osoba fizyczna, uzyskująca dostęp do Serwisu i korzystająca z usług
+            świadczonych za pośrednictwem Serwisu przez Usługodawcę.</li>
+        <li><strong>Komunikacja Drogą Elektroniczną</strong> – Komunikacja pomiędzy stronami za pośrednictwem poczty
+            elektronicznej (e-mail).</li>
+    </ul>
+    <h2>II. Postanowienia ogólne</h2>
+    <ul>
+        <li>Regulamin, określa zasady funkcjonowania i użytkowania Serwisu oraz określa zakres praw i obowiązków
+            Usługobiorców i Usługodawcy związanych z użytkowaniem Serwisu.</li>
+        <li>Przedmiotem usług Usługodawcy jest udostępnienie nieodpłatnych narzędzi w postaci Serwisu, umożliwiających
+            Usługobiorcom dostęp do treści w postaci wpisów, artykułów i materiałów audiowizualnych lub aplikacji
+            internetowych i formularzy elektronicznych</li>
+        <li>Wszelkie ewentualne treści, artykuły i informacje zawierające cechy wskazówek lub porad publikowane na
+            łamach Serwisu są jedynie ogólnym zbiorem informacji i nie są kierowane do poszczególnych Usługobiorców.
+            Usługodawca nie ponosi odpowiedzialności za wykorzystanie ich przez Usługobiorców.</li>
+        <li>Usługobiorca bierze na siebie pełną odpowiedzialno za sposób wykorzystania materiałów udostępnianych w
+            ramach Serwisu w tym za wykorzystanie ich zgodnie z obowiązującymi przepisami prawa.</li>
+        <li>Usługodawca nie udziela żadnej gwarancji co do przydatności materiałów umieszczonych w Serwisie.</li>
+        <li>Usługodawca nie ponosi odpowiedzialności z tytułu ewentualnych szkód poniesionych przez Usługobiorców
+            Serwisu lub osoby trzecie w związku z korzystaniem z Serwisu. Wszelkie ryzyko związane z korzystaniem z
+            Serwisu, a w szczególności z używaniem i wykorzystywaniem informacji umieszczonych w Serwisie, ponosi
+            Usługobiorca korzystający z usług Serwisu.</li>
+    </ul>
+    <h2>III. Warunki używania Serwisu</h2>
+    <ul>
+        <li>Używanie Serwisu przez każdego z Usługobiorców jest nieodpłatne i dobrowolne.</li>
+        <li>Usługobiorcy mają obowiązek zapoznania się z Regulaminem oraz pozostałymi dokumentami stanowiącymi jego
+            integralną część i muszą zaakceptować w całości jego postanowienia w celu dalszego korzystania z Serwisu.
+        </li>
+        <li>Usługobiorcy nie mogą wykorzystywać żadnych pozyskanych w Serwisie danych osobowych do celów marketingowych.
+        </li>
+        <li>Wymagania techniczne korzystania z Serwisu:<ul>
+                <li>urządzenie z wyświetlaczem umożliwiające wyświetlanie stron internetowych,</li>
+                <li>połączenie z internetem,</li>
+                <li>dowolna przeglądarka internetowa, która wyświetla strony internetowe zgodnie ze standardami i
+                    postanowieniami Konsorcjum W3C i obsługuje strony www udostępniane w języku HTML5,</li>
+                <li>włączoną obsługę skryptów JavaScript,</li>
+                <li>włączoną obsługę plików Cookie</li>
+            </ul>
+        </li>
+        <li>W celu zapewnienia bezpieczeństwa Usługodawcy, Usługobiorcy oraz innych Usługobiorców korzystających z
+            Serwisu, wszyscy Usługobiorcy korzystający z Serwisu powinni stosować się do ogólnie przyjętych <a
+                href="https://nety.pl/cyberbezpieczenstwo/zasady-ogolne-korzystania-z-sieci-internet/">zasad
+                bezpieczeństwa w sieci</a>,</li>
+        <li>Zabrania się działań wykonywanych osobiście przez Usługobiorców lub przy użyciu oprorgamowania:<ul>
+                <li>bez zgody pisemnej, dekompilacji i analizy kodu źródłowego,</li>
+                <li>bez zgody pisemnej, powodujących nadmierne obciążenie serwera Serwisu,</li>
+                <li>bez zgody pisemnej, prób wykrycia luk w zabezpieczeniach Serwisu i konfiguracji serwera,</li>
+                <li>podejmowania prób wgrywania lub wszczykiwania na serwer i do bazy danych kodu, skryptów i
+                    oprogramowania mogących wyrządzić szkodę oprogramowaniu Serwisu, innym Usługobiorcom lub
+                    Usługodawcy,</li>
+                <li>podejmowania prób wgrywania lub wszczykiwania na serwer i do bazy danych kodu, skryptów i
+                    oprogramowania mogących śledzić lub wykradać dane Usługobiorców lub Usługodawcy,</li>
+                <li>podejmowania jakichkolwiek działań mających na celu uszkodzenie, zablokowanie działania Serwisu lub
+                    uniemożliwienie realizacji celu w jakim działa Serwis.</li>
+            </ul>
+        </li>
+        <li>W przypadku wykrycia zaistnienia lub potencjalnej możliwości zaistnienia incydentu Cyberbezpieczeństwa lub
+            naruszenia RODO, Usługobiorcy w pierwszej kolejności powinni zgłosić ten fakt Usługodawcy w celu szybkiego
+            usunięcia problemu / zagrożenia i zabezpieczenia interesów wszystkich Usługobiorców Serwisu.</li>
+    </ul>
+    <h2>IV. Warunki oraz zasady rejestracji</h2>
+    <ul>
+        <li>Usługobiorcy mogą korzystać z Serwisu bez konieczności rejestracji.</li>
+        <li>Usługobiorcy muszą być zarejestrowani i posiadać konto w Serwisie by korzystać z dodatkowych usług
+            świadczonych w Serwisie, dostępnych jedynie dla Usługobiorców po zalogowaniu.</li>
+        <li>Rejestracja w Serwisie jest dobrowolna.</li>
+        <li>Rejestracja w Serwisie jest nieodpłatna.</li>
+        <li>Każdy Usługobiorca może posiadać tylko jedno konto w Serwisie.</li>
+        <li>Wymagania techniczne związane z rejestracją konta:<ul>
+                <li>posiadanie indywidualnego konta poczty elektronicznej e-mail,</li>
+            </ul>
+        </li>
+        <li>Rejestrujący się w Serwisie Usługobiorcy wyrażają zgodę na przetwarzanie ich danych osobowych przez
+            Usługobiorcę w zakresie w jakim zostały one wprowadzone do Serwisu podczas procesu rejestracji oraz ich
+            późniejszych zmianom lub usunięciu.</li>
+        <li>Usługodawca ma prawo zawieszać lub usuwać konta Usługobiorców według własnego uznania, uniemożliwiając lub
+            ograniczając w ten sposób dostęp do poszczególnych lub wszystkich usług, treści, materiałów i zasobów
+            Serwisu, w szczególności jeżeli Usługobiorca dopuści się łamania Regulaminu, powszechnie obowiązujących
+            przepisów prawa, zasad współżycia społecznego lub działa na szkodę Usługodawcy lub innych Usługobiorców,
+            uzasadnionego interesu Usługodawcy oraz podmiotów trzecich współpracujących lub nie z Usługodawcą.</li>
+        <li>Wszelkie usługi Serwisu mogą być zmieniane co do ich treści i zakresu, dodawane lub odejmowane, a także
+            czasowo zawieszane lub dostęp do nich może być ograniczany, według swobodnej decyzji Usługodawcy, bez
+            możliwości wnoszenia sprzeciwu w tym zakresie przez Usługobiorców.</li>
+        <li>Dodatkowe zasady bezpieczeństwa w zakresie korzystania z konta:<ul>
+                <li>Zabrania się Usługobiorcom zarejestrowanym w Serwisie do udostępniania loginu oraz hasła do swojego
+                    konta osobom trzecim.</li>
+                <li>Usługodawca nie ma prawa i nigdy nie będzie zażądać od Usługobiorcy hasła do wybranego konta.</li>
+            </ul>
+        </li>
+        <li>Usuwanie konta:<ul>
+                <li>Każdy Usługobiorca posiadający konto w Serwisie ma możliwość samodzielnego usunięcia konta z
+                    Serwisu.</li>
+                <li>Usługobiorcy mogą to uczynić po zalogowaniu się w panelu w Serwisie.</li>
+                <li>Usunięcie konta skutkuje usunięciem wszelkich danych identyfikacyjnych Usługobiorcy oraz
+                    anonimizacją nazwy użytkownika i adresu e-mail.</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>V. Warunki świadczenia usługi Newsletter</h2>
+    <ul>
+        <li>Usługobiorcy mogą korzystać z Serwisu bez konieczności zapisywania się do Newslettera.</li>
+        <li>Zapisanie się usługi Newslettera jest dobrowolne.</li>
+        <li>Zapisanie się do usługi Newslettera jest nieodpłatne.</li>
+        <li>Wymagania techniczne związane z usługą Newsletter:<ul>
+                <li>posiadanie indywidualnego konta poczty elektronicznej e-mail,</li>
+            </ul>
+        </li>
+        <li>Warunki świadczenia usługi Newsletter:<ul>
+                <li>podanie w formularzu elektronicznym indywidualnego konta poczty elektronicznej e-mail,</li>
+                <li>weryfikacja podanego konta pocztowego e-mail poprzez uruchomienie przesłanego na nie odnośnika,</li>
+                <li>wyrażenie zgody na otrzymywania powiadomień e-mail,</li>
+            </ul>
+        </li>
+        <li>Zakres usługi Newsletter:<ul>
+                <li>powiadamianie o nowych aktualnościach, wpisach, konkursach, i innych akcjach promocyjnych związanych
+                    z usługami Serwisu,</li>
+                <li>powiadamianie o akcjach promocyjnych partnerów Serwisu (wiadomości Marketingowe),</li>
+            </ul>
+        </li>
+        <li>Wypisanie się z usługi Newsletter:<ul>
+                <li>Każdy Usługobiorca zapisany do usługi Newsletter ma możliwość samodzielnego wypisania się z Usługi.
+                </li>
+                <li>Usługobiorcy mogą to uczynić poprzez link umieszczony w każdej przesłanej wiadomości e-mail.</li>
+                <li>Wypisanie się z usługi Newsletter skutkuje usunięciem podanego adresu e-mail z bazy Usługodawcy.
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h2>VI. Warunki komunikacji i świadczenia pozostałych usług w Serwisie</h2>
+    <ul>
+        <li>Serwis udostępnia usługi i narzędzia umożliwiające Usługobiorcom interakcję z Serwisem w postaci:<ul>
+                <li>Publikowania własnych treści w postaci wpisów i artykułów</li>
+            </ul>
+        </li>
+        <li>Serwis udostępnia dane kontaktowe w postaci:<ul>
+                <li>Adresu e-mail</li>
+            </ul>
+        </li>
+        <li>W przypadku kontaktu Usługobiorcy z Usługodawcą, dane osobowe Usługobiorców będa przetwarzane zgodnie z
+            &quot;<a asp-page="./PrivacyPolicy">Polityką Prywatności</a>&quot;, stanowiącą integralną część Regulaminu.</li>
+        <li>Warunki umieszczania treści przez Usługobiorców w Serwisie:<ul>
+                <li>Zabrania się umieszczania w Serwisie treści obraźliwych lub oszczerczych względem Usługodawcy,
+                    pozostałych Usługobiorców, osób trzecich oraz podmiotów trzecich,</li>
+                <li>Zabrania się umieszczania w Serwisie materiałów tekstowcyh, graficznych, audiowizualnych, skryptów,
+                    programów i innych utworów, na które Usługobiorca nie posiada się licencji, lub których autor praw
+                    majątkowych nie wyraził zgody na darmową publikację,</li>
+                <li>Zabrania się umieszczania w Serwisie treści wulgarnych, pornograficznych, erotycznych i niezgodnych
+                    z polskim i europejskim prawem a także odnośników do stron zawierających wskazane treści,</li>
+                <li>Zabrania się umieszczania w Serwisie skryptów i programów nadmiernie obciążających serwer,
+                    oprogramowania nielegalnego, oprogramowania służącego do naruszania zabezpieczeń oraz innych
+                    podobnych działań a także odnośników do stron zawierających wskazane materiały,</li>
+                <li>Zabrania się umieszczania w Serwisie treści merketingowych i reklamujących inne serwisy komercyjne,
+                    produkty, usługi czy komercyjne strony internetowe</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>VII. Gromadzenie danych o Usługobiorcach</h2>
+    <p>W celu prawidłowego świadczenia usług przez Serwis, zabezpieczenia prawnego interesu Usługodawcy oraz w celu
+        zapewnienia zgodności działania Serwisu z obowiązującym prawem, Usługodawca za pośrednictwem Serwisu gromadzi i
+        przetwarza niektóre dane o Użytkownikach.</p>
+    <p>W celu prawidłowego świadczenia usług, Serwis wykorzystuje i zapisuje niektóre anonimowe informacje o
+        Usługobiorcy w plikach cookies.</p>
+    <p>Zakres, cele, sposób oraz zasady przetwarzania danych dostępne są w załącznikach do Regulaminu: &#8222;<a
+            asp-page="./GDPR">Obowiązek informacyjny RODO</a>&#8221; oraz w &#8222;<a asp-page="./PrivacyPolicy">Polityce
+            prywatności</a>&#8222;, stanowiących integralną część Regulaminu.</p>
+    <ul>
+        <li><em>Dane zbierane automatycznie:</em><br>Do sprawnego działania Serwisu oraz do statystyk zbieramy
+            automatycznie niektóre dane o Usługobiorcy. Do danych tych należą:<ul>
+                <li>Adres IP</li>
+                <li>Typ przeglądarki</li>
+                <li>Rozdzielczość ekranu</li>
+                <li>Przybliżona lokalizacja</li>
+                <li>Otwierane podstrony serwisu</li>
+                <li>Czas spędzony na odpowiedniej podstronie serwisu</li>
+                <li>Rodzaj systemu operacyjnego</li>
+                <li>Adres poprzedniej podstrony</li>
+                <li>Adres strony odsyłającej</li>
+                <li>Język przeglądarki</li>
+                <li>Predkość łącza internetowego</li>
+                <li>Dostawca usług internetowych</li>
+                <li>Anonimowe dane demograficzne na podstawie danych Google Analytics: <ul>
+                        <li>Płeć</li>
+                        <li>Wiek</li>
+                        <li>Zainteresowania</li>
+                    </ul>
+                </li>
+                <li>Anonimowe dane o zdarzeniach wykonanych w aplikacji na potrzeby prowadzania statystyk przez Google Analytics.</li>
+            </ul>
+            <p>Powyższe dane uzyskiwane są poprzez skrypt Google Analytics i są anonimowe.</p>
+        </li>
+        <li><em>Dane zbierane podczas rejestracji:</em><br>Nazwa użytkownika, imię i nazwisko, adres e-mail, wiek i kraj zamieszkania.<p>W
+                przypadku Usługobiorców zalogowanych (posiadających konto w Serwisie), w plikach cookies zapisywanych na
+                urządzeniu Usługobiorcy może być umieszczony identyfikator Usługobiorcy powiązany z kontem Usługobiorcy
+            </p>
+        </li>
+        <li><em>Dane zbierane podczas zapisywania do newslettera:</em><br>adres e-mail</li>
+    </ul>
+    <h2>VIII. Prawa autorskie</h2>
+    <ul>
+        <li>Właścicielem Serwisu oraz praw autorskich do serwisu jest Usługodawca.</li>
+        <li>Część danych zamieszczonych w Serwisie są chronione prawami autorskimi należącymi do firm, instytucji i osób
+            trzecich, niepowiązanych w jakikolwiek sposób z Usługodawcą, i są wykorzystywane na podstawie uzyskanych
+            licencji, lub opartych na licencji darmowej.</li>
+        <li>Na podstawie Ustawy z dnia 4 lutego 1994 o prawie autorskim zabrania się wykorzystywania, kopiowania,
+            reprodukowania w jakiejkolwiek formie oraz przetrzymywania w systemach wyszukiwania z wyłączeniem
+            wyszukiwarki Google, Bing, Yahoo, NetSprint, DuckDuckGo, Facebook oraz LinkedIn jakichkolwiek artykułów,
+            opisów, zdjęć oraz wszelkich innych treści, materiałów graficznych, wideo lub audio znajdujących się w
+            Serwisie bez pisemnej zgody lub zgody przekazanej za pomocą Komunikacji Drogą Elektroniczną ich prawnego
+            właściciela.</li>
+        <li>Zgodnie z Ustawą z dnia 4 lutego 1994 o prawie autorskim ochronie nie podlegają proste informacje prasowe,
+            rozumiane jako same informacje, bez komentarza i oceny ich autora. Autor rozumie to jako możliwość
+            wykorzystywania informacji z zamieszczonych w serwisie tekstów, ale już nie kopiowania całości lub części
+            artykułów o ile nie zostało to oznaczone w poszczególnym materiale udostępnionym w Serwisie.</li>
+    </ul>
+    <h2>IX. Zmiany Regulaminu</h2>
+    <ul>
+        <li>Wszelkie postanowienia Regulaminu mogą być w każdej chwili jednostronnie zmieniane przez Usługodawcę, bez
+            podawania przyczyn.</li>
+        <li>Informacja o zmianie Regulaminu będzie rozsyłana Drogą Elektroniczną do Usługobiorców zarejestrowanych w
+            Serwisie.</li>
+        <li>W przypadku zmiany Regulaminu jego postanowienia wchodzą w życie natychmiast po jego publikacji dla
+            Usługobiorców nieposiadających konta w Serwisie.</li>
+        <li>W przypadku zmiany Regulaminu jego postanowienia wchodzą w życie z 7-dniowym okresem przejściowym dla
+            Usługobiorców posiadających konta w Serwisie zarejestrowane przez zmianą Regulaminu.</li>
+        <li>Traktuje się iż każdy Usługobiorca, kontynuujący korzystanie z Serwisu po zmianie Regulaminu akceptuje go w
+            całości.</li>
+    </ul>
+    <h2>X. Postanowienia końcowe</h2>
+    <ul>
+        <li>Usługodawca nie odpowiada w żaden sposób, jak tylko pozwalają na to obowiązujące przepisy prawa, za treści
+            przekazywane i publikowane w Serwisie przez Usługobiorców, za ich prawdziwość, rzetelność, autentyczność czy
+            wady prawne.</li>
+        <li>Usługodawca dokona wszelkich starań by usługi Serwisu były oferowane w sposób ciągły. Nie ponosi on jednak
+            żadnej odpowiedzialności za zakłócenia spowodowane siłą wyższą lub niedozwoloną ingerencją Usługobiorców,
+            osób trzecich czy działalnością zewnętrznych automatycznych programów.</li>
+        <li>Usługodawca zastrzega sobie prawo do zmiany jakichkolwiek informacji umieszczonych w Serwisie w wybranym
+            przez Usługodawcę terminie, bez konieczności uprzedniego powiadomienia Usługobiorców korzystających z usług
+            Serwisu.</li>
+        <li>Usługodawca zastrzega sobie prawo do czasowego, całkowitego lub częściowego wyłączenia Serwisu w celu jego
+            ulepszenia, dodawania usług lub przeprowadzania konserwacji, bez wcześniejszego uprzedzania o tym
+            Usługobiorców.</li>
+        <li>Usługodawca zastrzega sobie prawo do wyłączenia Serwisu na stałe, bez wcześniejszego uprzedzania o tym
+            Usługobiorców.</li>
+        <li>Usługodawca zastrzega sobie prawo do dokonania cesji w części lub w całości wszelkich swoich praw i
+            obowiązków związanych z Serwisem, bez zgody i możliwości wyrażania jakichkolwiek sprzeciwów przez
+            Usługobiorców.</li>
+        <li>Obowiązujące oraz poprzednie Regulaminy Serwisu znajduję się na tej podstronie pod aktualnym Regulaminem.
+        </li>
+        <li>We wszelkich sprawach związanych z działalnością Serwisu należy kontaktować się z Usługodawcę korzystając z
+            jednej z poniższych form kontaktu:<ul>
+                <li>Wysyłając wiadomość na adres e-mail: <a href="mailto:mistakesjournal@gmail.com">mistakesjournal@gmail.com</a></li>
+                <li>Poprzez połączenie telefoniczne z numerem: </li>
+            </ul>Kontakt przy użyciu wskazanych środków komunikacji wyłącznie w sprawach związanych z prowadzonym
+            Serwisem.</li>
+    </ul>
+</article>
+    }
+    else
+    {
+        <article>
+    <h1 class = "page-title text-center"> Terms of service </h1>
+    <h2> I. General concepts </h2>
+    <ul>
+        <li> <strong> Regulations </strong> - these regulations </li>
+        <li> <strong> Website </strong> - the website "mistakes journal" operating at
+            mistakesjournal.com </li>
+        <li> <strong> Service Provider </strong> - the owner of the website who is a natural person.
+        <li> <strong> Customer </strong> - any natural person accessing the Website and using the services
+            provided via the Website by the Service Provider. </li>
+        <li> <strong> Electronic Communication </strong> - Communication between the parties via mail
+            electronic (e-mail). </li>
+    </ul>
+    <h2> II. General provisions </h2>
+    <ul>
+        <li> Regulations define the rules of operation and use of the Website and define the scope of rights and obligations
+            Recipients and Service Providers related to the use of the Website. </li>
+        <li> The subject of the Service Provider's services is the provision of free tools in the form of the Website, enabling
+            Service recipients have access to content in the form of entries, articles and audiovisual materials or applications
+            web and electronic forms </li>
+        <li> Any content, articles or information that contains the features of tips or advice posted on
+            the pages of the Website are only a general collection of information and are not directed to individual Customers.
+            The Service Provider is not responsible for their use by the Customers. </li>
+        <li> The Service Recipient assumes full responsibility for the manner of using the materials provided on
+            as part of the Website, including their use in accordance with applicable law. </li>
+        <li> The Service Provider does not provide any guarantee as to the suitability of the materials posted on the Website. </li>
+        <li> The Service Provider is not responsible for any damage suffered by the Customers
+            The Website or third parties in connection with the use of the Website. Any risk associated with the use of
+            The Website, and in particular with the use and use of information posted on the Website, shall be borne by
+            Recipient of the Website's services. </li>
+    </ul>
+    <h2> III. Terms of use of the Website </h2>
+    <ul>
+        <li> The use of the Website by each of the Customers is free and voluntary. </li>
+        <li> Recipients are obliged to read the Regulations and other documents constituting it
+            an integral part and must accept its provisions in full in order to continue using the Website.
+        </li>
+        <li> Recipients may not use any personal data obtained on the Website for marketing purposes.
+        </li>
+        <li> Technical requirements for using the Website: <ul>
+                <li> device with a display capable of displaying web pages, </li>
+                <li> internet connection, </li>
+                <li> Any web browser that displays web pages according to the i
+                    the provisions of the W3C Consortium and supports websites provided in HTML5, </li>
+                <li> JavaScript enabled, </li>
+                <li> Cookie Support Enabled </li>
+            </ul>
+        </li>
+        <li> In order to ensure the safety of the Service Provider, Service Recipient and other Service Recipients using
+            Website, all Service Users using the Website should follow generally accepted principles
+                network security, </li>
+        <li> It is forbidden to perform activities performed personally by the Customers or using the software: <ul>
+                <li> without written permission, decompilation and source code analysis, </li>
+                <li> without written consent, causing an excessive load on the Website server, </li>
+                <li> without written consent, attempts to detect security gaps in the Website and server configuration, </li>
+                <li> attempting to upload or download to the server and to the code, script and database
+                    software that may harm the Website's software, other Service Recipients or
+                    Service Providers, </li>
+                <li> attempting to upload or download to the server and to the code, script and database
+                    software that can track or steal data of Recipients or the Service Provider, </li>
+                <li> taking any actions aimed at damaging or blocking the operation of the Website or
+                    preventing the achievement of the purpose for which the Website operates. </li>
+            </ul>
+        </li>
+        <li> In case of detection of the occurrence or potential possibility of a cybersecurity incident or
+            violations of the GDPR, the Service Recipients should first report this fact to the Service Provider in order to quickly
+            removing the problem / threat and securing the interests of all Service Users. </li>
+    </ul>
+    <h2> IV. Registration terms and conditions </h2>
+    <ul>
+        <li> Recipients can use the Website without registration. </li>
+        <li> Recipients must be registered and have an account on the Website to use additional services
+            provided on the Website, available only to Users after logging in. </li>
+        <li> Registration on the Website is voluntary. </li>
+        <li> Registration on the Website is free of charge. </li>
+        <li> Each Service Recipient may have only one account on the Website. </li>
+        <li> Technical requirements related to account registration: <ul>
+                <li> having an individual e-mail account, </li>
+            </ul>
+        </li>
+        <li> Registered on the Website, the Service Recipients consent to the processing of their personal data by
+            The Service Recipient to the extent to which they were introduced to the Website during the registration process and their
+            subsequent changes or deletion. </li>
+        <li> The Service Provider has the right to suspend or delete the accounts of the Customers at its sole discretion, preventing or
+            thereby limiting access to certain or all services, content, materials and resources
+            Website, in particular if the Service Recipient breaks the generally applicable Regulations
+            legal provisions, rules of social coexistence or works to the detriment of the Service Provider or other Service Recipients,
+            the legitimate interest of the Service Provider and third parties cooperating or not with the Service Provider. </li>
+        <li> Any services of the Website may be changed in terms of their content and scope, added or subtracted, and also
+            temporarily suspended or access to them may be limited, at the Service Provider's discretion, without
+            the possibility of objections in this respect by the Service Recipients. </li>
+        <li> Additional security rules for using the account: <ul>
+                <li> It is forbidden for Customers registered on the Website to provide their login and password
+                    third party accounts. </li>
+                <li> The Service Provider has no right and will never require the Customer to provide a password to the selected account. </li>
+            </ul>
+        </li>
+        <li> Delete account: <ul>
+                <li> Each Service Recipient who has an account on the Website has the option of removing the account from
+                    Service. </li>
+                <li> Recipients can do it after logging in to the panel on the Website. </li>
+                <li> Removal of the account results in the removal of all identification data of the Service Recipient and
+                    anonymization of the username and e-mail address. </li>
+            </ul>
+        </li>
+    </ul>
+    <h2> V. Terms of providing the Newsletter service </h2>
+    <ul>
+        <li> Recipients may use the Website without subscribing to the Newsletter. </li>
+        <li> Subscribing to the Newsletter service is voluntary. </li>
+        <li> Subscribing to the Newsletter service is free of charge. </li>
+        <li> Technical requirements related to the Newsletter service: <ul>
+                <li> having an individual e-mail account, </li>
+            </ul>
+        </li>
+        <li> Terms of the Newsletter service: <ul>
+                <li> providing an individual e-mail account in the electronic form, </li>
+                <li> verification of the given e-mail account by running the link sent to it, </li>
+                <li> consent to receive e-mail notifications, </li>
+            </ul>
+        </li>
+        <li> Scope of the Newsletter service: <ul>
+                <li> notification of new news, entries, competitions, and other related promotional campaigns
+                    with the services of the Website, </li>
+                <li> notification of the Website partners' promotional campaigns (Marketing messages), </li>
+            </ul>
+        </li>
+        <li> Unsubscribing from the Newsletter service: <ul>
+                <li> Each Service Recipient subscribed to the Newsletter service has the option of unsubscribing from the Service.
+                </li>
+                <li> Recipients may do so through a link included in each e-mail sent. </li>
+                <li> Unsubscribing from the Newsletter service results in the removal of the e-mail address provided from the Service Provider's database.
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h2> VI. Terms of communication and provision of other services on the Website </h2>
+    <ul>
+        <li> The website provides services and tools enabling the Service Users to interact with the Website in the form of: <ul>
+                <li> Publish your own content in the form of posts and articles </li>
+            </ul>
+        </li>
+        <li> The website provides contact details in the form: <ul>
+                <li> Email address </li>
+            </ul>
+        </li>
+        <li> In the event of contact of the Service Recipient with the Service Provider, the personal data of the Service Recipients will be processed in accordance with
+            "<a asp-page="./PrivacyPolicy">Privacy Policy</a>", which is an integral part of the Regulations. </li>
+        <li> Terms of publishing content by the Service Recipients on the Website: <ul>
+                <li> It is forbidden to post offensive or defamatory content on the Website,
+                    other Customers, third parties and third parties, </li>
+                <li> It is forbidden to post text, graphic, audiovisual materials, scripts on the Website,
+                    programs and other works for which the Service Recipient is not licensed, or for which the author of the rights
+                    property did not agree to free publication, </li>
+                <li> It is forbidden to post vulgar, pornographic, erotic and incompatible content on the Website
+                    with Polish and European law as well as links to pages containing the indicated content, </li>
+                <li> It is forbidden to place scripts and programs that overload the server on the Website,
+                    Illegal software, security breach and other software
+                    similar activities as well as links to pages containing the indicated materials, </li>
+                <li> It is forbidden to post commercial content and advertising other commercial websites on the Website,
+                    products, services or commercial websites </li>
+            </ul>
+        </li>
+    </ul>
+    <h2> VII. Collection of data about the Customers </h2>
+    <p> For the proper provision of services by the Website, securing the legal interest of the Service Provider and for
+        ensuring the compliance of the Website's operation with applicable law, the Service Provider collects and
+        processes some data about Users. </p>
+    <p> For the proper provision of services, the Website uses and saves some anonymous information about
+        Recipients in cookie files. </p>
+    <p> The scope, purposes, method and principles of data processing are available in the appendices to the Regulations: "<a
+            asp-page="./GDPR">GDPR information obligation</a>" and in "<a asp-page="./PrivacyPolicy">Politics
+            privacy</a>", constituting an integral part of the Regulations. </p>
+    <ul>
+        <li> <em> Data collected automatically: </em> <br> We collect for the smooth operation of the Website and for statistics
+            automatically some data about the Service Recipient. These data include: <ul>
+                <li> IP address </li>
+                <li> Browser type </li>
+                <li> Screen resolution </li>
+                <li> Approximate location </li>
+                <li> Subpages of the website opened </li>
+                <li> Time spent on the relevant subpage of the website </li>
+                <li> Type of operating system </li>
+                <li> Address of the previous subpage </li>
+                <li> Referrer address </li>
+                <li> Browser language </li>
+                <li> Internet connection speed </li>
+                <li> Internet Service Provider </li>
+                <li> Anonymous demographic data based on Google Analytics data: <ul>
+                        <li> Gender </li>
+                        <li> Age </li>
+                        <li> Interests </li>
+                    </ul>
+                </li>
+                <li> Anonymous data on events made in the application for the purposes of statistics by Google Analytics. </li>
+            </ul>
+            <p> The above data is obtained through the Google Analytics script and is anonymous. </p>
+        </li>
+        <li> <em> Data collected during registration: </em> <br> Username, first and last name, e-mail address, age and country of residence. <p> W
+                in the case of Registered Users (having an account on the Website), in cookie files saved on
+                the Customer's device may include the Customer's ID associated with the Customer's account
+            </p>
+        </li>
+        <li> <em> Data collected when subscribing to the newsletter: </em> <br> e-mail address </li>
+    </ul>
+    <h2> VIII. Copyright </h2>
+    <ul>
+        <li> The Service Provider is the owner of the Website and the copyrights to the website. </li>
+        <li> Some of the data on the Website are protected by copyright belonging to companies, institutions and people
+            third parties, unrelated in any way to the Service Provider, and are used on the basis of obtained
+            license, or based on a free license. </li>
+        <li> Pursuant to the Act of February 4, 1994 on copyright, it is forbidden to use, copy,
+            reproduction in any form and retention in search systems with exclusion
+            Google, Bing, Yahoo, NetSprint, DuckDuckGo, Facebook and LinkedIn search engines for any articles,
+            descriptions, photos and any other content, graphics, video or audio contained in
+            The Website without the written consent or consent given via Electronic Communication of their legal status
+            owner. </li>
+        <li> Pursuant to the Act of February 4, 1994 on copyright, simple press releases are not protected,
+            understood as information only, without the author's comment or evaluation. The author understands this as a possibility
+            use information from texts posted on the website, but not copying all or part of it
+            articles, unless it has been marked in the individual material made available on the Website. </li>
+    </ul>
+    <h2> IX. Amendments to the Regulations </h2>
+    <ul>
+        <li> Any provisions of the Regulations may be unilaterally changed by the Service Provider at any time, without
+            giving reasons. </li>
+        <li> Information about changes to the Regulations will be sent by Electronic Means to Customers registered in
+            Service. </li>
+        <li> In the event of a change to the Regulations, its provisions shall enter into force immediately after its publication for
+            Recipients who do not have an account on the Website. </li>
+        <li> In the event of a change to the Regulations, its provisions enter into force with a 7-day transition period for
+            Recipients who have accounts on the Website registered prior to the amendment to the Regulations. </li>
+        <li> It is considered that each Service Recipient who continues to use the Website after the amendment to the Regulations accepts it in
+            whole. </li>
+    </ul>
+    <h2> X. Final provisions </h2>
+    <ul>
+        <li> The service provider is not responsible in any way, as allowed by applicable law, for the content
+            provided and published on the Website by the Service Users for their truthfulness, reliability, authenticity or
+            legal defects. </li>
+        <li> The Service Provider will make every effort to ensure that the Website's services are offered on a continuous basis. However, he is not
+            no responsibility for disruptions caused by force majeure or unlawful interference of the Customers,
+            third parties or the activity of external automatic programs. </li>
+        <li> The Service Provider reserves the right to change any information placed on the Website in the selected one
+            by the Service Provider, without prior notification of the Service Recipients
+            Service. </li>
+        <li> The Service Provider reserves the right to temporarily, fully or partially disable the Website for its purposes
+            improvements, adding services or carrying out maintenance without prior notice
+            Recipients. </li>
+        <li> The Service Provider reserves the right to permanently disable the Website without prior notice
+            Recipients. </li>
+        <li> The service provider reserves the right to assign all or part of its rights and
+            obligations related to the Website, without consent and the possibility of expressing any objections by
+            Recipients. </li>
+        <li> The current and previous Regulations of the Website can be found on this subpage under the current Regulations.
+        </li>
+        <li> In all matters related to the operation of the Website, please contact the Service Provider using
+            one of the following forms of contact: <ul>
+                <li> By sending a message to the e-mail address: <a href="mailto:mistakesjournal@gmail.com">mistakesjournal@gmail.com</a></li>
+                <li> By calling the number: </li>
+            </ul> Contact using the indicated means of communication only in matters related to the conducted
+            Service. </li>
+    </ul>
+</article>
+    }
+}

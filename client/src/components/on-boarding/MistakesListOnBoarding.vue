@@ -146,11 +146,13 @@
 
 <script lang="ts">
 import LanguageChangeButton from '@/components/shared/LanguageChangeButton.vue';
+import { GOOGLE_EVENTS } from '@/config/google-analytics-events.config';
 import { OnBoardingTourSteps } from '@/model/on-boarding-tour-steps.enum';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UiStateMutations } from '@/store/ui-state-module/mutations';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
+import { event } from 'vue-gtag';
 import OnBoardingProgressBar from './OnBoardingProgressBar.vue';
 
 // Declaration for current component.
@@ -316,6 +318,7 @@ export default Vue.extend({
       }
     },
     async skipTutorial(): Promise<void> {
+      event(GOOGLE_EVENTS.SKIP_TUTORIAL);
       await this.$store.dispatch(UserActions.UpdateUserTutorialState, true);
       await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
     },

@@ -1,12 +1,14 @@
 import { LabelsApiMethods } from '@/api/methods/labels.api-methods';
 import { LabelApiModel } from '@/api/models/label.api-model';
 import { NewLabelApiModel } from '@/api/models/new-label.api-model';
+import { GOOGLE_EVENTS } from '@/config/google-analytics-events.config';
 import { Label } from '@/model/label';
 import { LabelsMutations } from '@/store/labels-module/mutations';
 import { LabelsState } from '@/store/labels-module/state';
 import { MistakesActions } from '@/store/mistakes-module/actions';
 import { State } from '@/store/state';
 import { handleDefaultResponseErrors } from '@/utils/errors.utils';
+import { event } from 'vue-gtag';
 import {
   ActionContext,
   ActionTree,
@@ -24,6 +26,8 @@ export enum LabelsActions {
 
 export const actions: ActionTree<LabelsState, State> = {
   async [LabelsActions.Add]({ commit }: Context, label: Label): Promise<void> {
+    event(GOOGLE_EVENTS.NEW_LABEL);
+
     const payload: NewLabelApiModel = {
       name: label.name,
       color: label.color,

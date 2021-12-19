@@ -1,0 +1,36 @@
+@using System.Globalization
+@{
+    if (CultureInfo.CurrentCulture.Name == new CultureInfo("pl").Name)
+    {
+        <div class="mj-registration-info-box">
+            <h2 class="mj-registration-info-header">Pomóż nam rozwijać naukę!</h2>
+            <div class="mj-registration-info-message">
+                <p>Aktualnie prowadzimy projekt badawczy 🔬na Politechnice Gdańskiej, badający użyteczność naszego serwisu. Z tego powodu prosimy Ciebie o:</p>
+                <ul>
+                    <li>🌎 podanie wieku oraz kraju zamieszkania</li>
+                    <li>zgodę na udostępnianie lokalizacji (jedynie w celach badawczych). <strong>WAŻNE:</strong> Aby nasze badanie się powiodło, wyraź zgodę gdy przeglądarka o to poprosi.</li>
+                    <li>📝 <strong>wypełnienie krótkiej ankiety, którą otrzymasz na adres email 2 tygodnie po rejestracji</strong></li>
+                </ul>
+                <p>Gdy nasza praca naukowa zostanie opublikowana, poinformujemy Ciebie o tym abyś mógł ją przeczytać! Bez obaw, Twoje dane zostaną podane zbiorczo, nie identyfikując Ciebie.</p>
+            </div>
+            <div class="mj-registration-info-team">~ Zespół Mistakes Journal</div>
+        </div>
+        }
+    else
+    {
+        <div class="mj-registration-info-box">
+            <h2 class="mj-registration-info-header">Help us develop science!</h2>
+            <div class="mj-registration-info-message">
+                <p>We are currently conducting a research project 🔬 at the Gdansk University of Technology, investigating the usability of our service. For this reason we kindly ask you to:</p>
+                <ul>
+                    <li>🌎 provide your age and country of residence</li>
+                    <li>agree to share your location (only for research purposes). <strong>IMPORTANT:</strong> For our research to be successful, please give your consent when your browser asks for it.</li>
+                    <li>📝 <strong>fill out a short survey that you will receive by email 2 weeks after registration</strong></li>
+                </ul>
+                <p>When our research paper is published, we will let you know so you can read it! No worries, your information will be provided collectively, not identifying you</p>
+            </div>
+            <div class="mj-registration-info-team">~ Mistakes Journal's team</div>
+        </div>
+        
+    }
+}

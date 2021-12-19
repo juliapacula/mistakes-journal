@@ -1,20 +1,27 @@
 ﻿@page "/account/denied"
 @model AccessDeniedModel
+@using Mistakes.Journal.Api.Resources
+@inject AccountLocalizationService AccountLocalizer
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = @AccountLocalizer.GetLocalizedHtmlString("AccessDenied");
 }
 
 <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-6 col-xxl-4">
         <section class="mj-card mt-4">
+            <div class="row">
+                <div class="col-12 text-end">
+                    <partial name="_ChangeLanguage" />
+                </div>
+            </div>
             <div class="mj-logo mb-4">
                 <img alt="Mistakes Journal logo" src="/images/ice_cream_broken.svg">
-                <span>mistakes</span>
-                <span>journal</span>
+                <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleFirst")</span>
+                <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleSecond")</span>
             </div>
             <div class="text-center">
                 <h1>@ViewData["Title"]</h1>
-                <p>You do not have access to this resource.</p>
+                <p>@AccountLocalizer.GetLocalizedHtmlString("NoAccess")</p>
             </div>
         </section>
     </div>

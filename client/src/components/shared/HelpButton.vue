@@ -11,14 +11,17 @@
 </template>
 
 <script lang="ts">
+import { GOOGLE_EVENTS } from '@/config/google-analytics-events.config';
 import { UiStateActions } from '@/store/ui-state-module/actions';
 import { UserActions } from '@/store/user-module/actions';
 import Vue from 'vue';
+import { event } from 'vue-gtag';
 
 export default Vue.extend({
   name: 'HelpButton',
   methods: {
     async showTutorial(): Promise<void> {
+      event(GOOGLE_EVENTS.MANUAL_TUTORIAL);
       await this.$store.dispatch(UserActions.UpdateUserTutorialState, false);
       await this.$store.dispatch(UiStateActions.ResetUserOnBoardingTour);
 

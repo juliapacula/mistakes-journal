@@ -1,9 +1,12 @@
 @page "/account/login"
 @using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Mistakes.Journal.Api.Resources
+@using System.Globalization
+@inject AccountLocalizationService AccountLocalizer
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = @AccountLocalizer.GetLocalizedHtmlString("Login");
 }
 
 <div class="row justify-content-center">
@@ -11,21 +14,26 @@
         <section class="mj-card mt-4">
             <form asp-route-returnUrl="@Model.ReturnUrl" id="account" class="@(ModelState.IsValid ? "" : "was-validated")" method="post">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 text-end">
+                            <partial name="_ChangeLanguage" />
+                        </div>
+                    </div>
                     <div class="mj-logo mb-4">
                         <img alt="Mistakes Journal logo" src="/images/ice_cream_broken.svg">
-                        <span>mistakes</span>
-                        <span>journal</span>
+                        <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleFirst")</span>
+                        <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleSecond")</span>
                     </div>
                     <div class="mj-card-title mb-4">
-                        <h1>Welcome back</h1>
-                        <h2>and get the most of your mistakes</h2>
+                        <h1>@AccountLocalizer.GetLocalizedHtmlString("LoginTitleFirst")</h1>
+                        <h2>@AccountLocalizer.GetLocalizedHtmlString("LoginTitleSecond")</h2>
                     </div>
                     @if (!ModelState.IsValid)
                     {
                         <div asp-validation-summary="All" class="mj-form-group mj-validation-summary"></div>
                     }
                     <div class="mj-form-group">
-                        <label asp-for="Input.Email" class="form-label"></label>
+                        <label asp-for="Input.Email" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Email")</label>
                         <input
                             required
                             asp-for="Input.Email"
@@ -33,7 +41,7 @@
                         <span asp-validation-for="Input.Email" class="invalid-feedback"></span>
                     </div>
                     <div class="mj-form-group">
-                        <label asp-for="Input.Password" class="form-label"></label>
+                        <label asp-for="Input.Password" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Password")</label>
                         <input
                             required
                             asp-for="Input.Password"
@@ -44,16 +52,16 @@
                         <div class="form-check">
                             <input asp-for="Input.RememberMe" class="form-check-input"/>
                             <label asp-for="Input.RememberMe" class="form-check-label">
-                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                @AccountLocalizer.GetLocalizedHtmlString("RememberMe")
                             </label>
                         </div>
                     </div>
                     <div class="mj-form-group">
-                        <button type="submit" class="btn btn-primary mj-action">Sign in</button>
+                        <button type="submit" class="btn btn-primary mj-action">@AccountLocalizer.GetLocalizedHtmlString("Login")</button>
                     </div>
                     <div class="mj-card-footer">
-                        <span>Is it your first time?</span>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign up!</a>
+                        <span>@AccountLocalizer.GetLocalizedHtmlString("FirstTime")</span>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" asp-route-culture="@CultureInfo.CurrentCulture.Name">@AccountLocalizer.GetLocalizedHtmlString("Register")</a>
                     </div>
                 </div>
             </form>

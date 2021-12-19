@@ -18,6 +18,7 @@ import {
 } from 'bootstrap-vue';
 import VTooltip from 'v-tooltip';
 import Vue from 'vue';
+import VueGtag from 'vue-gtag';
 import Toasted from 'vue-toasted';
 import VueTour from 'vue-tour';
 import Vuelidate from 'vuelidate';
@@ -43,6 +44,15 @@ Vue.use(VTooltip, {
   defaultHtml: false,
   defaultPlacement: 'top',
 });
+
+Vue.use(VueGtag, {
+  config: {
+    id: 'G-BSVMHRZF48',
+    enabled: process.env.NODE_ENV === 'production',
+    appName: 'mistakes_journal:production',
+    pageTrackerScreenviewEnabled: true,
+  },
+}, router);
 
 Vue.use(Vuelidate);
 Vue.use(VueTour);

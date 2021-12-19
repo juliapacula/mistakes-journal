@@ -1,8 +1,11 @@
 @page "/account/register"
+@using System.Globalization
 @using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Mistakes.Journal.Api.Resources
+@inject AccountLocalizationService AccountLocalizer
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = @AccountLocalizer.GetLocalizedHtmlString("Register");
 }
 
 <div class="row justify-content-center">
@@ -10,22 +13,35 @@
         <section class="mj-card mt-4">
             <form id="registration" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <div class="card-body">
-                    <div class="mj-logo mb-4">
-                        <img alt="Mistakes Journal logo" src="/images/ice_cream_broken.svg">
-                        <span>mistakes</span>
-                        <span>journal</span>
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <partial name="_ChangeLanguage" />
                     </div>
-                    <div class="mj-card-title mb-4">
-                        <h1>Join us today</h1>
-                        <h2>and get the most out of your mistakes</h2>
+                </div>
+
+                <div class="mj-logo mb-4">
+                    <img alt="Mistakes Journal logo" src="/images/ice_cream_broken.svg">
+                    <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleFirst")</span>
+                    <span>@AccountLocalizer.GetLocalizedHtmlString("AppTitleSecond")</span>
+                </div>
+                <div class="mj-card-title mb-4">
+                    <h1>@AccountLocalizer.GetLocalizedHtmlString("RegisterTitleFirst")</h1>
+                    <h2>@AccountLocalizer.GetLocalizedHtmlString("RegisterTitleSecond")</h2>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <partial name="_RegistrationMessage" />
                     </div>
-                    @if (!ModelState.IsValid)
+                </div>
+                
+                @if (!ModelState.IsValid)
                     {
                         <div asp-validation-summary="All" class="mj-mj-form-group mj-validation-summary"></div>
                     }
                     <div class="row">
                         <div class="mj-form-group col-12 col-md-6">
-                            <label asp-for="NewUser.Age" class="form-label"></label>
+                            <label asp-for="NewUser.Age" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Age")</label>
                             <input
                                 required
                                 min="10"
@@ -36,7 +52,7 @@
                             <span asp-validation-for="NewUser.Age" class="invalid-feedback"></span>
                         </div>
                         <div class="mj-form-group col-12 col-md-6">
-                            <label asp-for="NewUser.Country" class="form-label"></label>
+                            <label asp-for="NewUser.Country" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Country")</label>
                             <select
                                 required
                                 asp-for="NewUser.Country"
@@ -292,7 +308,7 @@
                         </div>
                     </div>
                     <div class="mj-form-group">
-                        <label asp-for="NewUser.Email" class="form-label"></label>
+                        <label asp-for="NewUser.Email" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Email")</label>
                         <input
                             required
                             asp-for="NewUser.Email"
@@ -300,16 +316,16 @@
                         <span asp-validation-for="NewUser.Email" class="invalid-feedback"></span>
                     </div>
                     <div class="mj-form-group">
-                        <label asp-for="NewUser.Password" class="form-label"></label>
+                        <label asp-for="NewUser.Password" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("Password")</label>
                         <input
                             required
                             asp-for="NewUser.Password"
                             class="form-control  @(ModelState.GetFieldValidationState("Password") == ModelValidationState.Invalid ? "invalid" : "")"/>
                         <span asp-validation-for="NewUser.Password" class="invalid-feedback"></span>
-                        <div class="form-text">Required at least: one uppercase character, one lowercase character, one digit and minimum length of 6.</div>
+                        <div class="form-text">@AccountLocalizer.GetLocalizedHtmlString("PasswordHint")</div>
                     </div>
                     <div class="mj-form-group">
-                        <label asp-for="NewUser.ConfirmPassword" class="form-label"></label>
+                        <label asp-for="NewUser.ConfirmPassword" class="form-label">@AccountLocalizer.GetLocalizedHtmlString("ConfirmPassword")</label>
                         <input
                             required
                             asp-for="NewUser.ConfirmPassword"
@@ -321,15 +337,20 @@
                             type="checkbox"
                             asp-for="NewUser.AgreeToNewsletter"
                             class="form-check-input  @(ModelState.GetFieldValidationState("AgreeToNewsletter") == ModelValidationState.Invalid ? "invalid" : "")"/>
-                        <label asp-for="NewUser.AgreeToNewsletter" class="form-check-label"></label>
+                        <label asp-for="NewUser.AgreeToNewsletter" class="form-check-label">@AccountLocalizer.GetLocalizedHtmlString("AgreeToNewsletter")</label>
                         <span asp-validation-for="NewUser.AgreeToNewsletter" class="invalid-feedback"></span>
                     </div>
+                    <div class="mj-terms-of-service">
+                        @AccountLocalizer.GetLocalizedHtmlString("SignUpAgreementFirst") <a asp-page="../Documents/TermsOfService" asp-route-culture="@CultureInfo.CurrentCulture.Name">@AccountLocalizer.GetLocalizedHtmlString("TermsOfService")</a>,
+                        <a asp-page="../Documents/PrivacyPolicy" asp-route-culture="@CultureInfo.CurrentCulture.Name">@AccountLocalizer.GetLocalizedHtmlString("PrivacyPolicy")</a> @AccountLocalizer.GetLocalizedHtmlString("SignUpAgreementSecond")
+                        <a asp-page="../Documents/GDPR" asp-route-culture="@CultureInfo.CurrentCulture.Name">@AccountLocalizer.GetLocalizedHtmlString("GDPR")</a>.
+                    </div>
                     <div class="mj-form-group mt-4">
-                        <button type="submit" class="btn btn-primary mj-action">Sign up</button>
+                        <button type="submit" class="btn btn-primary mj-action">@AccountLocalizer.GetLocalizedHtmlString("Register")</button>
                     </div>
                     <div class="mj-card-footer">
-                        <span>Already have an account?</span>
-                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in!</a>
+                        <span>@AccountLocalizer.GetLocalizedHtmlString("AlreadyHaveAccount")</span>
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" asp-route-culture="@CultureInfo.CurrentCulture.Name">@AccountLocalizer.GetLocalizedHtmlString("Login")!</a>
                     </div>
                 </div>
             </form>

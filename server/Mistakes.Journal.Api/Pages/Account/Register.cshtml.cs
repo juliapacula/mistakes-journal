@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -35,33 +36,27 @@ namespace Mistakes.Journal.Api.Pages.Account
 
         public class NewUserModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "ErrorRequiredEmail")]
+            [EmailAddress(ErrorMessage = "ErrorEmailAddress")]
             public string Email { get; set; }
 
-            [Required]
-            [Display(Name = "Country")]
+            [Required(ErrorMessage = "ErrorCountryRequired")]
             public string Country { get; set; }
 
-            [Required]
-            [Display(Name = "Age")]
+            [Required(ErrorMessage = "ErrorAgeRequired")]
             public int Age { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "ErrorPasswordRequired")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
                 MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "ErrorPasswordNoMatch")]
             public string ConfirmPassword { get; set; }
 
-            [Display(Name = "I agree to receive the newsletter")]
-            [Required]
+            [Required(ErrorMessage = "ErrorRequiredNewsletter")]
             public bool AgreeToNewsletter { get; set; }
         }
 
@@ -93,7 +88,7 @@ namespace Mistakes.Journal.Api.Pages.Account
                 Age = userAgeRange,
                 UserName = NewUser.Email,
                 Email = NewUser.Email,
-                Language = ApplicationLanguage.EN,
+                Language = CultureInfo.CurrentCulture.Name == "pl" ? ApplicationLanguage.PL : ApplicationLanguage.EN,
                 Group = groupForNewUser,
                 AgreeToNewsletter = NewUser.AgreeToNewsletter,
             };
