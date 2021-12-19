@@ -1,0 +1,350 @@
+@page "/document/gdpr"
+@using System.Globalization
+@using Mistakes.Journal.Api.Resources
+@inject AccountLocalizationService AccountLocalizer
+@{
+    ViewData["Title"] = @AccountLocalizer.GetLocalizedHtmlString("GDPR");
+}
+
+@{
+    if (CultureInfo.CurrentCulture.Name == new CultureInfo("pl").Name)
+    {
+        <article>
+            <h1 style="text-align:center">Obowiązek informacyjny RODO</h1>
+            <p>Poniższa informacja stanowi zwięzły, zrozumiały i przejrzysty skrót informacji zamieszczonych w <a asp-page="./PrivacyPolicy">Polityce Prywatności</a> odnośnie Administratora danych, celu i sposobu przetwarzania danych
+                osobowych oraz Twoich praw w związku z tym przetwarzaniem, w formie wymaganej do spełnienia obowiązku
+                informacyjnego RODO. Szczegóły dotyczące sposobu przetwarzania i podmiotów uczestniczących w tym procesie
+                dostępne są we wskazanej polityce.</p>
+            <h2>Kto jest administratorem danych?</h2>
+            <p>Administratorem Danych Osobowych (dalej Administrator) jest osoba fizyczna świadcząca usługi
+                drogą elektroniczną za pośrednictwem Serwisu</p>
+            <h2>Jak można skontaktować się z administratorem danych?</h2>
+            <p>Z Administratorem można skontaktować się w jeden z poniższych sposobów</p>
+            <ul>
+                <li>
+                    <p><strong>Adres poczty elektronicznej</strong> - <a href="mailto:mistakesjournal@gmail.com">mistakesjournal@gmail.com</a>
+                    </p>
+                </li>
+            </ul>
+            <h2>Czy Administrator powołał Inspektora Danych Osobowych?</h2>
+            <p>Na podstawie Art. 37 RODO, Administrator nie powołał Inspektora Ochrony Danych.</p>
+            <p>W sprawach dotyczących przetwarzania danych, w tym danych osobowych, należy kontaktować się bezpośrednio z
+                Administratorem.</p>
+            <h2>Skąd pozyskujemy dane osobowe i jakie są ich źródła?</h2>
+            <p>Dane pozyskiwane są z następujących źródeł:</p>
+            <ul>
+                <li>od osób, których dane dotyczą</li>
+            </ul>
+            <h2>Jaki jest zakres przetwarzanych przez nas danych osobowych?</h2>
+            <p>W serwisie przetwarzane są <strong>dane osobowe zwykłe</strong>, podane dobrowolnie przez osoby, których
+                dotyczą<br/><small>(Np. imię i nazwisko, login, adres e-mail, telefon, adres IP, itp.)</small></p>
+            <p>Szczegółowy zakres przetwarzanych danych dostępny jest w <a asp-page="./PrivacyPolicy">Polityce Prywatności</a>.</p>
+            <h2>Jakie są cele przetwarzania przez nas danych?</h2>
+            <p>Dane osobowe dobrowolnie podane przez Użytkowników są przetwarzane w jednym z następujących celów:</p>
+            <ul>
+                <li>Realizacji usług elektronicznych:
+                    <ul>
+                        <li>Usługi rejestracji i utrzymania konta Użytkownika w Serwisie i funkcjonalności z nim związanych</li>
+                        <li>Usługi Newslettera (w tym przesyłania za zgodą treści reklamowych)</li>
+                    </ul>
+                </li>
+                <li>Komunikacji Administratora z Użytkownikami w sprawach związanych z Serwisem oraz ochrony danych</li>
+                <li>Zapewnienia prawnie uzasadnionego interesu Administratora</li>
+            </ul>
+            <h2>Jakie są podstawy prawne przetwarzania danych?</h2>
+            <p>Serwis gromadzi i przetwarza dane Użytkowników na podstawie:</p>
+            <ul>
+                <li>Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony
+                    osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych
+                    oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych)
+                    <ul>
+                        <li>art. 6 ust. 1 lit. a<br/><small>osoba, której dane dotyczą wyraziła zgodę na przetwarzanie swoich
+                            danych osobowych w jednym lub większej liczbie określonych celów</small></li>
+                        <li>art. 6 ust. 1 lit. b<br/><small>przetwarzanie jest niezbędne do wykonania umowy, której stroną jest
+                            osoba, której dane dotyczą, lub do podjęcia działań na żądanie osoby, której dane dotyczą, przed
+                            zawarciem umowy</small></li>
+                        <li>art. 6 ust. 1 lit. f<br/><small>przetwarzanie jest niezbędne do celów wynikających z prawnie
+                            uzasadnionych interesów realizowanych przez administratora lub przez stronę trzecią</small></li>
+                    </ul>
+                </li>
+                <li>Ustawa z dnia 10 maja 2018 r. o ochronie danych osobowych (Dz.U. 2018 poz. 1000)</li>
+                <li>Ustawa z dnia 16 lipca 2004 r. Prawo telekomunikacyjne (Dz.U. 2004 nr 171 poz. 1800)</li>
+                <li>Ustawa z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych (Dz. U. 1994 Nr 24 poz. 83)</li>
+            </ul>
+            <h2>Jaki jest prawnie uzasadniony interes realizowany przez Administratora?</h2>
+            <ul>
+                <li>W celu ewentualnego ustalenia, dochodzenia lub obrony przed roszczeniami – podstawą prawną przetwarzania
+                    jest nasz uzasadniony interes (art. 6 ust. 1 lit. f) RODO) polegający na ochronie naszych praw, w tym między
+                    innymi;
+                </li>
+                <li>W celu oceny ryzyka potencjalnych klientów</li>
+                <li>W celu oceny planowanych kampanii marketingowych</li>
+                <li>W celu realizacji marketingu bezpośredniego</li>
+            </ul>
+            <h2>Przez jaki okres przetwarzamy dane osobowe?</h2>
+            <p>Co do zasady, wskazane dane osobowe są przechowywane wyłącznie przez okres świadczenia usługi w ramach
+                prowadzonego serwisu przez Administratora. Są one usuwane lub anonimizowane w okresie do <strong>30 dni od
+                    chwili zakończenia świadczenia usług</strong> (np. usunięcie zarejestrowanego konta użytkownika, wypisanie z
+                listy Newsletter, itp.)</p>
+            <p>W wyjątkowych sytuacjach, w celu zabezpieczenie prawnie uzasadnionego interesu realizowanego przez
+                Administratora, okres ten może ulec wydłużeniu. W takiej sytuacji Administrator będzie przechowywał wskazane
+                dane, od czasu żądania ich usunięcia przez Użytkownika, nie dłużej niż przez okres 3 lat w przypadku naruszenia
+                lub podejrzenia naruszenia zapisów regulaminu serwisu przez osobę, której dane dotyczą.</p>
+            <h2>Kto jest odbiorcą danych w tym danych osobowych?</h2>
+            <p>Co do zasady jedynym odbiorcą danych jest Administrator.</p>
+            <p>Przetwarzanie danych może jednak być powierzone innym podmiotom, realizującym usługi na rzecz Administratora w
+                celu utrzymania działalności Serwisu.</p>Do podmiotów takich można zaliczyć między innymi:
+            <ul>
+                <li>Firmy hostingowe, świadczące usługi hostingu lub usług pokrewnych dla Administratora</li>
+            </ul>
+            <h2>Czy Państwa dane osobowe będą przekazywane poza Unię Europejską?</h2>
+            <p><strong>Dane osobowe są przekazywane poza Unię Europejską.</strong><br/>Przekazanie danych pozo UE jest
+                spowodowane korzystaniem z usług podmiotów zlokalizowanych poza granicami UE, lub w wyniku opublikowania na
+                skutek indywidualnego działania Użytkownika (np. wprowadzenie komentarza lub wpisu), co sprawi, że dane będą
+                dostępne dla każdej osoby odwiedzającej serwis.<br/>W przypadku przekazania lub powierzenia przetwarzania
+                danych osobowych poza granicami UE, dane te są przetwarzana na podstawie umowy zawartej pomiędzy Administratorem
+                a Usługodawcą.</p>
+            <h2>Czy dane osobowe będą podstawą zautomatyzowanego podejmowania decyzji?</h2>
+            <p>Dane osobowe <strong>są wykorzystywane do zautomatyzowanego podejmowania decyzji</strong>
+                (profilowania).<br/>Profilowanie danych osobowych nie wywołuje skutków prawnych lub w podobny sposób istotnie
+                nie wpływa na osobę, której dane podlegają automatycznemu podejmowaniu decyzji.</p>
+            <h2>Jakie mają Państwo prawa związane z przetwarzaniem danych osobowych?</h2>
+            <ul>
+                <li>
+                    <p><strong>Prawo dostępu do danych osobowych</strong><br/>Użytkownikom przysługuje prawo uzyskania dostępu
+                        do swoich danych osobowych, realizowane na żądanie złożone do Administratora</p>
+                </li>
+                <li>
+                    <p><strong>Prawo do sprostowania danych osobowych</strong><br/>Użytkownikom przysługuje prawo żądania od
+                        Administratora niezwłocznego sprostowania danych osobowych, które są nieprawidłowe lub / oraz
+                        uzupełnienia niekompletnych danych osobowych, realizowane na żądanie złożone do Administratora</p>
+                </li>
+                <li>
+                    <p><strong>Prawo do usunięcia danych osobowych</strong><br/>Użytkownikom przysługuje prawo żądania od
+                        Administratora niezwłocznego usunięcia danych osobowych, realizowane na żądanie złożone do
+                        Administratora. <br/><br/>W przypadku kont użytkowników, usunięcie danych polega na anonimizacji
+                        danych umożliwiających identyfikację Użytkownika.<br/><br/>W przypadku usługi Newsletter, Użytkownik
+                        ma możliwość samodzielnego usunięcia swoich danych osobowych korzystając z odnośnika umieszczonego w
+                        każdej przesyłanej wiadomości e-mail.</p>
+                </li>
+                <li>
+                    <p><strong>Prawo do ograniczenia przetwarzania danych osobowych</strong><br/>Użytkownikom przysługuje prawo
+                        ograniczenia przetwarzania danych osobowych w przypadkach wskazanych w art. 18 RODO, m.in.
+                        kwestionowania prawidłowość danych osobowych, realizowane na żądanie złożone do Administratora</p>
+                </li>
+                <li>
+                    <p><strong>Prawo do przenoszenia danych osobowych</strong><br/>Użytkownikom przysługuje prawo uzyskania od
+                        Administratora, danych osobowych dotyczących Użytkownika w ustrukturyzowanym, powszechnie używanym
+                        formacie nadającym się do odczytu maszynowego, realizowane na żądanie złożone do Administratora</p>
+                </li>
+                <li>
+                    <p><strong>Prawo wniesienia sprzeciwu wobec przetwarzania danych osobowych</strong><br/>Użytkownikom
+                        przysługuje prawo wniesienia sprzeciwu wobec przetwarzania jego danych osobowych w przypadkach
+                        określonych w art. 21 RODO, realizowane na żądanie złożone do Administratora</p>
+                </li>
+                <li>
+                    <p><strong>Prawo wniesienia skargi</strong><br/>Użytkownikom przysługuje prawo wniesienia skargi do organu
+                        nadzorczego zajmującego się ochroną danych osobowych.</p>
+                </li>
+            </ul>
+        </article>
+    }
+    else
+    {
+        <article>
+            <h1 style="text-align: center"> GDPR Information Obligation </h1>
+            <p>
+                The following information is a concise, easy-to-understand and clear summary of the information provided in
+                <a
+                    asp-page="./PrivacyPolicy">
+                    Privacy Policy
+                </a> regarding the Data Administrator, the purpose and method of data processing
+                personal data and your rights in connection with this processing, in the form required to fulfill the obligation
+                GDPR information. Details on the method of processing and entities involved in this process
+                are available in the indicated policy.
+            </p>
+            <h2> Who is the data controller? </h2>
+            <p>
+                The Administrator of Personal Data (hereinafter the Administrator) is a natural person providing services
+                electronically via the Website
+            </p>
+            <h2> How can I contact the data controller? </h2>
+            <p> The Administrator can be contacted in one of the following ways </p>
+            <ul>
+                <li>
+                    <p> <strong> E-mail address </strong> - <a href="mailto:mistakesjournal@gmail.com">mistakesjournal@gmail.com</a></p>
+                </li>
+            </ul>
+            <h2> Has the Administrator appointed a Personal Data Inspector? </h2>
+            <p> Pursuant to Art. 37 of the GDPR, the Administrator has not appointed the Data Protection Officer. </p>
+            <p>
+                In matters relating to the processing of data, including personal data, please contact directly
+                Administrator.
+            </p>
+            <h2> Where do we obtain personal data from and what are their sources? </h2>
+            <p> Data is obtained from the following sources: </p>
+            <ul>
+                <li> from data subjects </li>
+            </ul>
+            <h2> What is the scope of personal data processed by us? </h2>
+            <p>
+                The website processes <strong> ordinary personal data </strong>, provided voluntarily by persons whom
+                concern <br/> <small> (e.g. name and surname, login, e-mail address, telephone, IP address, etc.) </small>
+            </p>
+            <p> The detailed scope of processed data is available in the <a asp-page="./PrivacyPolicy">Privacy Policy</a>. </p>
+            <h2> What are the purposes of our data processing? </h2>
+            <p> Personal data voluntarily provided by Users are processed for one of the following purposes: </p>
+            <ul>
+                <li>
+                    Implementation of electronic services:
+                    <ul>
+                        <li> Services of registration and maintenance of the User's account on the Website and related functionalities </li>
+                        <li> Newsletter services (including sending advertising content with consent) </li>
+                    </ul>
+                </li>
+                <li> Communication of the Administrator with Users on matters related to the Website and data protection </li>
+                <li> Ensuring the Administrator's legitimate interest </li>
+            </ul>
+            <h2> What are the legal grounds for data processing? </h2>
+            <p> The website collects and processes Users' data on the basis of: </p>
+            <ul>
+                <li>
+                    Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on protection
+                    natural persons with regard to the processing of personal data and on the free movement of such data
+                    and repealing Directive 95/46 / EC (General Data Protection Regulation)
+                    <ul>
+                        <li>
+                            art. 6 sec. 1 lit. a <br/>
+                            <small>
+                                the data subject has consented to the processing of his / hers
+                                personal data for one or more specific purposes
+                            </small>
+                        </li>
+                        <li>
+                            art. 6 sec. 1 lit. b <br/>
+                            <small>
+                                processing is necessary for the performance of a contract to which it is a party
+                                the data subject or to take action at the request of the data subject before
+                                entering into a contract
+                            </small>
+                        </li>
+                        <li>
+                            art. 6 sec. 1 lit. f <br/>
+                            <small>
+                                processing is necessary for legal purposes
+                                legitimate interests pursued by the controller or by a third party
+                            </small>
+                        </li>
+                    </ul>
+                </li>
+                <li> Act of 10 May 2018 on the protection of personal data (Journal of Laws 2018, item 1000) </li>
+                <li> Act of July 16, 2004 Telecommunications Law (Journal of Laws of 2004, No. 171, item 1800). </li>
+                <li> Act of February 4, 1994 on copyright and related rights (Journal of Laws 1994 No. 24 item 83) </li>
+            </ul>
+            <h2> What is the legitimate interest pursued by the Administrator? </h2>
+            <ul>
+                <li>
+                    In order to possibly establish, investigate or defend against claims - the legal basis for processing
+                    is our legitimate interest (Article 6 (1) (f) of the GDPR) to protect our rights, including between
+                    others;
+                </li>
+                <li> To assess the risk of potential customers </li>
+                <li> To evaluate planned marketing campaigns </li>
+                <li> To implement direct marketing </li>
+            </ul>
+            <h2> For how long do we process personal data? </h2>
+            <p>
+                As a rule, the indicated personal data is stored only for the duration of the service provided under
+                website run by the Administrator. They are deleted or anonymized up to
+                <strong>
+                    30 days from
+                    the moment of termination of the provision of services
+                </strong> (e.g. deletion of a registered user account, unsubscribing from
+                Newsletter lists, etc.)
+            </p>
+            <p>
+                In exceptional situations, to secure the legitimate interest pursued by
+                Administrator, this period may be extended. In such a situation, the Administrator will store the indicated ones
+                data, from the time of their removal by the User, no longer than for a period of 3 years in the event of a breach
+                or suspected violation of the provisions of the website regulations by the data subject.
+            </p>
+            <h2> Who is the recipient of the data, including personal data? </h2>
+            <p> As a rule, the only recipient of the data is the Administrator. </p>
+            <p>
+                Data processing may, however, be entrusted to other entities that provide services to the Administrator in
+                in order to maintain the operation of the Website.
+            </p> Such entities may include, among others:
+            <ul>
+                <li> Hosting companies that provide hosting or related services to the Administrator </li>
+            </ul>
+            <h2> Will your personal data be transferred outside the European Union? </h2>
+            <p>
+                <strong> Personal data is transferred outside the European Union. </strong> <br/> The transfer of data outside the EU is
+                caused by using the services of entities located outside the EU, or as a result of publishing on
+                the result of an individual action of the User (e.g. entering a comment or entry), which will make the data
+                available to anyone visiting the website. <br/> In the event of transfer or entrustment of processing
+                personal data outside the EU, these data are processed on the basis of an agreement concluded between the Administrator
+                and the Service Provider.
+            </p>
+            <h2> Will personal data be the basis for automated decision making? </h2>
+            <p>
+                Personal data <strong> is used for automated decision making </strong>
+                (profiling). <br/> Profiling personal data has no legal or similar effects
+                does not affect the person whose data is subject to automated decision making.
+            </p>
+            <h2> What are your rights related to the processing of personal data? </h2>
+            <ul>
+                <li>
+                    <p>
+                        <strong> Right to access personal data </strong> <br/> Users have the right to access
+                        to their personal data, carried out at the request submitted to the Administrator
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> Right to rectify personal data </strong> <br/> Users have the right to request from
+                        The administrator immediately corrects personal data that is incorrect and / or
+                        supplementing incomplete personal data, carried out at the request submitted to the Administrator
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> Right to delete personal data </strong> <br/> Users have the right to request from
+                        The administrator of the immediate removal of personal data, carried out at the request submitted to
+                        Administrator. <br/> <br/> In the case of user accounts, data deletion is based on anonymization
+                        data enabling the User's identification. <br/> <br/> In the case of the Newsletter service, the User
+                        has the option of removing their personal data by themselves using the link provided in
+                        every email that is sent.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> The right to limit the processing of personal data </strong> <br/> Users have the right
+                        restrictions on the processing of personal data in the cases specified in art. 18 GDPR, incl.
+                        questioning the correctness of personal data, carried out at the request submitted to the Administrator
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> The right to transfer personal data </strong> <br/> Users have the right to obtain from
+                        Administrator, personal data concerning the User in a structured, commonly used
+                        machine-readable format, implemented at the request of the Administrator
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> The right to object to the processing of personal data </strong> <br/> Users
+                        has the right to object to the processing of his personal data in cases
+                        specified in art. 21 of the GDPR, implemented at the request submitted to the Administrator
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <strong> Right to lodge a complaint </strong> <br/> Users have the right to lodge a complaint with the authority
+                        supervisory body dealing with the protection of personal data.
+                    </p>
+                </li>
+            </ul>
+        </article>
+    }
+}

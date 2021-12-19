@@ -1,0 +1,11 @@
+@using System.Globalization
+@{
+    if (CultureInfo.CurrentCulture.Name == new CultureInfo("pl").Name)
+    {
+        <a class="mj-language-change" asp-route-returnUrl="@Model.ReturnUrl" asp-route-culture="en">🇬🇧</a>
+    }
+    else
+    {
+        <a class="mj-language-change" asp-route-returnUrl="@Model.ReturnUrl" asp-route-culture="pl">🇵🇱</a>
+    }
+}

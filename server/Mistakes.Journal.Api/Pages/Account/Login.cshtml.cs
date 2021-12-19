@@ -1,11 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Mistakes.Journal.Api.Logic.Identity.Models;
+using Mistakes.Journal.Api.Resources;
 
 namespace Mistakes.Journal.Api.Pages.Account
 {
@@ -13,10 +17,14 @@ namespace Mistakes.Journal.Api.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<MistakesJournalUser> _signInManager;
+        private readonly IStringLocalizer _accountLocalizer;
 
-        public LoginModel(SignInManager<MistakesJournalUser> signInManager)
+        public LoginModel(SignInManager<MistakesJournalUser> signInManager, IStringLocalizerFactory factory)
         {
             _signInManager = signInManager;
+            var type = typeof(AccountResource);
+            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
+            _accountLocalizer = factory.Create("AccountResource", assemblyName.Name);
         }
 
         [BindProperty]
@@ -28,15 +36,15 @@ namespace Mistakes.Journal.Api.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Email is required.")]
-            [EmailAddress(ErrorMessage = "Email is incorrect.")]
+            [Required(ErrorMessage = "ErrorRequiredEmail")]
+            [EmailAddress(ErrorMessage = "ErrorEmailAddress")]
             public string Email { get; set; }
 
-            [Required(ErrorMessage = "Password is required.")]
-            [DataType(DataType.Password, ErrorMessage = "Password is incorrect.")]
+            [Required(ErrorMessage = "ErrorPasswordRequired")]
+            [DataType(DataType.Password, ErrorMessage = "ErrorPasswordIncorrect")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember credentials")] public bool RememberMe { get; set; }
+            public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -70,7 +78,7 @@ namespace Mistakes.Journal.Api.Pages.Account
                 return LocalRedirect(returnUrl);
             }
 
-            ModelState.AddModelError(string.Empty, "User with such email and password does not exist.");
+            ModelState.AddModelError(string.Empty, _accountLocalizer["ErrorUserNotFound"]);
             ReturnUrl = returnUrl;
 
             return Page();

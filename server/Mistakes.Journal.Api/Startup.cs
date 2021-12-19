@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Mistakes.Journal.Api.Api.Shared;
 
 namespace Mistakes.Journal.Api
@@ -46,6 +47,10 @@ namespace Mistakes.Journal.Api
             {
                 app.UseHttpsRedirection();
             }
+
+            app.UseStaticFiles();
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
             
             app.UseRouting();
             app.UseAuthentication();
@@ -55,7 +60,6 @@ namespace Mistakes.Journal.Api
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-            app.UseStaticFiles();
 
             if (env.IsDevelopment())
             {
