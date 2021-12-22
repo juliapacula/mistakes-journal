@@ -1,9 +1,11 @@
 import MistakeForm from '@/components/mistake/MistakeForm.vue';
 import MistakesList from '@/components/mistakes/MistakesList.vue';
+import { requireAuth } from '@/router/require-auth.guard';
 import LandingPage from '@/views/LandingPage.vue';
 import MainPage from '@/views/MainPage.vue';
 import MistakeSolutionPage from '@/views/MistakeSolutionPage.vue';
 import MistakesPage from '@/views/MistakesPage.vue';
+import NotFoundPage from '@/views/NotFoundPage.vue';
 import SolvedPage from '@/views/SolvedPage.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
@@ -19,6 +21,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/journal',
     component: MainPage,
+    beforeEnter: requireAuth,
     children: [
       {
         path: '',
@@ -59,6 +62,11 @@ const routes: Array<RouteConfig> = [
         component: SolvedPage,
       },
     ],
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFoundPage,
   },
 ];
 

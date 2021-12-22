@@ -35,7 +35,13 @@ export class MistakesApiMethods {
       items: items.map((m: MistakeApiModel) => ({
         id: m.id,
         createdAt: convertFromTimestamp(m.createdAt),
-        mistakeAdditionalQuestions: m.mistakeAdditionalQuestions,
+        mistakeAdditionalQuestions: {
+          consequences: m.mistakeAdditionalQuestions?.consequences ?? null,
+          whatDidILearn: m.mistakeAdditionalQuestions?.whatDidILearn ?? null,
+          whatCanIDoBetter: m.mistakeAdditionalQuestions?.whatCanIDoBetter ?? null,
+          onlyResponsible: m.mistakeAdditionalQuestions?.onlyResponsible ?? null,
+          canIFixIt: m.mistakeAdditionalQuestions?.canIFixIt ?? null,
+        },
         goal: m.goal,
         name: m.name,
         priority: m.priority,
@@ -83,13 +89,13 @@ export class MistakesApiMethods {
     return {
       id: mistake.id,
       createdAt: convertFromTimestamp(mistake.createdAt),
-      mistakeAdditionalQuestions: mistake.mistakeAdditionalQuestions ? {
-        consequences: mistake.mistakeAdditionalQuestions.consequences,
-        whatCanIDoBetter: mistake.mistakeAdditionalQuestions.whatCanIDoBetter,
-        whatDidILearn: mistake.mistakeAdditionalQuestions.whatDidILearn,
-        canIFixIt: mistake.mistakeAdditionalQuestions.canIFixIt,
-        onlyResponsible: mistake.mistakeAdditionalQuestions.onlyResponsible,
-      } : null,
+      mistakeAdditionalQuestions: {
+        consequences: mistake.mistakeAdditionalQuestions?.consequences ?? null,
+        whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ?? null,
+        whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ?? null,
+        onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ?? null,
+        canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ?? null,
+      },
       goal: mistake.goal,
       name: mistake.name,
       priority: mistake.priority,

@@ -46,6 +46,7 @@ namespace Mistakes.Journal.Api
             if (env.IsProduction())
             {
                 app.UseHttpsRedirection();
+                app.UseHsts();
             }
 
             app.UseStaticFiles();

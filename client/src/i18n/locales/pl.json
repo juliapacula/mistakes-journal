@@ -223,5 +223,9 @@
     "EmptyList": "Gdy uda Ci się pokonać któryś z błędów,",
     "EmptyList2": "nie powtarzając go przez 66 dni z rzędu,",
     "EmptyList3": "zostanie on tutaj przeniesiony!"
+  },
+  "NotFound": {
+    "Header": "Ups... Taka strona nie istnieje.",
+    "GoToMainPage": "Strona główna"
   }
 }
