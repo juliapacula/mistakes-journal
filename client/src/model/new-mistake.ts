@@ -12,5 +12,5 @@ export interface NewMistake {
     whatDidILearn: string | null;
     canIFixIt: string | null;
     onlyResponsible: string | null;
-  } | null;
+  };
 }

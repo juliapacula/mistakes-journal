@@ -107,13 +107,19 @@ export const actions: ActionTree<UserState, State> = {
       if (state.user.group === ResearchGroup.Second) {
         await dispatch(UiStateActions.ChangeSizeBasedOnDayTime, data.timeOfDay);
       } else if (state.user.group === ResearchGroup.First) {
-        await dispatch(UiStateActions.ChangeSaturationBasedOnWeather, data.weatherHopelessnessScale);
+        await dispatch(
+          UiStateActions.ChangeSaturationBasedOnWeather,
+          data.weatherHopelessnessScale,
+        );
       }
       // eslint-disable-next-line no-empty
     } catch (e) {}
   },
 
-  async [UserActions.UpdateUserTutorialState]({ commit, dispatch }: Context, watchedTutorial: boolean): Promise<void> {
+  async [UserActions.UpdateUserTutorialState](
+    { commit, dispatch }: Context,
+    watchedTutorial: boolean,
+  ): Promise<void> {
     try {
       await UserApiMethods.userWatchedTutorial(watchedTutorial);
       await dispatch(UserActions.Get);

@@ -10,6 +10,7 @@ import { MistakesState } from '@/store/mistakes-module/state';
 import { State } from '@/store/state';
 import { convertToTimestamp } from '@/utils/date.utils';
 import { handleDefaultResponseErrors } from '@/utils/errors.utils';
+import { hasDeepAnalysis } from '@/utils/mistake.utils';
 import { Moment } from 'moment';
 import { event } from 'vue-gtag';
 import {
@@ -31,12 +32,7 @@ export enum MistakesActions {
 
 export const actions: ActionTree<MistakesState, State> = {
   async [MistakesActions.AddMistake]({ commit }: Context, mistake: NewMistake): Promise<void> {
-    if (mistake.mistakeAdditionalQuestions
-      && mistake.mistakeAdditionalQuestions.consequences !== null
-      && mistake.mistakeAdditionalQuestions.onlyResponsible !== null
-      && mistake.mistakeAdditionalQuestions.canIFixIt !== null
-      && mistake.mistakeAdditionalQuestions.whatDidILearn !== null
-      && mistake.mistakeAdditionalQuestions.whatCanIDoBetter !== null) {
+    if (hasDeepAnalysis(mistake)) {
       event(GOOGLE_EVENTS.NEW_MISTAKE_WITH_DEEP_ANALYZER);
     } else {
       event(GOOGLE_EVENTS.NEW_MISTAKE_WITHOUT_DEEP_ANALYZER);
@@ -44,12 +40,12 @@ export const actions: ActionTree<MistakesState, State> = {
 
     const payload: NewMistakeApiModel = {
       name: mistake.name,
-      consequences: mistake.mistakeAdditionalQuestions?.consequences ? mistake.mistakeAdditionalQuestions?.consequences : null,
-      whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions?.whatCanIDoBetter : null,
-      whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ? mistake.mistakeAdditionalQuestions?.whatDidILearn : null,
-      canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ? mistake.mistakeAdditionalQuestions?.canIFixIt : null,
-      onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
-      goal: !mistake.goal ? null : mistake.goal,
+      consequences: mistake.mistakeAdditionalQuestions.consequences ? mistake.mistakeAdditionalQuestions.consequences : null,
+      whatCanIDoBetter: mistake.mistakeAdditionalQuestions.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions.whatCanIDoBetter : null,
+      whatDidILearn: mistake.mistakeAdditionalQuestions.whatDidILearn ? mistake.mistakeAdditionalQuestions.whatDidILearn : null,
+      canIFixIt: mistake.mistakeAdditionalQuestions.canIFixIt ? mistake.mistakeAdditionalQuestions.canIFixIt : null,
+      onlyResponsible: mistake.mistakeAdditionalQuestions.onlyResponsible ? mistake.mistakeAdditionalQuestions.onlyResponsible : null,
+      goal: mistake.goal ? mistake.goal : null,
       tips: mistake.tips.filter((t: string) => !!t),
       labels: mistake.labelIds,
       priority: mistake.priority,
@@ -109,12 +105,12 @@ export const actions: ActionTree<MistakesState, State> = {
   ): Promise<void> {
     const payload: UpdatedMistakeApiModel = {
       name: mistake.name,
-      consequences: mistake.mistakeAdditionalQuestions?.consequences ? mistake.mistakeAdditionalQuestions?.consequences : null,
-      whatCanIDoBetter: mistake.mistakeAdditionalQuestions?.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions?.whatCanIDoBetter : null,
-      whatDidILearn: mistake.mistakeAdditionalQuestions?.whatDidILearn ? mistake.mistakeAdditionalQuestions?.whatDidILearn : null,
-      canIFixIt: mistake.mistakeAdditionalQuestions?.canIFixIt ? mistake.mistakeAdditionalQuestions?.canIFixIt : null,
-      onlyResponsible: mistake.mistakeAdditionalQuestions?.onlyResponsible ? mistake.mistakeAdditionalQuestions?.onlyResponsible : null,
-      goal: !mistake.goal ? null : mistake.goal,
+      consequences: mistake.mistakeAdditionalQuestions.consequences ? mistake.mistakeAdditionalQuestions.consequences : null,
+      whatCanIDoBetter: mistake.mistakeAdditionalQuestions.whatCanIDoBetter ? mistake.mistakeAdditionalQuestions.whatCanIDoBetter : null,
+      whatDidILearn: mistake.mistakeAdditionalQuestions.whatDidILearn ? mistake.mistakeAdditionalQuestions.whatDidILearn : null,
+      canIFixIt: mistake.mistakeAdditionalQuestions.canIFixIt ? mistake.mistakeAdditionalQuestions.canIFixIt : null,
+      onlyResponsible: mistake.mistakeAdditionalQuestions.onlyResponsible ? mistake.mistakeAdditionalQuestions.onlyResponsible : null,
+      goal: mistake.goal ? mistake.goal : null,
       tips: mistake.tips.filter((t: string) => !!t),
       labels: mistake.labelIds,
       priority: mistake.priority,

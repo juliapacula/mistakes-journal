@@ -223,5 +223,9 @@
     "EmptyList": "Once you defeat any of your mistakes,",
     "EmptyList2": "by not repeating it for straight 66 days,",
     "EmptyList3": "it will be moved here!"
+  },
+  "NotFound": {
+    "Header": "Ups... This page does not exist.",
+    "GoToMainPage": "Main page"
   }
 }

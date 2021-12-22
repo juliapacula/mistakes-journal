@@ -51,12 +51,12 @@ export default Vue.extend({
   }
 
   &-logo {
-    height: 3rem;
-    margin-right: 0.25rem;
+    height: 3em;
+    margin-right: 0.25em;
   }
 
   &-first {
-    margin-right: 0.25rem;
+    margin-right: 0.25em;
     color: mistakes-journal.color('primary', '900');
   }
 

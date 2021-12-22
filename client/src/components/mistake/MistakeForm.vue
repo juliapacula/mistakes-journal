@@ -250,6 +250,7 @@ import { MistakePriority } from '@/model/mistake-priority.enum';
 import { NewMistake } from '@/model/new-mistake';
 import { MistakesActions } from '@/store/mistakes-module/actions';
 import { MistakesMutations } from '@/store/mistakes-module/mutations';
+import { hasDeepAnalysis } from '@/utils/mistake.utils';
 import { getEnumValues } from '@/utils/object.utils';
 import { maxShortTextLength } from '@/utils/validators.utils';
 import Vue from 'vue';
@@ -264,7 +265,13 @@ export default Vue.extend({
       isDeepAnalyzer: false,
       mistake: {
         name: '',
-        mistakeAdditionalQuestions: null,
+        mistakeAdditionalQuestions: {
+          consequences: '',
+          whatCanIDoBetter: '',
+          whatDidILearn: '',
+          canIFixIt: '',
+          onlyResponsible: '',
+        },
         goal: '',
         tips: [''],
         labelIds: [],
@@ -292,8 +299,6 @@ export default Vue.extend({
     },
     isDeepAnalyzer(isDeepAnalyzer: boolean) {
       if (!isDeepAnalyzer) {
-        this.mistake.mistakeAdditionalQuestions = null;
-      } else {
         this.mistake.mistakeAdditionalQuestions = {
           consequences: '',
           whatCanIDoBetter: '',
@@ -308,12 +313,7 @@ export default Vue.extend({
         return;
       }
 
-      if (mistake.mistakeAdditionalQuestions
-        && mistake.mistakeAdditionalQuestions.consequences !== null
-        && mistake.mistakeAdditionalQuestions.onlyResponsible !== null
-        && mistake.mistakeAdditionalQuestions.canIFixIt !== null
-        && mistake.mistakeAdditionalQuestions.whatDidILearn !== null
-        && mistake.mistakeAdditionalQuestions.whatCanIDoBetter !== null) {
+      if (hasDeepAnalysis(mistake)) {
         this.isDeepAnalyzer = true;
       }
 

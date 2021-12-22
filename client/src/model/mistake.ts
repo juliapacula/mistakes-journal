@@ -12,7 +12,7 @@ export interface Mistake {
     whatDidILearn: string | null;
     canIFixIt: string | null;
     onlyResponsible: string | null;
-  } | null;
+  };
   goal: string | null;
   tips: string[];
   labels: Label[];
