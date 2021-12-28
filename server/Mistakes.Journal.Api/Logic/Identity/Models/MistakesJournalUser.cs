@@ -20,5 +20,6 @@ namespace Mistakes.Journal.Api.Logic.Identity.Models
         public DateTime? LastLoggingIn { get; set; }
         public int LoggedDaysCount { get; set; }
         public bool AgreeToNewsletter { get; set; }
+        public DateTime RegisteredAt { get; set; }
     }
 }

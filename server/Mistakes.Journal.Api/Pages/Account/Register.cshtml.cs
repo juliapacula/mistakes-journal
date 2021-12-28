@@ -91,6 +91,7 @@ namespace Mistakes.Journal.Api.Pages.Account
                 Language = CultureInfo.CurrentCulture.Name == "pl" ? ApplicationLanguage.PL : ApplicationLanguage.EN,
                 Group = groupForNewUser,
                 AgreeToNewsletter = NewUser.AgreeToNewsletter,
+                RegisteredAt = DateTime.UtcNow,
             };
 
             var result = await _userManager.CreateAsync(user, NewUser.Password);
