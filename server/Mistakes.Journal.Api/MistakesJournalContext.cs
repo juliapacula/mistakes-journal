@@ -132,6 +132,8 @@ namespace Mistakes.Journal.Api
                 user.Property(u => u.LoggedDaysCount)
                     .IsRequired()
                     .HasDefaultValue(0);
+                user.Property(u => u.RegisteredAt)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<IdentityRole<Guid>>().ToTable("role");
